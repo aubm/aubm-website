@@ -93,5 +93,15 @@
         "content": "",
         "thread_id": "3779036115",
         "metadesc": "Keep your code explicit, brief, and modular. Simplicity, pragmatism, and laziness are virtues, humility is a pre-requisite. Anyone who randomly picks up a file you wrote, should be able to understand what it does just by reading its name and the API it exposes."
+    },
+    {
+        "title": "Du neuf sous le capot",
+        "slug": "du-neuf-sous-le-capot",
+        "created_at": "2015-11-03 08:00:00",
+        "modified_at": "2015-11-03 08:00:00",
+        "content_short": "De retour sur mon blog après quelques mois de silence. Je n'ai cependant pas été inactif, ayant notamment pris du temps pour monter en compétence sur un certain nombre de nouveaux outils et langages ...",
+        "content": "",
+        "thread_id": "3779034561",
+        "metadesc": "De retour sur mon blog après quelques mois de silence. Je n'ai cependant pas été inactif, ayant notamment pris du temps pour monter en compétence sur un certain nombre de nouveaux outils et langages."
     }
 ]

@@ -1,2 +1,3 @@
-# angularjs-jspm-seed
-A example seed for AngularJS and JSPM project
+# Mon site perso
+
+Venez me voir vivant : [www.aubm.net](http://www.aubm.net).

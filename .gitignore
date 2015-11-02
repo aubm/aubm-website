@@ -48,5 +48,6 @@ dist/*
 
 # Project  :
 public/**/*.css
+!public/config/theme/custom.css
 !public/**/keylime/**/*.css
 public/fonts

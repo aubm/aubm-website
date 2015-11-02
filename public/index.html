@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html class="ng-cloak">
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta name="author" content="Aurélien Baumann">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" page-metadesc>
+    <title page-title>Aubm</title>
+    <!-- inject:css -->
+    <!-- endinject -->
+</head>
+<body>
+    <div id="wrap">
+        <div id="main-nav" class="">
+            <div class="container">
+                <div class="nav-header">
+                    <a class="nav-brand" href="/"><i class="icon-lime"></i>Aubm.net</a>
+                </div>
+            </div>
+        </div>
+        <section id="hero" class="light-typo">
+            <div id="cover-image" class="image-bg animated fadeIn"></div>
+            <div class="container welcome-content">
+                <div class="middle-text">
+                    <page-header></page-header>
+                </div>
+            </div>
+        </section>
+
+        <breadcrumb></breadcrumb>
+
+        <div id="start" class="container content">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <route-loading-indicator></route-loading-indicator>
+                    <div ng-view></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="copyright">
+            <div class="container">
+                <ul class="social-links pull-right">
+                    <li><a href="https://twitter.com/kendo5731" target="_blank"><i class="icon-twitter"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <!-- inject:js -->
+    <script src="jspm_packages/system.js"></script>
+    <script src="system.config.js"></script>
+    <script>
+        System.import("app");
+    </script>
+    <!-- endinject -->
+    <script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-38043974-6', 'auto');
+    </script>
+</body>
+</html>

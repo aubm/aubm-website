@@ -1,0 +1,97 @@
+[
+    {
+        "title": "Utiliser les Event Subscriber avec FosRestBundle et JMSSerializerBundle",
+        "slug": "utiliser-les-event-subscriber-avec-fosrestbundle-et-jmsserializerbundle",
+        "created_at": "2014-05-20 20:26:49",
+        "modified_at": "2014-10-30 11:34:33",
+        "content_short": "J'écris cet article car j'ai été confronté à une problématique lors d'un projet que j'ai réalisé il y a peu. Le projet impliquait la création d'un webservice au standard Rest dans une application Symfony2 ...",
+        "content": "",
+        "thread_id": "3116141834"
+    },
+    {
+        "title": "Astuce : le serveur de développement embarqué de PHP",
+        "slug": "astuce-le-serveur-de-developpement-embarque-de-php",
+        "created_at": "2014-05-22 02:15:15",
+        "modified_at": "2014-10-30 11:39:20",
+        "content_short": "Bonjour, ce petit article pour partager une de mes découvertes récentes. Il s'agit du serveur web interne de PHP, intégré depuis la version 5.4. La lecture de cette article ne vous apprendra surement pas grand chose si vous avez déjà connaissance de cette fonctionnalité ...",
+        "content": "",
+        "thread_id": "3161917850"
+    },
+    {
+        "title": "Webservice Restful avec Symfony2 : gérer les champs de type Datetime",
+        "slug": "webservice-restful-avec-symfony2-gerer-les-champs-de-type-datetime",
+        "created_at": "2014-07-03 19:24:23",
+        "modified_at": "2015-08-07 11:05:52",
+        "content_short": "Si vous choisissez Symfony pour construire une application de webservice, il est un détail à relever à propos des champs de type Datetime dans le cas d'utilisation des objets formulaires ...",
+        "content": "",
+        "thread_id": "3161315167"
+    },
+    {
+        "title": "Retour d'expérience sur Joomla, point de vue d'un développeur",
+        "slug": "retour-dexperience-sur-joomla-point-de-vue-dun-developpeur",
+        "created_at": "2014-10-01 00:07:05",
+        "modified_at": "2015-03-27 01:45:58",
+        "content_short": "Joomla - à l'instar de Wordpress et Drupal -  est un CMS permettant à des utilisateurs non-développeurs d'installer et de configurer un site internet. Le CMS s'adresse également aux développeurs, en leur proposant une API leur permettant d'étendre ses fonctionnalités ...",
+        "content": "",
+        "thread_id": "3116598308",
+        "metadesc": "Retour d'expérience d'un développeur sur le CMS Joomla. Critique et remise en question de l'outil pour les projets à développements spécifiques."
+    },
+    {
+        "title": "La pagination avec Doctrine : la bonne méthode",
+        "slug": "la-pagination-avec-doctrine-la-bonne-methode",
+        "created_at": "2014-10-06 19:45:13",
+        "modified_at": "2014-10-30 11:32:21",
+        "content_short": "Cet article a pour but de venir compléter la documentation de Doctrine, et plus particulièrement la section abordant la pagination, en y apportant quelques précisions, et surtout quelques exemples ...",
+        "content": "",
+        "thread_id": "3116143553"
+    },
+    {
+        "title": "Astuce PhpStorm : partager ses live templates",
+        "slug": "astuce-phpstorm-partager-ses-lives-templates",
+        "created_at": "2014-10-11 18:39:40",
+        "modified_at": "2015-03-21 13:10:48",
+        "content_short": "Le choix de l'IDE est important dans le sens où celui-ci peut apporter une réelle valeur ajoutée dans le travail du développeur. En ce qui me concerne, j'ai vendu mon âme à Jetbrains. Une chose que j'apprécie particulièrement dans leurs solutions ...",
+        "content": "",
+        "thread_id": "3116141048"
+    },
+    {
+        "title": "Installation et utilisation de Sentry",
+        "slug": "installation-et-utilisation-de-sentry",
+        "created_at": "2015-01-24 19:33:05",
+        "modified_at": "2015-03-21 13:06:50",
+        "content_short": "Sentry est une application web open-source que vous pouvez utiliser pour logger les erreurs de vos applications. Le fonctionnement de Sentry repose sur l'exploitation de son API accessible par HTTP. Des librairies existent pour de nombreux langages ...",
+        "content": "",
+        "thread_id": "3452002003",
+        "metadesc": "Découvrez comment installer, configurer et utiliser Sentry afin de profiter d'un service de logging moderne des erreurs et des exceptions de vos applications PHP"
+    },
+    {
+        "title": "Mes premiers pas avec CakePHP 3",
+        "slug": "mes-premiers-pas-avec-cakephp-3",
+        "created_at": "2015-03-13 16:22:40",
+        "modified_at": "2015-03-21 13:12:15",
+        "content_short": "Profitant d'un peu de temps libre j'ai décidé de m'essayer à la dernière version en date de CakePHP, à savoir CakePHP 3. Je suis donc parti dans l'idée de pondre un Twitter-like en version allégée (très allégée) ...",
+        "content": "",
+        "thread_id": "3590934739",
+        "metadesc": "Retour sur mes premiers pas avec le framework CakePHP 3 et présentation de l'application démo Twitthome"
+    },
+    {
+        "title": "Contrainte d'unicité dans Symfony 2 avec Doctrine",
+        "slug": "contrainte-dunicite-dans-symfony-2-avec-doctrine",
+        "created_at": "2015-03-22 15:55:31",
+        "modified_at": "2015-03-22 16:35:41",
+        "content_short": "Le composant de validation de Symfony embarque des contraintes pré-définies (outre la possibilité de créer des contraintes personnalisées évidemment). Par ailleurs, l'intégration de Doctrine dans le framework full-stack fournit une autre contrainte prête à l'emploi ...",
+        "content": "",
+        "thread_id": "3617069693",
+        "metadesc": "Exemples et explications sur l'utilisation de la contrainte UniqueEntity dans Symfony 2 avec Doctrine"
+    },
+    {
+        "title": "Gardez le code explicite, court et modulaire",
+        "slug": "gardez-le-code-explicite-court-et-modulaire",
+        "created_at": "2015-05-20 10:39:44",
+        "modified_at": "2015-05-21 20:51:03",
+        "content_short": "Les contenus proposés sur la plateforme Lynda.com par l'excellent Simon Allardice sont peut-être les meilleurs que j'ai eu l'occasion de consulter ...",
+        "content": "",
+        "thread_id": "3779036115",
+        "metadesc": "Keep your code explicit, brief, and modular. Simplicity, pragmatism, and laziness are virtues, humility is a pre-requisite. Anyone who randomly picks up a file you wrote, should be able to understand what it does just by reading its name and the API it exposes."
+    }
+]

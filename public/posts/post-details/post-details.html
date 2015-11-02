@@ -1,0 +1,17 @@
+<div class="post-date" ng-bind="pdc.post.created_at"></div>
+<button
+    class="btn btn-sm btn-default"
+    socialshare
+    socialshare-provider="facebook"
+    socialshare-url="http://www.aubm.net/blog/{{ pdc.post.slug }}"><i class="icon-facebook"></i> Partager</button>
+<button
+    class="btn btn-sm btn-default"
+    socialshare
+    socialshare-provider="twitter"
+    socialshare-via="kendo5731"
+    socialshare-url="http://www.aubm.net/blog/{{ pdc.post.slug }}"><i class="icon-twitter"></i> Twitter</button>
+<article marked="pdc.post.content"></article>
+<dir-disqus disqus-shortname="wwwaubmnet"
+    disqus-identifier="{{ pdc.post.thread_id }}"
+    disqus-url="{{ 'http://www.aubm.net/blog/' + pdc.post.slug }}">
+</dir-disqus>

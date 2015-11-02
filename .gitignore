@@ -49,5 +49,7 @@ dist/*
 # Project  :
 public/**/*.css
 !public/config/theme/custom.css
+!public/config/loading-bar/loading-bar.css
+!public/config/markdown/markdown.css
 !public/**/keylime/**/*.css
 public/fonts

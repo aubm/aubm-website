@@ -1,0 +1,12 @@
+body #loading-bar .bar {
+    height: 4px;
+    background: #679E42;
+}
+
+body #loading-bar .peg {
+    height: 4px;
+    -moz-box-shadow: #679E42 1px 0 6px 1px;
+    -ms-box-shadow: #679E42 1px 0 6px 1px;
+    -webkit-box-shadow: #679E42 1px 0 6px 1px;
+    box-shadow: #679E42 1px 0 6px 1px;
+}

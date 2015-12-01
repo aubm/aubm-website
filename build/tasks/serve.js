@@ -7,17 +7,17 @@ import paths from '../paths';
 import httpProxy from 'http-proxy';
 
 let proxy = httpProxy.createProxyServer({
-    target: paths.apiUrl
+  target: paths.apiUrl
 });
 
 function proxyMiddleware(req, res, next) {
-    if (req.url.includes('api/')) {
-        proxy.web(req, res, (err) => {
-            next(err);
-        });
-    } else {
-        next();
-    }
+  if (req.url.includes('api/')) {
+    proxy.web(req, res, (err) => {
+      next(err);
+    });
+  } else {
+    next();
+  }
 }
 
 function startBrowserSync(directoryBase, files, browser) {
@@ -34,8 +34,8 @@ function startBrowserSync(directoryBase, files, browser) {
       middleware: [
         proxyMiddleware,
         modRewrite([
-            '!\\.\\w+$ /index.html [L]', // require for HTML5 mode
-            '^/images/(.*)$ /$1 [L]'
+          '!\\.\\w+$ /index.html [L]', // require for HTML5 mode
+          '^/images/(.*)$ /$1 [L]'
         ])
       ]
     },

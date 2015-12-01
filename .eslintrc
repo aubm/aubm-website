@@ -1,5 +1,6 @@
 {
-  "rules": {
+    "parser": "babel-eslint",
+    "rules": {
         "linebreak-style": [ 2, "unix" ],
         "semi": [ 2, "always" ]
     },
@@ -9,11 +10,11 @@
         "jasmine": true
     },
     "globals": {
-      "inject": true,
-      "module": true
+        "inject": true,
+        "module": true
     },
     "extends": "eslint:recommended",
     "ecmaFeatures": {
-      "modules" : true
+        "modules" : true
     }
 }

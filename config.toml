@@ -3,6 +3,9 @@ languageCode = "fr-FR"
 title = "Aubm"
 theme = "code-editor"
 
+disqusShortname = "wwwaubmnet"
+googleAnalytics = "UA-38043974-6"
+
 [params]
     author = "Aurélien Baumann (Aubm)"
     locale = "fr-FR"

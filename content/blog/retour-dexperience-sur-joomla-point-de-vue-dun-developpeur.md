@@ -25,7 +25,7 @@ On serait tenté de dire qu'il s'agit là d'un exemple isolé et que ces problé
 
 J'aborde là des notions relatives au design objet, le but n'est pas de m'égarer dans des idées trop éloignées du sujet. Je suis conscient que l'utilisation de certaines techniques pourrait sembler surévaluée et en ça il s'agit là d'un point de vue discutable. Ceci étant dit, s'il est question de choisir un environnement pour développer une application relativement complexe, alors s'orienter vers une solution plus ouverte me semble plus judicieux. Car si le problème mis en évidence ici est relatif à la couche fonctionnelle du CMS, des erreurs similaires existent au niveau du framework.
 
-<img src="/images/posts/assets/saquedeneu.png" alt="Saquedeneu" class="img-responsive"/>
+<img src="/img/saquedeneu.png" alt="Saquedeneu" class="img-responsive"/>
 
 Force est de constater que les contributeurs de Joomla fournissent un travail important pour améliorer la qualité du code. Je précise au passage que certains aspects sont intéressants (comme notamment le fonctionnement des plugins). Cependant Joomla (à l'origine fork de Mambo) est construit de manière empirique et à ce stade du projet, la tâche est herculéenne. Conscients des faiblesses de Drupal 7, les développeurs de Drupal 8 ont choisi de reprendre le projet à zéro.
 
@@ -61,7 +61,7 @@ Rien de bien grave dans tout ça me direz-vous et c'est sans doute vrai. Rien de
 
 Si il semble qu'aujourd'hui, la culture du test commence à rentrer dans les moeurs, ce n'était pas le cas il y a encore relativement peu de temps. La communauté semble effectivement avoir <a href="http://developer.joomla.org/news/597-release-postmortem.html" target="_blank">appris de ses erreurs</a> et une grande partie du code est aujourd'hui (enfin) couverte par des tests. Ces tests ne garantissent évidemment pas le fonctionnement de l'application mais permettent au moins de contrôler un certain nombre de régressions.
 
-<img src="/images/posts/assets/iron_man.gif" alt="Iron man" class="img-responsive"/>
+<img src="/img/iron_man.gif" alt="Iron man" class="img-responsive"/>
 
 Cela reste un avis très personnel mais je ne peux m'empêcher de penser qu'une prise de conscience aussi tardive pourrait témoigner d'un certain manque de maturité du logiciel, ce qui est assez paradoxal étant donné son ancienneté.
 

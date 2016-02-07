@@ -195,7 +195,7 @@ try {
 ```
 
 <figure>
-<img src="/images/posts/assets/message_exception_test.png" alt="Affichage des messages d'erreur dans l'interface web de Sentry" class="img-responsive"/>
+<img src="/img/message_exception_test.png" alt="Affichage des messages d'erreur dans l'interface web de Sentry" class="img-responsive"/>
 <figcaption>Les messages tels qu'ils sont affichés dans l'interface web de Sentry.</figcaption>
 </figure>
 
@@ -217,7 +217,7 @@ Configurer Sentry dans une application utilisant le framework full-stack de Symf
 
 Dans la configuration de Monolog, dans le fichier `config_prod.yml` par exemple, il suffit de configurer ce handler.
 
-```yaml
+```
 monolog:
     handlers:
         main:

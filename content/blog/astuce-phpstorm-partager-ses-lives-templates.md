@@ -25,7 +25,7 @@ Chaque appui sur la touche tab fera avancer le curseur à une position pré-dét
 Jetbrains propose un petit article détaillant la procédure à suivre pour <a class="https://www.jetbrains.com/phpstorm/webhelp/creating-and-editing-live-templates.html" target="_blank">la création et l'éditions de live templates personnalisés</a>. Sa lecture pourrait cependant ne pas être utile, inspirez vous simplement des live templates proposés par défaut pour créer les vôtres. Pour les trouver, rendez vous dans les paramètres de l'IDE, section "Live Templates".
 
 <figure>
-<img class="img-responsive" src="/images/posts/assets/php_storm_live_templates.png" alt="Configuration des live templates dans PhpStorm" width="900" height="542">
+<img class="img-responsive" src="/img/php_storm_live_templates.png" alt="Configuration des live templates dans PhpStorm" width="900" height="542">
 <figcaption>La fenêtre de configuration des live templates dans PHPStorm.</figcaption>
 </figure>
 

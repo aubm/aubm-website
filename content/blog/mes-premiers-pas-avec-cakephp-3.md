@@ -39,7 +39,7 @@ Les sources sont disponibles sur <a href="https://github.com/aubm/Twitthome-Cake
 Le fichier <a href="https://github.com/aubm/Twitthome-CakePHP3/blob/master/database.sql" target="_blank">database.sql</a> contient les requêtes à exécuter pour ajouter les tables dans une base de données MySQL.
 
 <figure>
-<img src="/images/posts/assets/twitthome_schema.png" alt="Schéma base de données Twitthome"  class="img-responsive"/>
+<img src="/img/twitthome_schema.png" alt="Schéma base de données Twitthome"  class="img-responsive"/>
 <figcaption>Une représentation graphique du schéma de la base de données.</figcaption>
 </figure>
 

@@ -1,0 +1,8 @@
+baseurl = "http://www.aubm.net/"
+languageCode = "fr-FR"
+title = "Aubm"
+theme = "code-editor"
+
+[params]
+    author = "Aurélien Baumann (Aubm)"
+    locale = "fr-FR"

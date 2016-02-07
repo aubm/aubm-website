@@ -50,7 +50,7 @@ foreach ($posts as $post) {
 
 En bonus : le code du template (twig) :
 
-```twig
+```
 {% block body %}
     <ul>
         {% for post in posts %}
@@ -89,7 +89,7 @@ public function getPosts($first_result, $max_results = 20)
 
 Et le template mis à jour :
 
-```twig
+```
 {% block body %}
     <table>
         <thead>

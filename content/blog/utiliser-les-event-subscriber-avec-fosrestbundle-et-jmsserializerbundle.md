@@ -64,7 +64,7 @@ Je suis finalement tombé sur un forum, dans lequel une personne rencontrant une
 
 La solution que j'ai choisie pour répondre à cette problématique consistait à utiliser la <a href="http://jmsyst.com/libs/serializer/master/event_system" target="_blank">gestion des évènements du serializer</a>. Concrétement, voici comment j'ai exploité cette fonctionnalité dans mon webservice. Dans la configuration de mes services (au niveau de mon WebServiceBundle), j'ai ajouté le service défini de la façon suivante :
 
-```yml
+```
 parameters:
     aubm_web_service.serialize_handler_file.class: Aubm\WebServiceBundle\SerializeEventHandler\FileHandler
 services:
@@ -124,7 +124,7 @@ class File
 
 Dans mon services.yml ...
 
-```yml
+```
 parameters:
     aubm_web_service.serialize_handler_file.class: Aubm\WebServiceBundle\SerializeEventHandler\FileHandler
 services:

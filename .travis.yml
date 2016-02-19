@@ -1,0 +1,14 @@
+language: go
+
+go:
+    - 1.5
+
+install:
+    - go get -v github.com/spf13/hugo
+
+script: ./deploy.sh
+
+env:
+    global:
+        - GH_REF: github.com/aubm/aubm-website.git
+        - secure: "ldxFyPwVPdbYCEt6a5AZCH7PUvC7JfCm017qsPG5nStF5xN7RUS/+TZi9x7c0+1VITbBUNvPnt3hqz0z1fe9Y+Cqc93wntNKZzFaPawNZPUHpo0ORc9gOENdxOUJXq4GKjOL29F/Uks0dYMulZjmgSkxkYchgD/WfWzaRUF5lIpUwkFAM+1s2JnHxtL4+V/1A40u8r+oqaxJylCxcittNcJf3z3G0Tt9R9486QoiSznwtoh2P7sZK+wIzkqayCW3v13AcGIxDiqe93spilBoiqfDiI5fuqLI5fnN8waNa/nSmYT95c0n3GZqbo3qDd3LYieGjW/UVjXsZ2Nq9I87m6GxJdQeEM4o8gCPgj/e7QkQSmIyonJH1tbwySrxRVhM6qpOz4PQz6Oh+QUSAnROJA1Ysq4InHtiqztzgR8NMI9RmWkpESXI7JGuo5PoSsozTL0IMtiq58YP+etkj01o5Vy6p0GepZ6mLEhX63rU8XMdugrkHj49sGXCC3afvrwzN/uqyqccx1o29i64O7IScCSGsRc1iUJAm7FKP+7Dl16a0yN2t981ELMBb6YayIgRCsuF/H0vlyCVF45YJIW/71eHsoef2KSpK0hAsSQLxlgWZvcbgaHmzU555Zla2EWUoIwBp8fR48KdbtzWwD3RBkdynpR23k2T1w1yUqy+ES4="

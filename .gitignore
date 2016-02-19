@@ -53,3 +53,5 @@ public/**/*.css
 !public/config/markdown/markdown.css
 !public/**/keylime/**/*.css
 public/fonts
+
+public

@@ -1,4 +1,4 @@
-baseurl = "/"
+baseurl = "http://www.aubm.net/"
 languageCode = "fr-FR"
 title = "Aubm"
 theme = "code-editor"

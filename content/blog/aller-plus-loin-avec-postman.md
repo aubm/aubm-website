@@ -82,7 +82,7 @@ Il faut pour cela ouvrir le lanceur de tests en accédant au bouton Run du déta
 
 <img src="/img/postman-run-tests-button.jpg" alt="Ouverture du lanceur de tests" class="img-responsive"/>
 
-Le lanceur de tests d'ouvre, reste qu'à choisir une collection et démarrer.
+Le lanceur de tests s'ouvre, reste qu'à choisir une collection et démarrer.
 
 <img src="/img/postman_tests_suite.gif" alt="Lancement d'une suite de tests avec Postman" class="img-responsive"/>
 

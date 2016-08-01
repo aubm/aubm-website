@@ -49,18 +49,26 @@ Changes not staged for commit:
         modified:   my-other-file.txt
 ```
 
-// git add
-// git diff, git diff HEAD
+Utilisez `git add <fichier>` pour cibler un fichier à ajouter au **staging**, ou `git add -A` pour tout ajouter en une seule commande.
+Le **staging** est un état, il peut être vu comme un pool dans lequel sont placés tous les fichiers qui seront ajoutés au commit.
 
-Contrairement à d'autres logiciels de gestion de versions, Git ne synchronisent pas automatiquement les nouveaux commits avec le remote. Il est donc tout à fait possible d'être dans une situation où votre repository local possède quelques commits d'avance sur le remote. Cela offre une flexibilité intéressante, comme par exemple la possibilité de garder une fonctionnalité en WIP (Work In Progress) pendant plusieurs jours sur un poste local tout en gardant le travail organisé et découpé en plusieurs commits si nécessaire.
+Il est possible de visualiser les modifications apportées dans le répertoire de travail qui ne sont pas encore placées dans le staging à l'aide de la commande `git diff`.
+Il est également possible de comparer l'état courant avec l'état de n'importe commit en utilisant son hash, par exemple : `git diff 980a837`.
+Une astuce : `HEAD` est un alias pointant vers le commit le plus récent, vous n'avez donc pas besoin de connaître son hash pour voir les modifications faites entre le staging et le dernier commit, utilisez simplement `git diff HEAD`.
 
-## Utiliser les branches
+Pour créer un nouveau commit à partir du staging, utilisez `git commit`. La commande va ouvrir un éditeur de texte dans lequel vous serez invité à saisir un message de commentaire pour le commit. **Ne négligez surtout pas le commentaire**, la pertinence du commentaire est tout aussi importante que la qualité du code que contient le commit. En prenant quelques minutes de plus pour rédiger un message de qualité, un collaborateur ayant besoin de comprendre votre travail gagnera peut-être plusieurs heures. Plus d'informations sur les messages de commit plus loin dans cet article.
+
+Contrairement à d'autres logiciels de gestion de versions, Git ne synchronisent pas automatiquement les nouveaux commits avec le remote. Il est donc tout à fait possible d'être dans une situation où votre repository local possède quelques commits d'avance sur le remote. Cela offre une flexibilité intéressante, comme par exemple la possibilité de garder une fonctionnalité en WIP (Work In Progress) pendant plusieurs jours sur un poste local tout en gardant le travail organisé et découpé en plusieurs commits si nécessaire. Au moment venu, utilisez `git push` pour "envoyer" vos derniers commits sur le remote.
 
 ## Merge ou rebase ?
+
+## Utiliser les branches
 
 ## L'importance des messages de commit
 
 ## Rattraper une erreur
+
+### Modifier le dernier commit
 
 ### Retirer une diff du staging
 

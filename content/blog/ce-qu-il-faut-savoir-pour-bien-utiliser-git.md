@@ -60,9 +60,11 @@ Pour créer un nouveau commit à partir du staging, utilisez `git commit`. La co
 
 Contrairement à d'autres logiciels de gestion de versions, Git ne synchronisent pas automatiquement les nouveaux commits avec le remote. Il est donc tout à fait possible d'être dans une situation où votre repository local possède quelques commits d'avance sur le remote. Cela offre une flexibilité intéressante, comme par exemple la possibilité de garder une fonctionnalité en WIP (Work In Progress) pendant plusieurs jours sur un poste local tout en gardant le travail organisé et découpé en plusieurs commits si nécessaire. Au moment venu, utilisez `git push` pour "envoyer" vos derniers commits sur le remote.
 
+## Utiliser les branches
+
 ## Merge ou rebase ?
 
-## Utiliser les branches
+Lorsque vous décidez de synchroniser deux branches - qu'il s'agisse de deux branches locales (typiquement master et une branche de feature) ou une branche locale et sa copie distante (par exemple master et origin/master) - il est probable que des conflits apparaissent. Ces conflits sont dû à des modifications différentes effectuées sur un même fichier. Si Git n'est pas en mesure de résoudre ces conflits automatiquement, il sera alors nécessaire de les résoudre manuellement.
 
 ## L'importance des messages de commit
 

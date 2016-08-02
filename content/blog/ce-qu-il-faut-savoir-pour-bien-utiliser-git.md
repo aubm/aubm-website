@@ -62,6 +62,38 @@ Contrairement à d'autres logiciels de gestion de versions, Git ne synchronisent
 
 ## Utiliser les branches
 
+Il est probable que vous travailliez la plupart du temps dans la branche **master**, qui est la branche créée par défaut dans le repository. La plupart des actions qui vous effectuez consistent donc à synchroniser votre master local avec le master du remote. Il est bien des cas où ce workflow est trop simple pour permettre de réagir efficacement à certains éléments de la vie du projet : hotfixs, développements parallèles, etc ....
+
+Supposons que la **v1.0.0** de votre projet soit en production et que la **v1.1.0** en soit à son 3ème commit. A ce moment arrive la nécessité de publier la correction d'un bug mettant temporairement en suspens les développements. Le problème est le suivant : si le patch est publié à la suite des 3 derniers commits, déployer ce patch aura pour effet de bord de déployer également le travail inachevé de la v1.1.0. Apparaît ici la nécessité de faire évoluer de plusieurs façons différentes l'historique du projet à partir d'un point A. L'utilisation des branches permet d'adresser ce problème.
+
+Un usage classique consiste à identifier une branche comme contenant la dernière version stable de l'application, branche sur laquelle des tags correspondant aux différentes versions déployées en production sont appliqués. Prenons la branche par défaut **master**, pour faire simple : *master == production*.
+
+![Extrait d'un historique Git](/img/git-history.jpg)
+
+Sur l'image ci-dessus, master est tracée en bleu. Il apparaît à la suite du commit *Writes some documentation about the build* que master a été "forkée" afin d'entamer le développement d'une nouvelle fonctionnalité dans une nouvelle branche dédiée appelée **new-feature**. La commande `git checkout -b new-feature` permet de réaliser cette opération.
+
+L'historique de master dévoile qu'un bug survenu sur la version déployée en production a pu être corrigé avant la finalisation de la nouvelle fonctionnalité. Avoir déporté le développement de cette fonctionnalité dans une branche dédiée a permis de déployer le correctif en production sans attendre. En plein travail sur **new-feature**, une approche possible pour démarrer le correctif est la suivante.
+
+```
+# Si nécessaire, sauvegarder l'ensemble des modifications en cours non commitées dans un "stash"
+~/my/proj(new-feature)$ git stash
+
+# Changer la branche courante
+~/my/proj(new-feature)$ git checkout master
+
+# Procéder à la correctif du bug dans votre éditeur préféré (vim)
+
+# Ajouter les fichiers au staging, commiter le correctif et envoyer le commit sur le remote
+~/my/proj(master)$ git add -A && git commit -m "Fixes a bug with users management"
+~/my/proj(master)$ git push origin master
+
+# Revenir sur la branche de feature et rétablir les modifications précédemment "stashées"
+~/my/proj(master)$ git checkout new-feature
+~/my/proj(new-feature)$ git stash pop 
+```
+
+Pour plus d'informations sur `git stash` : https://git-scm.com/docs/git-stash.
+
 ## Merge ou rebase ?
 
 Lorsque vous décidez de synchroniser deux branches - qu'il s'agisse de deux branches locales (typiquement master et une branche de feature) ou une branche locale et sa copie distante (par exemple master et origin/master) - il est probable que des conflits apparaissent. Ces conflits sont dû à des modifications différentes effectuées sur un même fichier. Si Git n'est pas en mesure de résoudre ces conflits automatiquement, il sera alors nécessaire de les résoudre manuellement.

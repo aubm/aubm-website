@@ -20,7 +20,7 @@ Une chose qu'il est important de comprendre est la notion de remote. Il y a deux
 A partir de là, vous possédez sur votre machine de développement une copie du repository sur laquelle les modifications que vous y apporterez ne seront pas reflétées sur la copie du remote avant d'avoir explicitement resynchronisé les sources à coup de `git push <remote>`, `git pull <remote>`, etc ...
 Cela revient à dire qu'il existe autant de versions de la codebase qu'il existe de branches par collaborateurs, d'où la notion de **décentralisation des sources**. 
 
-Lorsque vous utiliser `git clone git@myserver:my/repo`, git télécharge les sources à l'adresse fournie en paramètre et ajoute automatiquement un alias **origin** pour ce remote. Ainsi vous pouvez synchroniser vos source avec ce remote de façon ascendante ou descendante avec `git push origin` ou `git pull origin`.
+Lorsque vous utilisez `git clone git@myserver:my/repo`, git télécharge les sources à l'adresse fournie en paramètre et ajoute automatiquement un alias **origin** pour ce remote. Ainsi vous pouvez synchroniser vos source avec ce remote de façon ascendante ou descendante avec `git push origin` ou `git pull origin`.
 
 Il est possible d'enregistrer plusieurs remotes dans un repository local, d'en supprimer ou encore d'en modifier en utilisant les commandes suivantes :
 
@@ -37,7 +37,7 @@ git remote rm upstream
 
 ## Effectuer un commit
 
-Apporter des modifications à la codebase a pour effet d'introduire des différences entre votre répertoire de travail et le dernier commit. La commande `git status` indique le ou les fichiers altérés, voici un exemple :
+Apporter des modifications à la codebase a pour effet d'introduire des différences entre votre répertoire de travail et le dernier état dont Git à connaissance. La commande `git status` indique le ou les fichiers altérés, voici un exemple :
 
 ```
 $ git status
@@ -50,10 +50,10 @@ Changes not staged for commit:
 ```
 
 Utilisez `git add <fichier>` pour cibler un fichier à ajouter au **staging**, ou `git add -A` pour tout ajouter en une seule commande.
-Le **staging** est un état, il peut être vu comme un pool dans lequel sont placés tous les fichiers qui seront ajoutés au commit.
+Le **staging** est un état, il peut être vu comme un pool dans lequel sont placés tous les fichiers qui seront ajoutés à la prochaine révision ou **commit**.
 
 Il est possible de visualiser les modifications apportées dans le répertoire de travail qui ne sont pas encore placées dans le staging à l'aide de la commande `git diff`.
-Il est également possible de comparer l'état courant avec l'état de n'importe commit en utilisant son hash, par exemple : `git diff 980a837`.
+Il est également possible de comparer l'état courant avec l'état de n'importe quel commit en utilisant son hash, par exemple : `git diff 980a837`.
 Une astuce : `HEAD` est un alias pointant vers le commit le plus récent, vous n'avez donc pas besoin de connaître son hash pour voir les modifications faites entre le staging et le dernier commit, utilisez simplement `git diff HEAD`.
 
 Pour créer un nouveau commit à partir du staging, utilisez `git commit`. La commande va ouvrir un éditeur de texte dans lequel vous serez invité à saisir un message de commentaire pour le commit. **Ne négligez surtout pas le commentaire**, la pertinence du commentaire est tout aussi importante que la qualité du code que contient le commit. En prenant quelques minutes de plus pour rédiger un message de qualité, un collaborateur ayant besoin de comprendre votre travail gagnera peut-être plusieurs heures. Plus d'informations sur les messages de commit plus loin dans cet article.
@@ -81,7 +81,7 @@ L'historique de master dévoile qu'un bug survenu sur la version déployée en p
 # Changer la branche courante
 ~/my/proj(new-feature)$ git checkout master
 
-# Procéder à la correctif du bug dans votre éditeur préféré (vim)
+# Procéder à la correction du bug dans votre éditeur
 
 # Ajouter les fichiers au staging, commiter le correctif et envoyer le commit sur le remote
 ~/my/proj(master)$ git add -A && git commit -m "Fixes a bug with users management"
@@ -94,9 +94,73 @@ L'historique de master dévoile qu'un bug survenu sur la version déployée en p
 
 Pour plus d'informations sur `git stash` : https://git-scm.com/docs/git-stash.
 
-## Merge ou rebase ?
+## Synchroniser des branches divergentes
 
-Lorsque vous décidez de synchroniser deux branches - qu'il s'agisse de deux branches locales (typiquement master et une branche de feature) ou une branche locale et sa copie distante (par exemple master et origin/master) - il est probable que des conflits apparaissent. Ces conflits sont dû à des modifications différentes effectuées sur un même fichier. Si Git n'est pas en mesure de résoudre ces conflits automatiquement, il sera alors nécessaire de les résoudre manuellement.
+### Une première approche
+
+A la synchronisation de deux branches (typiquement master et une branche de feature) ou une branche locale et sa copie distante (par exemple master et origin/master) - il est probable que des conflits apparaissent. Ces conflits sont dus à des divergences dans les évolutions parallèles apportées à un même fichier dans les deux branches distinctes. Si Git n'est pas en mesure de résoudre ces conflits automatiquement, il sera alors nécessaire de les résoudre manuellement. Ces conflits surviennent très régulièrement et il est important d'être à l'aise avec les méthodes permettant de les régler.
+
+Considérons la situation que nous avons laissé à l'image précédente, le développement de la nouvelle fonctionnalité est maintenant achevé et il est maintenant temps d'intégrer les modifications apportées dans cette branche dans master. La démarche permettant de réaliser cette opération est la suivante.
+
+```
+# Se déplacer dans la branche dans laquelle nous souhaitons intégrer les modifications
+~/my/proj(new-feature)$ git checkout master
+
+# Utiliser la commande merge en indiquant en paramètre la branche que nous souhaitons utiliser comme source des modifications
+~/my/proj(master)$ git merge new-feature
+```
+
+L'ensemble des commits ajoutés à la branche de feature depuis son fork vont être appliqués sur master, or au moment où cette opération est réalisée, la branche de feature compte 2 commits d'avance sur master, **ainsi qu'un commit de retard**.
+Voici le résultat dans la sortie standard.
+
+```
+~/my/proj(master)$ git merge new-feature
+Auto-merging users.js
+CONFLICT (content): Merge conflict in users.js
+Automatic merge failed; fix conflicts and then commit the result.
+
+~/my/proj(master)$ git status
+On branch master
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+       both modified:   users.js
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+Git bloque l'opération et nous informe de la nécessité d'intervenir sur la résolution de conflits dans `users.js`. Git a transformé le contenu du fichier, à l'ouverture dans un éditeur de code, des fragments de la forme ci-dessous apparaissent.
+
+```
+<<<<<<< HEAD
+// Etat du fragment dans la branche master
+========
+// Etat du fragment dans la branche de feature qui tente d'être introduite
+>>>>>>> new-feature
+```
+
+Il est alors de votre responsabilité de reconsidérer les modifications apportées par la branche de feature en tenant compte du nouvel état de la branche master qui a évoluée depuis le fork.
+Intervenir directement dans les sources pour résoudre les conflits de merge n'est pas toujours la solution la plus pratique. Dans la plupart des éditeurs comme Atom, Sublime ou Intellij, il est possible d'utiliser des plugins spécifiques pour vous aider dans cette tâche.
+
+Une fois les conflits réglés, assurez vous que ceux-ci soient bien ajoutés au staging avec `git add -A` puis terminez l'opération de merge avec `git commit`. Voici l'historique du repository après l'opération de merge.
+
+![Extrait d'un historique Git après une opération de merge](/img/git-history-after-merge.png)
+
+### Eviter de réparer les pots cassés
+
+L'historique fait apparaître un commit *Merge branch 'new-feature'* qui contient l'ensemble des modifications apportées par les commits de la branche new-feature, ainsi que les correctifs apportés lors de la résolution des conflits apparus lors de l'opération de merge. Il existe un certain nombre de raisons pour lesquelles il est préférable de ne pas voir apparaître ces commits.
+
+- Ces commits apparaissent pour une raison purement technique, la valeur qu'ils apportent à l'historique du projet à quasi-nulle, pire : elle rend plus difficile sa lecture.
+- La résolution de certains conflits peut faire s'éloigner de façon plus ou moins importante le contenu effectif de la fonctionnalité mergée dans master, et les différences apportées par la somme des commits de la branche de feature. Si tel est le cas, cela revient à dire que l'historique de la branche de feature est invalidé.
+- Une personne est susceptible d'introduire de nouveaux bugs dans la fonctionnalité lors de la phase de résolution des conflits, c'est d'autant plus risqué si la personne qui prend en charge le merge n'est pas celle qui est à l'origine du code de la branche de feature.
+
+J'ai tendance à considérer que si une branche présente des conflits avec la branche de référence (et donc que celle-ci ne peut pas être mergée directement), c'est que le travail n'est pas achevé. L'étape de merge doit se dérouler sans obstacles, mieux vaut donc résoudre ces conflits **avant de procéder au merge** et ainsi éviter de réparer les pots cassés.
+
+### Résoudre les conflits avant le merge
+
+### Un mot sur la technique du rebase
 
 ## L'importance des messages de commit
 

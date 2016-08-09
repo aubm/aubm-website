@@ -160,7 +160,78 @@ J'ai tendance à considérer que si une branche présente des conflits avec la b
 
 ### Résoudre les conflits avant le merge
 
-### Un mot sur la technique du rebase
+Repartons de l'état initiale, d'avant le merge.
+
+![Extrait d'un historique Git](/img/git-history.jpg)
+
+Ce qu'il faut bien comprendre, c'est que des conflits apparaissent en raison du commit *Fixes a bug with users management* dont new-feature n'a pas connaissance. Si la feature avait débuté après ce commit, il n'y aurait pas de conflits possible car new-feature aurait 2 commits d'avance, mais zéro commit de retard. Elle serait donc **à jour sur master**. C'est justement vers cet état que nous souhaitons amener new-feature.
+
+Une solution serait de créer un nouveau fork de master, puis de reproduire individuellement les deux commits de new-feature, modulo le delta amené par l'évolution de master depuis le point de départ du fork new-feature; delta qui amènera certainement à du refactoring. La démarche précédemment décrite est conceptuellement proche de celle que va vous faire suivre la commande `git rebase`, voici comment l'utiliser :
+
+```
+# Se déplacer dans la branche que nous souhaitons mettre à jour par rapport à la branche de référence
+~/my/proj(master)$ git checkout new-feature
+
+~/my/proj(master)$ git rebase master
+First, rewinding head to replay your work on top of it...
+Applying: Starting the new feature
+Using index info to reconstruct a base tree...
+M	users.js
+Falling back to patching base and 3-way merge...
+Auto-merging users.js
+CONFLICT (content): Merge conflict in users.js
+error: Failed to merge in the changes.
+Patch failed at 0001 Starting the new feature
+The copy of the patch that failed is found in: .git/rebase-apply/patch
+
+When you have resolved this problem, run "git rebase --continue".
+If you prefer to skip this patch, run "git rebase --skip" instead.
+To check out the original branch and stop rebasing, run "git rebase --abort".
+```
+
+Reprenons quelques informations intéressantes de la sortie standard.
+
+`First, rewinding head to replay your work on top of it...` Git commence par remonter à l'origine de la branche de feature et applique les commits manquant de master. A la fin de cette étape, new-feature se trouve à l'état identique de master.
+
+`Applying: Starting the new feature` Git tente d'appliquer le premier commit de la branche de feature *Starting the new feature*. En fonction des modifications qui ont été faites dans ce commit, il faut s'attendre à ce que des conflits apparaissent.
+
+`CONFLICT (content): Merge conflict in users.js` Git nous indique que des conflits qu'il n'a pas su régler seul, doivent être pris en charge dans le fichier `users.js`.
+
+A ce niveau, une intervention de notre part est nécessaire. Dans `users.js` qui a enrichi le contenu en insérant les même blocs que précédemment.
+
+```
+<<<<<<< 32f4ed3
+// Etat du fragment avant application du premier commit de la branche de feature
+========
+// Etat du fragment suite au modifications apportées par le premier commit de la branche de feature
+>>>>>>> Starting the new feature
+```
+
+Une fois les conflits réglés, ajoutez les modifications au staging avec `git add -A`. Nous pouvons maintenant demander à Git de retenter d'appliquer ce commit, opération qui - en toute logique - devrait maintenant se dérouler correctement.
+
+```
+~/my/proj(new-feature/rebasing)$ git rebase --continue
+Applying: Starting the new feature
+Applying: Developping the new feature
+Using index info to reconstruct a base tree...
+M	users.js
+Falling back to patching base and 3-way merge...
+Auto-merging users.js
+```
+
+Comme prévu, au deuxième essai le commit a pu être appliqué. Par chance, le second commit *Developping the new feature* a pu être mergé automatiquement, sans nécessité d'intervenir.
+
+Jetons maintenant un coup d'oeil à l'historique.
+
+![Extrait de l'historique après l'opération de rebase](/img/git-history-after-rebase.png)
+
+Les points à retenir :
+
+ - La branche est maintenant à jour sur master, elle peut être mergée dans master **sans conflits** avec `git merge new-feature`.
+ - Les conflits ont été résolus unitairement pour chaque commit, et non d'un seul bloc pour l'ensemble des modifications de la branche, l'intégrité de l'historique de la feature est donc préservé.
+ - La résolution des conflits a entrainé une réécriture des commits de la branche de feature, **il est  important de bien comprendre les conséquences de cette opération**.
+
+### Un grand pouvoir implique de grande responsabilités
 
 ## L'importance des messages de commit
 

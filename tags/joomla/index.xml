@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Joomla on Aubm</title>
+    <link>http://www.aubm.net/tags/joomla/index.xml</link>
+    <description>Recent content in Joomla on Aubm</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>fr-FR</language>
+    <atom:link href="http://www.aubm.net/tags/joomla/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Retour d&#39;expérience sur Joomla, point de vue d&#39;un développeur</title>
+      <link>http://www.aubm.net/blog/retour-dexperience-sur-joomla-point-de-vue-dun-developpeur/</link>
+      <pubDate>Wed, 01 Oct 2014 00:07:05 +0100</pubDate>
+      
+      <guid>http://www.aubm.net/blog/retour-dexperience-sur-joomla-point-de-vue-dun-developpeur/</guid>
+      <description>
+
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;Joomla - à l&amp;rsquo;instar de Wordpress et Drupal -  est un CMS permettant à des utilisateurs non-développeurs d&amp;rsquo;installer et de configurer un site internet. Le CMS s&amp;rsquo;adresse également aux développeurs, en leur proposant une API leur permettant d&amp;rsquo;étendre ses fonctionnalités. D&amp;rsquo;aucuns sont alors tentés de choisir Joomla pour démarrer un projet impliquant du développement spécifique. Sur le papier l&amp;rsquo;argumentaire est imparable : pourquoi ne pas utiliser le CMS comme base pour ce projet, pour lequel Joomla sorti de la boite couvre 80% des besoins du client ? C&amp;rsquo;est autant de temps de gagner.&lt;/p&gt;
+
+&lt;p&gt;Pendant presque deux ans, j&amp;rsquo;ai eu l&amp;rsquo;occasion de prendre part à de nombreux développements sur Joomla. Cette expérience m&amp;rsquo;a conduit à penser que dans certains cas, cette logique est applicable. En effet, pour un budget moyen et dans le cas d&amp;rsquo;un projet de site web répondant aux caractéristiques classiques d&amp;rsquo;un blog, d&amp;rsquo;une vitrine ou éventuellement d&amp;rsquo;un e-commerce, cette hypothèse semble se vérifier. Il est cependant de nombreux cas où le besoin métier du client représentant les 20% de développement restant représentent en réalité bien plus que 20% du temps de développement global. Pour ce type de projets, mieux vaut s&amp;rsquo;assurer de choisir un bon environnement de développement pour travailler.&lt;/p&gt;
+
+&lt;p&gt;Alors Joomla est-il un bon terrain de jeu ? Sur le sujet ma position est claire : non. Dans cet article je vais tâcher de défendre ce point de vue.
+Sans vouloir tomber dans du troll, certains points de vue restent personnels et donc discutables. Il pourrait être intéressant de les confronter à des visions différentes.&lt;/p&gt;
+
+&lt;h2 id=&#34;modulaire-mais-pas-extensible&#34;&gt;Modulaire mais pas extensible&lt;/h2&gt;
+
+&lt;p&gt;L&amp;rsquo;argumentaire &amp;ldquo;commercial&amp;rdquo; de Joomla repose sur sa modularité. L&amp;rsquo;architecture du CMS permet effectivement de développer des extensions afin d&amp;rsquo;ajouter des fonctionnalités sans altérer le core du logiciel. Vous pouvez donc envisager de développer un forum, un composant de petites annonces, ou encore une solution permettant d&amp;rsquo;exporter des données vers un CRM ; le tout en cohabitation avec la gestion du blog et des utilisateurs fournie par le CMS.&lt;/p&gt;
+
+&lt;p&gt;Bien, je souhaite maintenant étendre le composant de gestion des contenus du site afin d&amp;rsquo;y ajouter la possibilité de renseigner un champ supplémentaire. La désillusion commence ici, car à problème simple, solution &amp;hellip; pas simple. Malheureusement le CMS ne permet pas d&amp;rsquo;étendre les fonctionnalités des composants natifs. Pour un besoin comme celui-ci il faudra passer par le développement d&amp;rsquo;un composant à part entière afin d&amp;rsquo;ajouter les fonctionnalités manquantes (ou éventuellement l&amp;rsquo;utilisation d&amp;rsquo;un composant tiers, mais cela pourrait apporter de nouvelles contraintes).&lt;/p&gt;
+
+&lt;p&gt;On serait tenté de dire qu&amp;rsquo;il s&amp;rsquo;agit là d&amp;rsquo;un exemple isolé et que ces problématiques ne sont pas récurrentes. J&amp;rsquo;ai pourtant été confronté à des cas similaires de nombreuses fois. La raison pour laquelle cela est réellement gênant est que ces problèmes trahissent en vérité des erreurs importantes de conception. Dans le meilleur des mondes, Joomla mettrait à disposition un composant d&amp;rsquo;injection de dépendances couplé à une stratégie d&amp;rsquo;abstraction sur les classes utilisées dans les composants du core. Ainsi une hypothétique classe concrète &lt;code&gt;Content&lt;/code&gt; pourrait être remplacée par une classe &lt;code&gt;MyCustomContent&lt;/code&gt;, quelques détails à régler, un petit script de migration pour modifier la structure de la base de données et le tour est joué. On est très loin de ça.&lt;/p&gt;
+
+&lt;p&gt;J&amp;rsquo;aborde là des notions relatives au design objet, le but n&amp;rsquo;est pas de m&amp;rsquo;égarer dans des idées trop éloignées du sujet. Je suis conscient que l&amp;rsquo;utilisation de certaines techniques pourrait sembler surévaluée et en ça il s&amp;rsquo;agit là d&amp;rsquo;un point de vue discutable. Ceci étant dit, s&amp;rsquo;il est question de choisir un environnement pour développer une application relativement complexe, alors s&amp;rsquo;orienter vers une solution plus ouverte me semble plus judicieux. Car si le problème mis en évidence ici est relatif à la couche fonctionnelle du CMS, des erreurs similaires existent au niveau du framework.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://www.aubm.net/img/saquedeneu.png&#34; alt=&#34;Saquedeneu&#34; class=&#34;img-responsive&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;Force est de constater que les contributeurs de Joomla fournissent un travail important pour améliorer la qualité du code. Je précise au passage que certains aspects sont intéressants (comme notamment le fonctionnement des plugins). Cependant Joomla (à l&amp;rsquo;origine fork de Mambo) est construit de manière empirique et à ce stade du projet, la tâche est herculéenne. Conscients des faiblesses de Drupal 7, les développeurs de Drupal 8 ont choisi de reprendre le projet à zéro.&lt;/p&gt;
+
+&lt;h2 id=&#34;joomla-le-vilain-petit-canard&#34;&gt;Joomla le vilain petit canard&lt;/h2&gt;
+
+&lt;h3 id=&#34;psr-quoi&#34;&gt;PSR quoi ?&lt;/h3&gt;
+
+&lt;p&gt;A l&amp;rsquo;heure où j&amp;rsquo;écris, une partie du framework est réécrite avec dans l&amp;rsquo;optique d&amp;rsquo;embrasser des techniques de codage plus au goût de ce qui se fait aujourd&amp;rsquo;hui dans le monde de PHP. Bien que pour le développeur d&amp;rsquo;extensions cela relève plus de l&amp;rsquo;anecdote qu&amp;rsquo;autre chose, c&amp;rsquo;est plutôt une bonne nouvelle. Car si Joomla 3.4 requiert au minimum PHP 5.3, l&amp;rsquo;utilisation des namespaces dans le code des extensions suscitera éventuellement de timides &amp;ldquo;pourquoi pas ?&amp;rdquo; mais toujours pas d&amp;rsquo;applaudissements. On attend avec impatience le jour où l&amp;rsquo;auto-chargement des classes conforme PSR-0 ou PSR-4 sera géré par le CMS. En attendant vous pouvez continuer à le configurer manuellement pour chacune de vos classes.&lt;/p&gt;
+
+&lt;h3 id=&#34;un-router-pour-le-moins-original&#34;&gt;Un router pour le moins original&lt;/h3&gt;
+
+&lt;p&gt;Les composants du CMS doivent respecter une structure pour fonctionner. Des contrôleurs sont définis pour isoler la logique de l&amp;rsquo;application. En réalité cette responsabilité est partagée entre les contrôleurs et les vues. C&amp;rsquo;est un peu différent de ce qu&amp;rsquo;on peut trouver dans d&amp;rsquo;autres frameworks mais pourquoi pas.&lt;/p&gt;
+
+&lt;p&gt;Ce qui me laisse un peu perplexe en revanche c&amp;rsquo;est le fonctionnement du router. Le contrôleur et l&amp;rsquo;action qui prendront en charge la requête sont définis par des variables de requête. Si bien que cette requête &lt;code&gt;index.php?option=com_forum&amp;amp;task=message.save&lt;/code&gt; sera prise en charge par la méthode &lt;code&gt;save()&lt;/code&gt; du contrôleur &lt;code&gt;Message&lt;/code&gt; du composant &lt;code&gt;Forum&lt;/code&gt;. Le flow d&amp;rsquo;exécution de la requête est donc sous le contrôle partiel de l&amp;rsquo;utilisateur du site. Il est possible de la même façon de déterminer le fichier de vue et le template à utiliser en forçant une valeur pour les variables &lt;code&gt;view&lt;/code&gt; et &lt;code&gt;tmpl&lt;/code&gt;. Pour info, si une combinaison de valeurs ne fonctionne pas, &lt;a href=&#34;http://www.joomla.org/index.php?option=com_content&amp;task=john.doe&#34; target=&#34;_blank&#34;&gt;l&amp;rsquo;application renverra une 500&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Pour utiliser des urls plus &amp;ldquo;SEO friendly&amp;rdquo;, il faudra donc mettre en place un fichier &lt;code&gt;router.php&lt;/code&gt; à l&amp;rsquo;intérieur du composant, fichier dans lequel la réécriture des urls est définie programmatiquement. Pas franchement simple donc, à titre d&amp;rsquo;exemple, le fichier router du composant de gestion de contenu embarqué dans le CMS &lt;a href=&#34;https://github.com/joomla/joomla-cms/blob/staging/components/com_content/router.php&#34; target=&#34;_blank&#34;&gt;compte pas loin de 500 lignes&lt;/a&gt;, quid des performances ? Sans compter qu&amp;rsquo;il est impossible de personnaliser les routes des composants natifs de Joomla.&lt;/p&gt;
+
+&lt;p&gt;A noter qu&amp;rsquo;activer la réécriture des urls n&amp;rsquo;empêchera pas les utilisateurs de la boycotter et d&amp;rsquo;accéder à &lt;code&gt;index.php?option=com_....&lt;/code&gt;. Cela ne les empêchera pas non plus d&amp;rsquo;accéder aux autres fichiers du site d&amp;rsquo;ailleurs, étant donné que le point d&amp;rsquo;entrée (supposé) de l&amp;rsquo;application est situé à un niveau d&amp;rsquo;arborescence supérieur aux fichiers des composants. Forçant ainsi à vérifier la déclaration de la constante &lt;code&gt;_JEXEC&lt;/code&gt; au début de chaque fichier (pas très élégant &amp;hellip;), et accessoirement de placer un &lt;code&gt;index.html&lt;/code&gt; vide dans chaque sous répertoire.&lt;/p&gt;
+
+&lt;h3 id=&#34;a-propos-d-élégance&#34;&gt;A propos d&amp;rsquo;élégance&lt;/h3&gt;
+
+&lt;p&gt;A propos d&amp;rsquo;élégance (ou plus exactement de praticité), il y a un certain nombre de points qui méritent d&amp;rsquo;être soulignés.&lt;/p&gt;
+
+&lt;p&gt;Par exemple, si une mise à jour d&amp;rsquo;un composant du site implique des modifications dans la structure de la base de données, il est préférable d&amp;rsquo;ajouter un fichier de migration afin de faciliter la mise à jour de ce composant sur le serveur de production. Un peu dommage que ces fichiers contiennent des requêtes SQL qu&amp;rsquo;il faut écrire à la main. Doctrine ou Eloquent (à titre d&amp;rsquo;exemples) peuvent tous deux générer des scripts équivalents via un CLI avec en bonus des possibilités de rollback (ce qui n&amp;rsquo;est pas le cas ici je précise).&lt;/p&gt;
+
+&lt;p&gt;En parlant d&amp;rsquo;ORM, à noter que Joomla n&amp;rsquo;embarque pas d&amp;rsquo;ORM. Il faudra se contenter d&amp;rsquo;un composant d&amp;rsquo;abstraction sur la base de données (une petite sur-couche à PDO) présentant au moins l&amp;rsquo;avantage de pouvoir construire des requêtes SQL plus facilement en manipulant des objets. C&amp;rsquo;est regrettable, surtout quand il s&amp;rsquo;agit d&amp;rsquo;extraire des données de plusieurs tables, l&amp;rsquo;utilisation d&amp;rsquo;un ORM peut faire gagner un temps précieux.&lt;/p&gt;
+
+&lt;p&gt;Parmi les éléments qui me viennent à l&amp;rsquo;esprit, j&amp;rsquo;évoquerai aussi la définition des formulaires dans des fichiers XML. L&amp;rsquo;idée est bonne sur la papier dans la mesure où cela vise à faciliter des tâches fastidieuses comme la validation des données ou la génération de templates. Dans la pratique il est des cas où cette approche apporte plus de contraintes qu&amp;rsquo;autre chose. Quid des formulaires dynamiques par exemple ?&lt;/p&gt;
+
+&lt;p&gt;Rien de bien grave dans tout ça me direz-vous et c&amp;rsquo;est sans doute vrai. Rien de véritablement bloquant pour achever le développement du site, mais je rappelle qu&amp;rsquo;il est question de choisir un environnement de développement confortable permettant de travailler efficacement (et donc plus rapidement). Sur les points cités plus haut comme sur de nombreux autres, Joomla n&amp;rsquo;est clairement pas au niveau de ce que proposent des frameworks concurrents.&lt;/p&gt;
+
+&lt;h3 id=&#34;une-maturité-discutable&#34;&gt;Une maturité discutable&lt;/h3&gt;
+
+&lt;p&gt;Si il semble qu&amp;rsquo;aujourd&amp;rsquo;hui, la culture du test commence à rentrer dans les moeurs, ce n&amp;rsquo;était pas le cas il y a encore relativement peu de temps. La communauté semble effectivement avoir &lt;a href=&#34;http://developer.joomla.org/news/597-release-postmortem.html&#34; target=&#34;_blank&#34;&gt;appris de ses erreurs&lt;/a&gt; et une grande partie du code est aujourd&amp;rsquo;hui (enfin) couverte par des tests. Ces tests ne garantissent évidemment pas le fonctionnement de l&amp;rsquo;application mais permettent au moins de contrôler un certain nombre de régressions.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://www.aubm.net/img/iron_man.gif&#34; alt=&#34;Iron man&#34; class=&#34;img-responsive&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;Cela reste un avis très personnel mais je ne peux m&amp;rsquo;empêcher de penser qu&amp;rsquo;une prise de conscience aussi tardive pourrait témoigner d&amp;rsquo;un certain manque de maturité du logiciel, ce qui est assez paradoxal étant donné son ancienneté.&lt;/p&gt;
+
+&lt;p&gt;On pourrait en dire autant sur la documentation officielle pour les développeurs, qui aujourd&amp;rsquo;hui encore paraît assez maigre (notamment en terme d&amp;rsquo;exemples) à côté de la quantité de ressources que l&amp;rsquo;on peut trouver sur les sites respectifs de Laravel ou de Symfony (pour ne citer qu&amp;rsquo;eux).
+Encore un paradoxe d&amp;rsquo;ailleurs, étant donné que ce n&amp;rsquo;est pourtant pas le contenu qui manque entre &lt;a class=&#34;http://dev.joomla.fr/&#34; target=&#34;_blank&#34;&gt;dev.joomla.fr&lt;/a&gt;, &lt;a href=&#34;http://developer.joomla.org/&#34; target=&#34;_blank&#34;&gt;developper.joomla.org&lt;/a&gt; ou encore &lt;a href=&#34;https://docs.joomla.org/Portal:Developers&#34; target=&#34;_blank&#34;&gt;docs.joomla.org/Portal:Developers&lt;/a&gt; &amp;hellip; J&amp;rsquo;y mets peut-être un peu de mauvaise volonté mais quelqu&amp;rsquo;un pourrait me dire par où commencer ?&lt;/p&gt;
+
+&lt;h2 id=&#34;performance-scalabilité-et-maintenance&#34;&gt;Performance, scalabilité et maintenance&lt;/h2&gt;
+
+&lt;p&gt;La performance c&amp;rsquo;est souvent la bête noire des CMS. En tout cas pour ceux orientés &amp;ldquo;end-user&amp;rdquo;, étant donné que beaucoup font le choix de stocker un (trop) grand nombre d&amp;rsquo;informations en base de données et que les accès I/O sont généralement les opérations les plus couteuses.&lt;/p&gt;
+
+&lt;p&gt;Joomla peine à déroger à la règle, c&amp;rsquo;est effectivement délicat quand le choix est fait de stocker en base de données, des données relatives au paramétrage des composants par exemple. &lt;a href=&#34;http://www.chronoengine.com/downloads/chronoforms.html&#34; target=&#34;_blank&#34;&gt;Certains composants&lt;/a&gt; poussent le vice assez loin en allant jusqu&amp;rsquo;à stocker en base de données des fragments de code destinés à être exécutés.&lt;/p&gt;
+
+&lt;p&gt;La complexification des requêtes SQL peut également être une conséquence indirecte de la nature modulaire mais peu extensible du CMS (cf. début de l&amp;rsquo;article). En effet si ajouter une information sur le numéro de téléphone des utilisateurs ne peut être fait en modifiant directement la table des utilisateurs, un composant tiers n&amp;rsquo;aura alors d&amp;rsquo;autre choix que d&amp;rsquo;ajouter une table &lt;code&gt;users_extra_data&lt;/code&gt; comportant une clé étrangère vers la table &lt;code&gt;users&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Une mauvaise optimisation de la base de données ne représente pas un problème majeur au départ. On peut toujours investir 200 euros de plus par an pour que l&amp;rsquo;application s&amp;rsquo;exécute convenablement. C&amp;rsquo;est sur le moyen/long terme que ces problèmes peuvent devenir gênants, alors que le traffic augmente sur le site, la besoin en resources augmentera de manière exponentielle.&lt;/p&gt;
+
+&lt;p&gt;A noter également qu&amp;rsquo;en terme de maintenance, qu&amp;rsquo;il s&amp;rsquo;agisse de versionner le projet ou de configurer un environnement de test, cette mauvaise utilisation de la base de données ne facilitera pas la tâche.&lt;/p&gt;
+
+&lt;h2 id=&#34;le-mot-de-la-fin&#34;&gt;Le mot de la fin&lt;/h2&gt;
+
+&lt;p&gt;Le tour n&amp;rsquo;est pas encore complet et il y aurait évidemment encore beaucoup à dire (en bon comme en mauvais). Je pense cependant avoir donné suffisamment d&amp;rsquo;éléments pour défendre mon point de vue.&lt;/p&gt;
+
+&lt;p&gt;N&amp;rsquo;hésitez pas à commenter pour donner votre retour, et merci pour la lecture !&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

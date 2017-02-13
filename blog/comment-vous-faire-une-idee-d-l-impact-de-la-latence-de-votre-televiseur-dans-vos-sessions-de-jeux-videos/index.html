@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+<head>
+    <base href="/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="author" content="Aurélien Baumann (Aubm)">
+
+<meta name="description" content="">
+
+<title>Comment vous faire une idée de l&#39;impact de la latence de votre téléviseur dans vos sessions de jeux vidéos</title>
+<meta name="generator" content="Hugo 0.19-DEV" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+<link  href="http://www.aubm.net/css/theme.min.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<div class="page-container container-fluid">
+<div class="col-md-3 menu">
+    <nav class="col-md-3">
+    <h3 class="home-link"><a href="/">Racine</a></h3>
+    <div id="last-posts" class="open">
+        <h3 data-open="last-posts">Aubm - Les derniers articles</h3>
+        <ul>
+            
+            <li><a href="http://www.aubm.net/blog/pourquoi-big-o-est-important/">Pourquoi Big O est important ?</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/comment-vous-faire-une-idee-d-l-impact-de-la-latence-de-votre-televiseur-dans-vos-sessions-de-jeux-videos/">Comment vous faire une idée de l&#39;impact de la latence de votre téléviseur dans vos sessions de jeux vidéos</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/testing-d-une-app-golang-sur-appengine-une-maniere-de-gerer-l-erreur-newcontext-passed-an-unknown-http-request/">Testing d&#39;une app golang sur AppEngine : une manière de gérer l&#39;erreur NewContext passed an unknown http.Request</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/l-injection-de-dependances-a-l-esprit-dans-vos-applications-golang/">L&#39;injection de dépendances à l&#39;esprit dans vos applications Golang</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/aller-plus-loin-avec-postman/">Aller plus loin avec Postman</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/du-neuf-sous-le-capot/">Du neuf sous le capot</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/gardez-le-code-explicite-court-et-modulaire/">Gardez le code explicite, court et modulaire</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/contrainte-dunicite-dans-symfony-2-avec-doctrine/">Contrainte d&#39;unicité dans Symfony 2 avec Doctrine</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/mes-premiers-pas-avec-cakephp-3/">Mes premiers pas avec CakePHP 3</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/installation-et-utilisation-de-sentry/">Installation et utilisation de Sentry</a></li>
+            
+        </ul>
+    </div>
+
+    
+    <div id="tags" class="open">
+        <h3 data-open="tags">Tags</h3>
+        <ul class="tags">
+            
+            <li><a href="/tags/astuce">astuce</a></li>
+            
+            <li><a href="/tags/cakephp">cakephp</a></li>
+            
+            <li><a href="/tags/doctrine">doctrine</a></li>
+            
+            <li><a href="/tags/golang">golang</a></li>
+            
+            <li><a href="/tags/joomla">joomla</a></li>
+            
+            <li><a href="/tags/php">php</a></li>
+            
+            <li><a href="/tags/solution">solution</a></li>
+            
+            <li><a href="/tags/symfony">symfony</a></li>
+            
+        </ul>
+    </div>
+    
+
+    
+</nav>
+
+</div>
+<div class="col-md-9 content">
+
+<h1>Comment vous faire une idée de l&#39;impact de la latence de votre téléviseur dans vos sessions de jeux vidéos</h1>
+<h4>Publié le 11-11-2016 16:53:03</h4>
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="kendo5731"></a>
+<script>!function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+    if (!d.getElementById(id)) {
+        js = d.createElement(s);
+        js.id = id;
+        js.src = p + '://platform.twitter.com/widgets.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }
+}(document, 'script', 'twitter-wjs');</script>
+
+<div class="fb-share-button" data-href="http://www.aubm.net/blog/comment-vous-faire-une-idee-d-l-impact-de-la-latence-de-votre-televiseur-dans-vos-sessions-de-jeux-videos/" data-layout="button"></div>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<article>
+    <p>A l&rsquo;approche des fêtes de fin d&rsquo;année j&rsquo;envisage de profiter des soldes pour remplacer la télévision de mon salon.
+Ce ne sont pas les choix qui manquent entre les LCD, OLED, rétroprojecteurs 4K, pas 4K, ou je ne sais quelle autre fantaisie &hellip;</p>
+
+<p>Cette initiative étant principalement motivée par l&rsquo;envie de profiter d&rsquo;un support plus grand, nombre de joueurs
+aguerris et autres grands manitous du gaming de mon entourage n&rsquo;ont pas manqué de me mettre en garde :</p>
+
+<blockquote>
+<p>Tu ne feras point l&rsquo;acquisition d&rsquo;une dalle ne disposant pas d&rsquo;une latence satisfaisante</p>
+</blockquote>
+
+<p>Soit &hellip;</p>
+
+<blockquote>
+<p>50ms, cela représente une éternité sur un FPS</p>
+</blockquote>
+
+<p><img src="http://www.reactiongifs.com/wp-content/uploads/2013/05/dr-evil-right.gif" alt="Right ..." /></p>
+
+<p>Bon, j&rsquo;ai beau être de bonne foi, j&rsquo;avoue avoir un peu de mal à me représenter comment un temps si court peut à ce point changer la donne.</p>
+
+<p>Pour m&rsquo;en convaincre, je décide donc de construire un mini-jeu pour l&rsquo;expérience.</p>
+
+<p>L&rsquo;idée est de détruire des blocs en mouvement sur l&rsquo;écran, en cliquant dessus avec la souris.
+Lorsqu&rsquo;un clic est déclenché sur la zone de jeu à un instant <code>t0</code>, un traitement système va se déclencher à <code>t0 + n</code>,
+<code>n</code> étant le nombre de milisecondes écoulées, soit la latence.
+Ce traitement va inspecter la zone de jeu à l&rsquo;emplacement du clic de l&rsquo;utilisateur, et déterminer si un bloc doit être détruit à cet emplacement.</p>
+
+<p>Si l&rsquo;utilisateur vise correctement et que la latence est nulle, alors le bloc sera détruit.
+Si l&rsquo;utilisateur vise correctement mais que la latence est suffisamment élevée pour que le bloc en mouvement se soit fait la malle avant que le système
+n&rsquo;ait pu réagir à temps, le jeu considérera alors que le joueur n&rsquo;a tout simplement pas été assez rapide.
+Voilà qui pourrait bien être des plus embêtant.</p>
+
+<p><img src="https://media.giphy.com/media/9i4cIY1wZMTDy/giphy.gif" alt="Geek rage" /></p>
+
+<p>Je me suis dit que cela pourrait être amusant de partager ce petit mini-jeu, je vous laisse donc vous faire votre propre impression à cette adresse : <a href="https://aubm.github.io/lag-shooter/">https://aubm.github.io/lag-shooter/</a>.</p>
+
+<p>A titre d&rsquo;information, la latence est paramétrable en bas à gauche, juste à côté du pourcentage de réussite des clics !</p>
+
+</article>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'wwwaubmnet';
+    var disqus_identifier = 'http:\/\/www.aubm.net\/blog\/comment-vous-faire-une-idee-d-l-impact-de-la-latence-de-votre-televiseur-dans-vos-sessions-de-jeux-videos\/';
+    var disqus_title = 'Comment vous faire une idée de l\x27impact de la latence de votre téléviseur dans vos sessions de jeux vidéos';
+    var disqus_url = 'http:\/\/www.aubm.net\/blog\/comment-vous-faire-une-idee-d-l-impact-de-la-latence-de-votre-televiseur-dans-vos-sessions-de-jeux-videos\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</div>
+</div>
+<script src="js/theme.min.js" type="text/javascript"></script>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38043974-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>
+

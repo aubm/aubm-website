@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+<head>
+    <base href="/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="author" content="Aurélien Baumann (Aubm)">
+
+<meta name="description" content="">
+
+<title>Astuce PhpStorm : partager ses live templates</title>
+<meta name="generator" content="Hugo 0.19-DEV" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+<link  href="http://www.aubm.net/css/theme.min.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<div class="page-container container-fluid">
+<div class="col-md-3 menu">
+    <nav class="col-md-3">
+    <h3 class="home-link"><a href="/">Racine</a></h3>
+    <div id="last-posts" class="open">
+        <h3 data-open="last-posts">Aubm - Les derniers articles</h3>
+        <ul>
+            
+            <li><a href="http://www.aubm.net/blog/pourquoi-big-o-est-important/">Pourquoi Big O est important ?</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/comment-vous-faire-une-idee-d-l-impact-de-la-latence-de-votre-televiseur-dans-vos-sessions-de-jeux-videos/">Comment vous faire une idée de l&#39;impact de la latence de votre téléviseur dans vos sessions de jeux vidéos</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/testing-d-une-app-golang-sur-appengine-une-maniere-de-gerer-l-erreur-newcontext-passed-an-unknown-http-request/">Testing d&#39;une app golang sur AppEngine : une manière de gérer l&#39;erreur NewContext passed an unknown http.Request</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/l-injection-de-dependances-a-l-esprit-dans-vos-applications-golang/">L&#39;injection de dépendances à l&#39;esprit dans vos applications Golang</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/aller-plus-loin-avec-postman/">Aller plus loin avec Postman</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/du-neuf-sous-le-capot/">Du neuf sous le capot</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/gardez-le-code-explicite-court-et-modulaire/">Gardez le code explicite, court et modulaire</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/contrainte-dunicite-dans-symfony-2-avec-doctrine/">Contrainte d&#39;unicité dans Symfony 2 avec Doctrine</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/mes-premiers-pas-avec-cakephp-3/">Mes premiers pas avec CakePHP 3</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/installation-et-utilisation-de-sentry/">Installation et utilisation de Sentry</a></li>
+            
+        </ul>
+    </div>
+
+    
+    <div id="tags" class="open">
+        <h3 data-open="tags">Tags</h3>
+        <ul class="tags">
+            
+            <li><a href="/tags/astuce">astuce</a></li>
+            
+            <li><a href="/tags/cakephp">cakephp</a></li>
+            
+            <li><a href="/tags/doctrine">doctrine</a></li>
+            
+            <li><a href="/tags/golang">golang</a></li>
+            
+            <li><a href="/tags/joomla">joomla</a></li>
+            
+            <li><a href="/tags/php">php</a></li>
+            
+            <li><a href="/tags/solution">solution</a></li>
+            
+            <li><a href="/tags/symfony">symfony</a></li>
+            
+        </ul>
+    </div>
+    
+
+    
+</nav>
+
+</div>
+<div class="col-md-9 content">
+
+<h1>Astuce PhpStorm : partager ses live templates</h1>
+<h4>Publié le 10-11-2014 18:39:40</h4>
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="kendo5731"></a>
+<script>!function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+    if (!d.getElementById(id)) {
+        js = d.createElement(s);
+        js.id = id;
+        js.src = p + '://platform.twitter.com/widgets.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }
+}(document, 'script', 'twitter-wjs');</script>
+
+<div class="fb-share-button" data-href="http://www.aubm.net/blog/astuce-phpstorm-partager-ses-lives-templates/" data-layout="button"></div>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<article>
+    
+
+<h2 id="coder-vite-et-bien">Coder vite et bien</h2>
+
+<p>Le choix de l&rsquo;IDE est important dans le sens où celui-ci peut apporter une réelle valeur ajoutée dans le travail du développeur. En ce qui me concerne, j&rsquo;ai vendu mon âme à <a href="https://www.jetbrains.com/" target="_blank">Jetbrains</a>. Une chose que j&rsquo;apprécie particulièrement dans leurs solutions est la facilité avec laquelle il est possible de configurer des live templates. Cet article porte sur PhpStorm mais peut être reporté sur d&rsquo;autres IDE de l&rsquo;éditeur (RubyMine, PyCharm, etc &hellip;).</p>
+
+<p>Les live templates, c&rsquo;est cette fonctionnalité qui permet d&rsquo;accélérer l&rsquo;écriture du code à l&rsquo;aide de &ldquo;shortcuts&rdquo; servant à générer des fragments de code entier. Un exemple ?</p>
+
+<p>Saisissez &lsquo;fore&rsquo; dans du code PHP, puis utilisez la touche tab. Le fragment de code suivant sera automatiquement généré :</p>
+
+<pre><code class="language-php">foreach ( as $) {
+
+}
+</code></pre>
+
+<p>Chaque appui sur la touche tab fera avancer le curseur à une position pré-déterminée vous permettant d&rsquo;achever l&rsquo;écriture de votre boucle en moins de temps qu&rsquo;il n&rsquo;en faut pour le dire. Essayez aussi d&rsquo;autres shortcuts comme <code>forek</code>, <code>pubf</code>, etc &hellip;</p>
+
+<p>Jetbrains propose un petit article détaillant la procédure à suivre pour <a class="https://www.jetbrains.com/phpstorm/webhelp/creating-and-editing-live-templates.html" target="_blank">la création et l&rsquo;éditions de live templates personnalisés</a>. Sa lecture pourrait cependant ne pas être utile, inspirez vous simplement des live templates proposés par défaut pour créer les vôtres. Pour les trouver, rendez vous dans les paramètres de l&rsquo;IDE, section &ldquo;Live Templates&rdquo;.</p>
+
+<figure>
+<img class="img-responsive" src="/img/php_storm_live_templates.png" alt="Configuration des live templates dans PhpStorm" width="900" height="542">
+<figcaption>La fenêtre de configuration des live templates dans PHPStorm.</figcaption>
+</figure>
+
+<p>Le bouton + vous permet d&rsquo;ajouter un nouveau live template. Considérez également l&rsquo;utilisation des groupes de templates pour vous y retrouver plus facilement.</p>
+
+<h2 id="partager-ses-live-templates">Partager ses live templates</h2>
+
+<p>Si vous utilisez beaucoup les live templates, vous aurez certainement envie de retrouver vos précieux sur l&rsquo;ensemble de vos postes, et ce bien entendu sans avoir à les re-saisir à la main. Je vous propose donc dans cet article la solution que j&rsquo;utilise pour y parvenir.</p>
+
+<p>Les live templates personnalisés que vous créez sont enregistrés dans des fichiers xml. Selon votre environnement ils pourraient se trouver quelque part dans <code>~/Library/Preferences/WebIde{VERSION}/templates</code> ou <code>C:\Users\{USERNAME}\.WebIde{VERSION}\templates</code>. Chaque groupe de templates correspond à un fichier xml.</p>
+
+<p>L&rsquo;idée est simple : versionner ce répertoire avec git (ou un autre VCS). Pour l&rsquo;exemple, j&rsquo;ai créé un nouveau repository sur mon compte Github, et me voici dans mon terminal :</p>
+
+<pre><code class="language-bash">cd ~/Library/Preferences/WebIde80/templates
+git init
+git remote add origin git@github.com:aubm/jetbrains-live-templates.git
+git add -A
+git commit -m &quot;First commit&quot;
+git push
+</code></pre>
+
+<p>Et sur mon autre poste :</p>
+
+<pre><code class="language-bash">cd ~/Library/Preferences/WebIde80/templates
+git init
+git remote add origin git@github.com:aubm/jetbrains-live-templates.git
+git pull
+</code></pre>
+
+<p>Il faudra penser à redémarrer PhpStorm pour que les modifications effectuées dans le ou les fichiers xml soient prises en compte.</p>
+
+<p>Je peux maintenant enrichir mes live templates à volonté, puis les récupérer presque sans effort d&rsquo;un poste à l&rsquo;autre. En espérant que certains trouveront cette astuce utile, merci pour la lecture !</p>
+
+<p>Aurélien.</p>
+
+</article>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'wwwaubmnet';
+    var disqus_identifier = 'http:\/\/www.aubm.net\/blog\/astuce-phpstorm-partager-ses-lives-templates\/';
+    var disqus_title = 'Astuce PhpStorm : partager ses live templates';
+    var disqus_url = 'http:\/\/www.aubm.net\/blog\/astuce-phpstorm-partager-ses-lives-templates\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</div>
+</div>
+<script src="js/theme.min.js" type="text/javascript"></script>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38043974-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>
+

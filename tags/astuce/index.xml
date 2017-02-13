@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Astuce on Aubm</title>
+    <link>http://www.aubm.net/tags/astuce/index.xml</link>
+    <description>Recent content in Astuce on Aubm</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>fr-FR</language>
+    <atom:link href="http://www.aubm.net/tags/astuce/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Aller plus loin avec Postman</title>
+      <link>http://www.aubm.net/blog/aller-plus-loin-avec-postman/</link>
+      <pubDate>Fri, 19 Feb 2016 21:47:28 +0100</pubDate>
+      
+      <guid>http://www.aubm.net/blog/aller-plus-loin-avec-postman/</guid>
+      <description>
+
+&lt;h2 id=&#34;présentation-rapide-de-postman&#34;&gt;Présentation rapide de Postman&lt;/h2&gt;
+
+&lt;p&gt;Postman est &lt;a href=&#34;https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop&#34;&gt;téléchargeable dans la magasin d&amp;rsquo;applications de Google Chrome&lt;/a&gt;.
+Dans son utilisation la plus basique, il s&amp;rsquo;agit d&amp;rsquo;un outil permettant d&amp;rsquo;éxecuter des appels HTTP à un serveur pour en interpréter
+la réponse en dehors de tout contexte métier.&lt;/p&gt;
+
+&lt;p&gt;Pour commencer à comprendre la valeur ajoutée par rapport à Curl (au délà du côté user-friendly),
+il faut s&amp;rsquo;attarder sur la sauvegarde des requêtes et des &lt;a href=&#34;https://www.getpostman.com/docs/responses&#34;&gt;snapshots de réponses&lt;/a&gt;
+&lt;a href=&#34;https://www.getpostman.com/docs/collections&#34;&gt;dans des collections&lt;/a&gt;.
+Il n&amp;rsquo;y a maintenant plus qu&amp;rsquo;à vous connecter avec votre compte Google et voilà l&amp;rsquo;ensemble de vos collections synchronisées entre tous vos postes.&lt;/p&gt;
+
+&lt;p&gt;Postman est mon fidèle compagnon pour le développement d&amp;rsquo;API HTTP. Récemment, je me suis intéressé à plusieurs fonctionnalités spécifiques fournies par l&amp;rsquo;outil.
+Dans cet article, je vais tâcher de présenter comment en tirer parti et jusqu&amp;rsquo;où Postman est capable de s&amp;rsquo;intégrer à votre workflow de développement.&lt;/p&gt;
+
+&lt;h2 id=&#34;utiliser-des-variables&#34;&gt;Utiliser des variables&lt;/h2&gt;
+
+&lt;p&gt;Imaginons une API permettant de CRUDer des chats (essentiel), arrive un point où la sauvegarde de &lt;code&gt;GET http://localhost:8080/api/cats&lt;/code&gt; s&amp;rsquo;impose.
+Il faut cependant noter que cet appel ne pourra se jouer que dans un environnement local.
+En ce qui concerne le jour où les chats partiront en production (probable), il sera alors nécessaire de modifier la requête avant de pouvoir la jouer,
+probablement en quelque chose de la forme, &lt;code&gt;GET http://www.cats.com/api/cats&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Il est intéressant de noter que seul le host varie.
+Le cas présenté ici introduit la nécessité de &lt;a href=&#34;https://www.getpostman.com/docs/environments&#34;&gt;configurer des environnements&lt;/a&gt;.
+Un environnement contient un ensemble de clés/valeurs qui lui est propre.
+Les clés sont définies de façon arbitraire, et il est possible de passer d&amp;rsquo;un environnement à un autre d&amp;rsquo;un simple clic.
+Si bien que &lt;code&gt;GET http://{{domain}}/api/cats&lt;/code&gt; appelera &lt;code&gt;GET http://localhost:8080/api/cats&lt;/code&gt; en environnement local, et &lt;code&gt;GET http://www.cats.com/api/cats&lt;/code&gt; en production.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://www.aubm.net/img/postman_environnements.gif&#34; alt=&#34;Environnements Postman&#34; class=&#34;img-responsive&#34;/&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;automatiser-les-tests-sur-les-endpoints&#34;&gt;Automatiser les tests sur les endpoints&lt;/h2&gt;
+
+&lt;p&gt;Dans le développement d&amp;rsquo;un site ou d&amp;rsquo;une appli web, le navigateur occupe un rôle central. Il apporte son ensemble d&amp;rsquo;outils de développement,
+et est également l&amp;rsquo;environnement cible.
+C&amp;rsquo;est pourquoi le développeur soumet régulièrement son application à des tests navigateur (automatisés ou non)
+afin de vérifier qu&amp;rsquo;une fonctionnalité se comporte comme attendu.&lt;/p&gt;
+
+&lt;p&gt;Dans le cas d&amp;rsquo;une API Rest, typiquement HTTP/JSON, un outil comme Postman permet plus facilement de valider le retour des différents endpoints.
+Les choses commencent à devenir plus intéressantes lorsque l&amp;rsquo;on cherche à automatiser ces validations.
+Dans le détail d&amp;rsquo;une requête, il est possible de fournir des fragments de code javascript à Postman. Le code ci-dessous s&amp;rsquo;insère dans l&amp;rsquo;onglet &amp;ldquo;Tests&amp;rdquo;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var jsonData = JSON.parse(responseBody);
+
+tests[&amp;quot;Status code is 200&amp;quot;] = responseCode.code === 200;
+tests[&amp;quot;Has 1 entry&amp;quot;] = jsonData.length === 1;
+tests[&amp;quot;Assert name&amp;quot;] = jsonData[0].name === &amp;quot;Doctor Frankeinstein&amp;quot;;
+tests[&amp;quot;Assert color&amp;quot;] = jsonData[0].color === &amp;quot;brown&amp;quot;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Lancer l&amp;rsquo;appel après avoir enregistré ces lignes, Postman sera en mesure d&amp;rsquo;afficher le nombre d&amp;rsquo;assertions qui ont été validées.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://www.aubm.net/img/postman_tests_validation.png&#34; alt=&#34;Validation des assertions au lancement de la requête&#34; class=&#34;img-responsive&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;Le principe est simple : chaque nouvelle entrée du tableau &lt;code&gt;tests&lt;/code&gt; ajoute un nouveau test à la suite, la valeur associée à la clé doit être l&amp;rsquo;expression
+d&amp;rsquo;un booléen.
+Cette approche a l&amp;rsquo;avantage d&amp;rsquo;être très flexible, à souligner que des expressions plus élaborées sont permises.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;(function() {
+    var jsonData = JSON.parse(responseBody);
+    var pass = jsonData.constructor.name === &#39;Array&#39; &amp;amp;&amp;amp; jsonData.length === 1 &amp;amp;&amp;amp;
+        typeof(jsonData[0]) === &#39;object&#39;;
+    var msg = pass ? &#39;Body is an array of one entry&#39; : &#39;Expect body to be an array of one entry, body = &#39; + responseBody;
+    tests[msg] = pass;
+})();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Cette &lt;a href=&#34;http://blog.getpostman.com/2015/09/29/writing-a-behaviour-driven-api-testing-environment-within-postman/&#34;&gt;article&lt;/a&gt; décrit une solution
+permettant d&amp;rsquo;écrire un environnement de BDD, avec une écriture des tests à la Jasmine, dans Postman.&lt;/p&gt;
+
+&lt;p&gt;Il est possible de déclencher l&amp;rsquo;ensemble des requêtes HTTP enregistrées dans une collection,
+et d&amp;rsquo;obtenir un rapport sur les tests qui ont été lancés pour chacune d&amp;rsquo;entre elles.
+Il faut pour cela ouvrir le lanceur de tests en accédant au bouton Run du détail d&amp;rsquo;une collection, cf. l&amp;rsquo;image ci-dessous.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://www.aubm.net/img/postman-run-tests-button.jpg&#34; alt=&#34;Ouverture du lanceur de tests&#34; class=&#34;img-responsive&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;Le lanceur de tests s&amp;rsquo;ouvre, reste qu&amp;rsquo;à choisir une collection et démarrer.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://www.aubm.net/img/postman_tests_suite.gif&#34; alt=&#34;Lancement d&#39;une suite de tests avec Postman&#34; class=&#34;img-responsive&#34;/&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;exécuter-les-tests-dans-un-build-travis-ci&#34;&gt;Exécuter les tests dans un build Travis CI&lt;/h2&gt;
+
+&lt;p&gt;Conserver une fenêtre Postman ouverte pendant le développement de l&amp;rsquo;API peut être une solution, cependant
+&lt;a href=&#34;http://blog.getpostman.com/2014/05/12/meet-newman-a-command-line-companion-for-postman/&#34;&gt;l&amp;rsquo;outil newman&lt;/a&gt; permet de lancer les tests depuis la ligne
+de commande.&lt;/p&gt;
+
+&lt;p&gt;Newman s&amp;rsquo;installe avec npm, NodeJS doit donc être installé sur la machine.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ new i -g newman
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;En fonction de la version de NodeJS et de l&amp;rsquo;environnement, il se peut que d&amp;rsquo;autres dépendances soient nécessaires pour l&amp;rsquo;installer.
+Ces informations peuvent trouvées sur &lt;a href=&#34;https://github.com/postmanlabs/newman&#34;&gt;la page Github du projet&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Postman permet d&amp;rsquo;exporter des collections et des environnements au format JSON. Ces fichiers sont nécessaires pour que newman ait connaissance
+des tests à lancer.&lt;/p&gt;
+
+&lt;p&gt;Cf. l&amp;rsquo;image ci-dessous pour savoir comment télécharger le fichier d&amp;rsquo;export d&amp;rsquo;une collection &amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://www.aubm.net/img/export_postman_collection.jpg&#34; alt=&#34;Exporter une collection&#34; class=&#34;img-responsive&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;hellip; et d&amp;rsquo;un environnement &amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://www.aubm.net/img/export_postman_environnement.jpg&#34; alt=&#34;Exporter un environnement&#34; class=&#34;img-responsive&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;Une fois la collection et l&amp;rsquo;environnement que l&amp;rsquo;on souhaite y attacher téléchargés (je les place habituellement dans le répertoire
+du projet de façon à pouvoir les versionner à côté des sources), reste plus qu&amp;rsquo;à les référencer avec les options -c et -e de la commande newman.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://www.aubm.net/img/newman_output.png&#34; alt=&#34;STDOUT de la commande newman&#34; class=&#34;img-responsive&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;Passer par newman ouvre des portes, comme la possibilité d&amp;rsquo;intégrer l&amp;rsquo;exécution des tests dans un build &lt;a href=&#34;https://travis-ci.org/&#34;&gt;Travis CI&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;De nombreuses resources apportent des détails pour démarrer facilement avec Travis CI. L&amp;rsquo;utilise basique est simple, je suggère de commencer par
+la lecture de &lt;a href=&#34;https://docs.travis-ci.com/user/getting-started/&#34;&gt;cette page de la documentation officielle&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Le projet exemple que j&amp;rsquo;évoque depuis le début de l&amp;rsquo;article est &lt;a href=&#34;https://github.com/aubm/Cats-API&#34;&gt;accessible sur Github&lt;/a&gt;, les logs du dernier
+build &lt;a href=&#34;https://travis-ci.org/aubm/Cats-API&#34;&gt;Travis CI sont disponibles ici&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;L&amp;rsquo;utilisation de &lt;a href=&#34;https://www.docker.com/&#34;&gt;Docker&lt;/a&gt; est ici anecdotique dans la mesure où Travis est cappable de fournir un environnement
+comprenant une instance de MongoDB. Cela reste néanmoins intéressant dans la mesure où l&amp;rsquo;exécution des tests côté Travis CI se déroule
+dans le même environnement que mon poste local.&lt;/p&gt;
+
+&lt;p&gt;Voici le contenu du fichier &lt;code&gt;.travis.yml&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo: required
+
+language: go
+
+services:
+    - docker
+
+go:
+    - 1.5
+
+env:
+    - TRAVIS_NODE_VERSION=&amp;quot;0.12&amp;quot;
+
+before_install:
+    - rm -rf ~/.nvm &amp;amp;&amp;amp; git clone https://github.com/creationix/nvm.git ~/.nvm &amp;amp;&amp;amp; (cd ~/.nvm &amp;amp;&amp;amp; git checkout `git describe --abbrev=0 --tags`) &amp;amp;&amp;amp; source ~/.nvm/nvm.sh &amp;amp;&amp;amp; nvm install $TRAVIS_NODE_VERSION
+    - npm i -g newman@1.3.0
+
+script:
+    - ./run-tests.sh
+
+addons:
+    hosts:
+        - dockerhost
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Parmi les points intéressants à relever :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Les commandes executées au &lt;code&gt;before_install&lt;/code&gt; permettent de dérouler le script principal dans un environnement où la version de NodeJS est maîtrisée.
+Ceci est nécessaire pour garantir que la version 1.3.0 de newman installée juste après fonctionnera correctement. Plus de détails sur le gestionnaire
+de versions de NodeJS utilisé peuvent être trouvés sur la &lt;a href=&#34;https://github.com/creationix/nvm&#34;&gt;page Github du projet&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Comme les tests vont être executés avec un environnement faisant référence à un domaine &lt;code&gt;dockerhost&lt;/code&gt;, lui même attaché
+(dans le contexte du build Travis) à l&amp;rsquo;IP locale &lt;code&gt;127.0.0.1&lt;/code&gt;, la dernière partie du fichier ajoute l&amp;rsquo;entrée correspondante dans &lt;code&gt;/etc/hosts&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Enfin, les étapes du build sont contenues dans &lt;code&gt;run-tests.sh&lt;/code&gt; ci-dessous.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/bash
+
+docker build -t kendo5731/cats-api .
+docker-compose up -d --force-recreate
+docker ps -a
+go test ./...
+newman -c cats_api.json.postman_collection -e cats_api.postman_environment -x
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ce script va lancer les tests associés au packages Go de l&amp;rsquo;application (Go restant également anecdotique ici), puis jouer la suite de tests
+Postman sur l&amp;rsquo;environnement Docker monté au préalable.&lt;/p&gt;
+
+&lt;p&gt;Il est important de renseigner l&amp;rsquo;option &lt;code&gt;-x&lt;/code&gt; dans ce contexte. Cette option indique à newman de sortir avec un code différent de 0 en cas d&amp;rsquo;échec.
+Si cette option est manquante, Travis CI ne marquera jamais le build comme ayant échoué, même en cas d&amp;rsquo;assertions non vérifiées.&lt;/p&gt;
+
+&lt;h2 id=&#34;générer-de-la-documentation&#34;&gt;Générer de la documentation&lt;/h2&gt;
+
+&lt;p&gt;Mettre à disposition une documentation détaillée pour une API est une tâche fastidieuse car il est nécessaire de garder cette
+documentation synchronisée avec le code.&lt;/p&gt;
+
+&lt;p&gt;S&amp;rsquo;il existe de nombreux outils capables de générer de la documentation à partir de commentaires formattés dans le code source, j&amp;rsquo;ai également songé
+à utiliser mes collections Postman comme source.
+Pratiquement tous les types d&amp;rsquo;item dans Postman (collections, dossiers, requêtes) peuvent être enrichis d&amp;rsquo;un nom et d&amp;rsquo;une description (dont le
+contenu écrit en markdown est d&amp;rsquo;ailleurs directement parsé puis affiché dans l&amp;rsquo;interface de Postman).
+Ces données étant accessibles dans le fichier JSON exporté, pourquoi ne pas les utiliser pour présenter une documentation mise en forme à la main ?
+Libre à celui qui se chargera de la documentation, d&amp;rsquo;utiliser le moteur de template qui lui plaira.&lt;/p&gt;
+
+&lt;p&gt;Pour ma part, j&amp;rsquo;ai choisi Go et mis à disposition un projet très récent permettant de générer la documentation via un outil en ligne de commande.
+Cet outil est &lt;a href=&#34;https://github.com/aubm/postmanerator&#34;&gt;disponible sur mon compte Github&lt;/a&gt; et le projet est ouvert aux contributions :)&lt;/p&gt;
+
+&lt;p&gt;Avant cela, mes recherches m&amp;rsquo;avaient rapidement &lt;a href=&#34;http://docman.launchrock.com/&#34;&gt;amené à cet outil&lt;/a&gt; qui semble plus mature à l&amp;rsquo;heure actuelle.&lt;/p&gt;
+
+&lt;p&gt;En espérant que cet article sera utile, à la prochaine !&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Astuce PhpStorm : partager ses live templates</title>
+      <link>http://www.aubm.net/blog/astuce-phpstorm-partager-ses-lives-templates/</link>
+      <pubDate>Sat, 11 Oct 2014 18:39:40 +0100</pubDate>
+      
+      <guid>http://www.aubm.net/blog/astuce-phpstorm-partager-ses-lives-templates/</guid>
+      <description>
+
+&lt;h2 id=&#34;coder-vite-et-bien&#34;&gt;Coder vite et bien&lt;/h2&gt;
+
+&lt;p&gt;Le choix de l&amp;rsquo;IDE est important dans le sens où celui-ci peut apporter une réelle valeur ajoutée dans le travail du développeur. En ce qui me concerne, j&amp;rsquo;ai vendu mon âme à &lt;a href=&#34;https://www.jetbrains.com/&#34; target=&#34;_blank&#34;&gt;Jetbrains&lt;/a&gt;. Une chose que j&amp;rsquo;apprécie particulièrement dans leurs solutions est la facilité avec laquelle il est possible de configurer des live templates. Cet article porte sur PhpStorm mais peut être reporté sur d&amp;rsquo;autres IDE de l&amp;rsquo;éditeur (RubyMine, PyCharm, etc &amp;hellip;).&lt;/p&gt;
+
+&lt;p&gt;Les live templates, c&amp;rsquo;est cette fonctionnalité qui permet d&amp;rsquo;accélérer l&amp;rsquo;écriture du code à l&amp;rsquo;aide de &amp;ldquo;shortcuts&amp;rdquo; servant à générer des fragments de code entier. Un exemple ?&lt;/p&gt;
+
+&lt;p&gt;Saisissez &amp;lsquo;fore&amp;rsquo; dans du code PHP, puis utilisez la touche tab. Le fragment de code suivant sera automatiquement généré :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;foreach ( as $) {
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Chaque appui sur la touche tab fera avancer le curseur à une position pré-déterminée vous permettant d&amp;rsquo;achever l&amp;rsquo;écriture de votre boucle en moins de temps qu&amp;rsquo;il n&amp;rsquo;en faut pour le dire. Essayez aussi d&amp;rsquo;autres shortcuts comme &lt;code&gt;forek&lt;/code&gt;, &lt;code&gt;pubf&lt;/code&gt;, etc &amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;Jetbrains propose un petit article détaillant la procédure à suivre pour &lt;a class=&#34;https://www.jetbrains.com/phpstorm/webhelp/creating-and-editing-live-templates.html&#34; target=&#34;_blank&#34;&gt;la création et l&amp;rsquo;éditions de live templates personnalisés&lt;/a&gt;. Sa lecture pourrait cependant ne pas être utile, inspirez vous simplement des live templates proposés par défaut pour créer les vôtres. Pour les trouver, rendez vous dans les paramètres de l&amp;rsquo;IDE, section &amp;ldquo;Live Templates&amp;rdquo;.&lt;/p&gt;
+
+&lt;figure&gt;
+&lt;img class=&#34;img-responsive&#34; src=&#34;http://www.aubm.net/img/php_storm_live_templates.png&#34; alt=&#34;Configuration des live templates dans PhpStorm&#34; width=&#34;900&#34; height=&#34;542&#34;&gt;
+&lt;figcaption&gt;La fenêtre de configuration des live templates dans PHPStorm.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Le bouton + vous permet d&amp;rsquo;ajouter un nouveau live template. Considérez également l&amp;rsquo;utilisation des groupes de templates pour vous y retrouver plus facilement.&lt;/p&gt;
+
+&lt;h2 id=&#34;partager-ses-live-templates&#34;&gt;Partager ses live templates&lt;/h2&gt;
+
+&lt;p&gt;Si vous utilisez beaucoup les live templates, vous aurez certainement envie de retrouver vos précieux sur l&amp;rsquo;ensemble de vos postes, et ce bien entendu sans avoir à les re-saisir à la main. Je vous propose donc dans cet article la solution que j&amp;rsquo;utilise pour y parvenir.&lt;/p&gt;
+
+&lt;p&gt;Les live templates personnalisés que vous créez sont enregistrés dans des fichiers xml. Selon votre environnement ils pourraient se trouver quelque part dans &lt;code&gt;~/Library/Preferences/WebIde{VERSION}/templates&lt;/code&gt; ou &lt;code&gt;C:\Users\{USERNAME}\.WebIde{VERSION}\templates&lt;/code&gt;. Chaque groupe de templates correspond à un fichier xml.&lt;/p&gt;
+
+&lt;p&gt;L&amp;rsquo;idée est simple : versionner ce répertoire avec git (ou un autre VCS). Pour l&amp;rsquo;exemple, j&amp;rsquo;ai créé un nouveau repository sur mon compte Github, et me voici dans mon terminal :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd ~/Library/Preferences/WebIde80/templates
+git init
+git remote add origin git@github.com:aubm/jetbrains-live-templates.git
+git add -A
+git commit -m &amp;quot;First commit&amp;quot;
+git push
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Et sur mon autre poste :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd ~/Library/Preferences/WebIde80/templates
+git init
+git remote add origin git@github.com:aubm/jetbrains-live-templates.git
+git pull
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Il faudra penser à redémarrer PhpStorm pour que les modifications effectuées dans le ou les fichiers xml soient prises en compte.&lt;/p&gt;
+
+&lt;p&gt;Je peux maintenant enrichir mes live templates à volonté, puis les récupérer presque sans effort d&amp;rsquo;un poste à l&amp;rsquo;autre. En espérant que certains trouveront cette astuce utile, merci pour la lecture !&lt;/p&gt;
+
+&lt;p&gt;Aurélien.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

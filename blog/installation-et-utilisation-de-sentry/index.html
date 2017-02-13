@@ -1,0 +1,368 @@
+<!doctype html>
+<html>
+<head>
+    <base href="/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="author" content="Aurélien Baumann (Aubm)">
+
+<meta name="description" content="">
+
+<title>Installation et utilisation de Sentry</title>
+<meta name="generator" content="Hugo 0.19-DEV" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+<link  href="http://www.aubm.net/css/theme.min.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<div class="page-container container-fluid">
+<div class="col-md-3 menu">
+    <nav class="col-md-3">
+    <h3 class="home-link"><a href="/">Racine</a></h3>
+    <div id="last-posts" class="open">
+        <h3 data-open="last-posts">Aubm - Les derniers articles</h3>
+        <ul>
+            
+            <li><a href="http://www.aubm.net/blog/pourquoi-big-o-est-important/">Pourquoi Big O est important ?</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/comment-vous-faire-une-idee-d-l-impact-de-la-latence-de-votre-televiseur-dans-vos-sessions-de-jeux-videos/">Comment vous faire une idée de l&#39;impact de la latence de votre téléviseur dans vos sessions de jeux vidéos</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/testing-d-une-app-golang-sur-appengine-une-maniere-de-gerer-l-erreur-newcontext-passed-an-unknown-http-request/">Testing d&#39;une app golang sur AppEngine : une manière de gérer l&#39;erreur NewContext passed an unknown http.Request</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/l-injection-de-dependances-a-l-esprit-dans-vos-applications-golang/">L&#39;injection de dépendances à l&#39;esprit dans vos applications Golang</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/aller-plus-loin-avec-postman/">Aller plus loin avec Postman</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/du-neuf-sous-le-capot/">Du neuf sous le capot</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/gardez-le-code-explicite-court-et-modulaire/">Gardez le code explicite, court et modulaire</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/contrainte-dunicite-dans-symfony-2-avec-doctrine/">Contrainte d&#39;unicité dans Symfony 2 avec Doctrine</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/mes-premiers-pas-avec-cakephp-3/">Mes premiers pas avec CakePHP 3</a></li>
+            
+            <li><a href="http://www.aubm.net/blog/installation-et-utilisation-de-sentry/">Installation et utilisation de Sentry</a></li>
+            
+        </ul>
+    </div>
+
+    
+    <div id="tags" class="open">
+        <h3 data-open="tags">Tags</h3>
+        <ul class="tags">
+            
+            <li><a href="/tags/astuce">astuce</a></li>
+            
+            <li><a href="/tags/cakephp">cakephp</a></li>
+            
+            <li><a href="/tags/doctrine">doctrine</a></li>
+            
+            <li><a href="/tags/golang">golang</a></li>
+            
+            <li><a href="/tags/joomla">joomla</a></li>
+            
+            <li><a href="/tags/php">php</a></li>
+            
+            <li><a href="/tags/solution">solution</a></li>
+            
+            <li><a href="/tags/symfony">symfony</a></li>
+            
+        </ul>
+    </div>
+    
+
+    
+</nav>
+
+</div>
+<div class="col-md-9 content">
+
+<h1>Installation et utilisation de Sentry</h1>
+<h4>Publié le 01-24-2015 19:33:05</h4>
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="kendo5731"></a>
+<script>!function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+    if (!d.getElementById(id)) {
+        js = d.createElement(s);
+        js.id = id;
+        js.src = p + '://platform.twitter.com/widgets.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }
+}(document, 'script', 'twitter-wjs');</script>
+
+<div class="fb-share-button" data-href="http://www.aubm.net/blog/installation-et-utilisation-de-sentry/" data-layout="button"></div>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<article>
+    
+
+<h2 id="qu-est-ce-que-sentry">Qu&rsquo;est ce que Sentry ?</h2>
+
+<p>Sentry est une application web open-source que vous pouvez utiliser pour logger les erreurs de vos applications.</p>
+
+<p>Le fonctionnement de Sentry repose sur l&rsquo;exploitation de son API accessible par HTTP. Des librairies existent pour de nombreux langages et framework afin de faciliter son implémentation.</p>
+
+<p>Rendez vous sur le <a href="https://github.com/getsentry/sentry" target="_blank">github du projet</a> pour en apprendre plus sur les fonctionnalités.</p>
+
+<h2 id="a-propos-de-cet-article">A propos de cet article</h2>
+
+<p>Cet article comporte deux parties. La première détaille la procédure d&rsquo;installation de la dernière version de Sentry (7.1.4 à l&rsquo;heure où je rédige) sur une machine virtuelle Ubuntu server 64 bits. La seconde contient des morceaux de code commentés, issus de deux applications exemple : une en PHP brut, l&rsquo;autre réalisée à l&rsquo;aide du framework Symfony2 full-stack. Le but est d&rsquo;apporter quelques exemples d&rsquo;utilisation <a href="https://github.com/getsentry/raven-php" target="_blank">de la librairie PHP</a>.</p>
+
+<h2 id="installation-et-configuration-de-sentry">Installation et configuration de Sentry</h2>
+
+<h3 id="pré-requis">Pré-requis</h3>
+
+<p>Pour préparer cet article, j&rsquo;ai monté une machine virtuelle Ubuntu server 64 bits afin de pouvoir travailler en local. Sentry peut cependant s&rsquo;installer sur n&rsquo;importe quel système Unix.</p>
+
+<p>Sentry est codé en langage python, il nous faudra donc l&rsquo;avoir installé ainsi que quelques outils de développement.</p>
+
+<pre><code class="language-bash">sudo su
+apt-get update
+apt-get upgrade
+apt-get install python-setuptools python-pip python-dev libxslt1-dev libxml2-dev
+</code></pre>
+
+<p>Nous avons besoin d&rsquo;une base de données, le guide d&rsquo;installation officiel recommande PostgreSQL, <a href="http://redis.io/" target="_blank">Redis</a> est également requis. Vous pouvez aussi installer Postfix pour supporter l&rsquo;envoi des notifications par mail.</p>
+
+<pre><code class="language-bash">apt-get install postgresql postgresql-server-dev-all
+apt-get install redis-server
+apt-get install postfix
+</code></pre>
+
+<p>Enfin un serveur HTTP est requis, Apache pourra convenir si vous l&rsquo;avez déjà installé. Étant donné qu&rsquo;il s&rsquo;agit d&rsquo;une nouvelle installation, je fais le choix d&rsquo;installer Nginx.</p>
+
+<pre><code class="language-bash">apt-get install nginx
+</code></pre>
+
+<h3 id="préparation-de-la-base-de-données">Préparation de la base de données</h3>
+
+<p>Les commandes suivantes créent un nouvel utilisateur <code>sentry</code> avec le mot de passe <code>sentry</code>, à qui nous allons accorder tous les privilèges sur une nouvelle base de données également nommée <code>sentry</code>.</p>
+
+<pre><code class="language-bash">su postgres
+psql
+CREATE USER sentry WITH PASSWORD 'sentry';
+CREATE DATABASE sentry ENCODING 'UTF8';
+GRANT ALL PRIVILEGES ON DATABASE sentry to sentry;
+\q
+exit
+</code></pre>
+
+<h3 id="création-de-l-environnement-virtuel-python-téléchargement-et-configuration-de-sentry-via-pip">Création de l&rsquo;environnement virtuel python, téléchargement et configuration de Sentry via pip</h3>
+
+<p>Nous allons maintenant nous servir de l&rsquo;utilitaire <code>virtualenv</code> pour créer un environnement virtuel dans lequel nous allons installer Sentry avec la commande <code>pip</code>.</p>
+
+<pre><code class="language-bash">pip install -U virtualenv
+virtualenv /www/sentry/
+source /www/sentry/bin/activate
+pip install -U sentry
+pip install -U sentry[postgres]
+</code></pre>
+
+<p>Utilisons maintenant la commande suivante pour générer un fichier de configuration pour Sentry.</p>
+
+<pre><code class="language-bash">sentry init /etc/sentry.conf.py
+</code></pre>
+
+<p>Nous allons maintenant éditer ce fichier pour renseigner les informations de base de données. Il faudra également descendre un peu plus bas pour modifier le paramètre <code>SENTRY_URL_PREFIX</code>. Ce paramètre doit contenir le nom de domaine qui servira à accéder à notre serveur Sentry.</p>
+
+<p>Pour l&rsquo;exemple, j&rsquo;ai mis <code>sentry.local</code>, j&rsquo;ai également pensé à ajouter une entrée dans mon fichier <code>/etc/hosts</code> (sur ma machine hôte) afin de rattacher le domaine à l&rsquo;IP de ma VM. Si vous travaillez sur un serveur en live, vous aurez besoin d&rsquo;un domaine et d&rsquo;une entrée DNS faisant pointer ce domaine vers l&rsquo;IP du serveur.</p>
+
+<p>Nous allons configurer Nginx comme reverse proxy pour servir les requêtes adressées à Sentry. Pour cette raison, la ligne contenant le paramètre <code>SENTRY_WEB_HOST</code> sera commentée de façon à ce que Sentry ne réponde qu&rsquo;à des adresses IP locales.</p>
+
+<p>Mon fichier de configuration est le suivant : <a href="https://gist.github.com/aubm/00b0ba9a602312e26717#file-sentry-conf-py" target="_blank">Voir le gist</a>.</p>
+
+<p>Une fois que tout est bon, nous pouvons lancer les migrations pour fournir la base de données.</p>
+
+<pre><code class="language-bash">sentry --config=/etc/sentry.conf.py upgrade
+</code></pre>
+
+<p>Sentry est maintenant configuré et écoute sur le port 9000 en local uniquement. Une dernière chose avant de passer à la suite : créons un utilisateur qui nous servira à nous connecter à l&rsquo;interface web.</p>
+
+<pre><code class="language-bash">sentry --config=/etc/sentry.conf.py createsuperuser
+</code></pre>
+
+<p>Note : la commande <code>deactivate</code> permet de sortir de l&rsquo;environnement virtuel python.</p>
+
+<h3 id="configurer-nginx">Configurer Nginx</h3>
+
+<p>Nous allons ajouter un hôte virtuel, que nous activerons en utilisant les commandes suivantes :</p>
+
+<pre><code class="language-bash">nano /etc/nginx/sites-available/sentry.local
+ln -s /etc/nginx/sites-available/sentry.local /etc/nginx/sites-enabled/sentry.local
+service nginx restart
+</code></pre>
+
+<p>Le contenu du fichier est disponible ici : <a href="https://gist.github.com/aubm/00b0ba9a602312e26717#file-sentry-local-nginx-file" target="_blank">Voir le gist</a>.</p>
+
+<h3 id="lancer-les-processus-avec-supervisor">Lancer les processus avec Supervisor</h3>
+
+<p>A ce stade, Sentry est correctement installé et prêt à fonctionner en démarrant ces deux processus :</p>
+
+<pre><code class="language-bash">sentry --config=/etc/sentry.conf.py start http
+sentry --config=/etc/sentry.conf.py celery worker -B
+</code></pre>
+
+<p>Le premier correspond à l&rsquo;application web et embarque l&rsquo;interface utilisateur et le webservice. Le second démarre les workers Celery qui traitent les tâches asynchrones qui permettent à Sentry de fonctionner.</p>
+
+<p>Cependant, pour des questions pratiques nous allons utiliser le gestionnaire de processus Supervisor qui prendra en charge le démarrage de ces deux programmes.</p>
+
+<p>Commençons par installer Supervisor et générer un fichier de configuration.</p>
+
+<pre><code class="language-bash">easy_install supervisor
+echo_supervisord_conf &gt; /etc/supervisord.conf
+</code></pre>
+
+<p>Éditons maintenant le fichier <code>/etc/supervisord.conf</code> pour y ajouter (à la fin) le contenu de <a href="https://gist.github.com/aubm/00b0ba9a602312e26717#file-end-of-supervisord-conf" target="_blank">ce gist</a>.</p>
+
+<p>Enfin, la commande suivante démarrera Supervisor et Sentry par la même.</p>
+
+<pre><code class="language-bash">supervisord
+</code></pre>
+
+<h2 id="utiliser-sentry-avec-des-applications-php">Utiliser Sentry avec des applications PHP</h2>
+
+<h3 id="installation-de-raven-php">Installation de raven-php</h3>
+
+<p>La première chose à faire est de télécharger le paquet raven-php. Utilisons composer et ajoutons le paquet comme dépendance pour le projet.</p>
+
+<p>Voilà le contenu du fichier <code>composer.json</code> :</p>
+
+<pre><code class="language-json">{
+    &quot;require&quot;: {
+        &quot;raven/raven&quot;: &quot;dev-master&quot;
+    }
+}
+</code></pre>
+
+<p>Une fois fait la commande <code>composer install</code> se chargera de télécharger la dernière version de la librairie.</p>
+
+<p>Enfin - si ce n&rsquo;est pas déjà fait - ajoutons la ligne suivante en début de fichier pour configurer le chargement automatique des classes du paquet.</p>
+
+<pre><code class="language-php">require_once __DIR__ . '/vendor/autoload.php';
+</code></pre>
+
+<h3 id="envoyer-nos-premiers-messages">Envoyer nos premiers messages</h3>
+
+<p>Nous allons créer un objet de type <code>Raven_Client</code> que nous utiliserons pour communiquer nos erreurs au serveur Sentry.</p>
+
+<p>Voilà les lignes de code à ajouter à la suite de notre fichier :</p>
+
+<pre><code class="language-php">$sentry_api_key = 'http://21e21b43f3834e04b826ac24f9ef8cc9:acc747a904dc446793c5d31d9406ec79@sentry.local/2'; 
+$sentry_client = new Raven_Client($sentry_api_key);
+</code></pre>
+
+<p>La valeur de la variable <code>$sentry_api_key</code> est propre à un projet. Cette information se récupère via l&rsquo;interface web de Sentry en naviguant dans le projet, puis &ldquo;Settings&rdquo; puis &ldquo;API Keys&rdquo;.</p>
+
+<p>Il ne reste plus qu&rsquo;à envoyer notre premier message :</p>
+
+<pre><code class="language-php">$sentry_client-&gt;captureMessage('Message test !');
+</code></pre>
+
+<p>Capturer une exception est tout aussi simple en utilisant par exemple le code suivant :</p>
+
+<pre><code class="language-php">try {
+    throw new Exception('Exception test', 500); 
+} catch (Exception $e) { 
+    $sentry_client-&gt;captureException($e);
+ }
+</code></pre>
+
+<figure>
+<img src="/img/message_exception_test.png" alt="Affichage des messages d'erreur dans l'interface web de Sentry" class="img-responsive"/>
+<figcaption>Les messages tels qu'ils sont affichés dans l'interface web de Sentry.</figcaption>
+</figure>
+
+<h3 id="enregistrer-sentry-comme-gestionnaire-d-erreurs">Enregistrer Sentry comme gestionnaire d&rsquo;erreurs</h3>
+
+<p>Il est possible de configurer Sentry comme gestionnaire d&rsquo;erreurs et d&rsquo;exceptions avec le code suivant :</p>
+
+<pre><code class="language-php">$error_handler = new Raven_ErrorHandler($sentry_client); 
+set_error_handler(array($error_handler, 'handleError'));
+ set_exception_handler(array($error_handler, 'handleException'));
+</code></pre>
+
+<p>Avec cette configuration, toutes les erreurs et les exceptions non &ldquo;catchées&rdquo; seront automatiquement envoyées à Sentry.</p>
+
+<h3 id="configurer-sentry-pour-symfony2">Configurer Sentry pour Symfony2</h3>
+
+<p>Configurer Sentry dans une application utilisant le framework full-stack de Symfony2 peut se faire de façon très simple grâce à <a href="https://github.com/Seldaek/monolog/blob/master/src/Monolog/Handler/RavenHandler.php" target="_blank">Monolog qui intègre un handler pour Sentry</a>.</p>
+
+<p>Dans la configuration de Monolog, dans le fichier <code>config_prod.yml</code> par exemple, il suffit de configurer ce handler.</p>
+
+<pre><code>monolog:
+    handlers:
+        main:
+            type: fingers_crossed
+            action_level: error
+            handler: nested
+        nested:
+            type:  stream
+            path:  &quot;%kernel.logs_dir%/%kernel.environment%.log&quot;
+            level: debug
+        console:
+            type:  console
+        sentry:
+            type: raven
+            dsn: http://21e21b43f3834e04b826ac24f9ef8cc9:acc747a904dc446793c5d31d9406ec79@sentry.local/2
+            level: notice
+</code></pre>
+
+<h2 id="ressources">Ressources</h2>
+
+<ul>
+<li><a href="http://sentry.readthedocs.org/en/latest/quickstart/" target="_blank">Guide d&rsquo;installation officiel de Sentry</a></li>
+<li><a href="https://virtualenv.pypa.io/en/latest/" target="_blank">Pour en apprendre plus sur les virtualenv python</a></li>
+<li><a href="https://pypi.python.org/pypi/pip" target="_blank">Pour en apprendre plus sur le gestionnaire de paquets python pip</a></li>
+<li><a href="http://supervisord.org/installing.html" target="_blank">Pour en apprendre plus sur le gestionnaire de processus supervisor</a></li>
+<li><a href="https://packagist.org/packages/raven/raven" target="_blank">Page packagist de raven-php</a></li>
+<li><a href="https://getcomposer.org/doc/00-intro.md" target="_blank">Introduction au gestionnaire de paquets php composer</a></li>
+</ul>
+
+</article>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'wwwaubmnet';
+    var disqus_identifier = 'http:\/\/www.aubm.net\/blog\/installation-et-utilisation-de-sentry\/';
+    var disqus_title = 'Installation et utilisation de Sentry';
+    var disqus_url = 'http:\/\/www.aubm.net\/blog\/installation-et-utilisation-de-sentry\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</div>
+</div>
+<script src="js/theme.min.js" type="text/javascript"></script>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38043974-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>
+

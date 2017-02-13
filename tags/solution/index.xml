@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Solution on Aubm</title>
+    <link>http://www.aubm.net/tags/solution/index.xml</link>
+    <description>Recent content in Solution on Aubm</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>fr-FR</language>
+    <atom:link href="http://www.aubm.net/tags/solution/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Installation et utilisation de Sentry</title>
+      <link>http://www.aubm.net/blog/installation-et-utilisation-de-sentry/</link>
+      <pubDate>Sat, 24 Jan 2015 19:33:05 +0100</pubDate>
+      
+      <guid>http://www.aubm.net/blog/installation-et-utilisation-de-sentry/</guid>
+      <description>
+
+&lt;h2 id=&#34;qu-est-ce-que-sentry&#34;&gt;Qu&amp;rsquo;est ce que Sentry ?&lt;/h2&gt;
+
+&lt;p&gt;Sentry est une application web open-source que vous pouvez utiliser pour logger les erreurs de vos applications.&lt;/p&gt;
+
+&lt;p&gt;Le fonctionnement de Sentry repose sur l&amp;rsquo;exploitation de son API accessible par HTTP. Des librairies existent pour de nombreux langages et framework afin de faciliter son implémentation.&lt;/p&gt;
+
+&lt;p&gt;Rendez vous sur le &lt;a href=&#34;https://github.com/getsentry/sentry&#34; target=&#34;_blank&#34;&gt;github du projet&lt;/a&gt; pour en apprendre plus sur les fonctionnalités.&lt;/p&gt;
+
+&lt;h2 id=&#34;a-propos-de-cet-article&#34;&gt;A propos de cet article&lt;/h2&gt;
+
+&lt;p&gt;Cet article comporte deux parties. La première détaille la procédure d&amp;rsquo;installation de la dernière version de Sentry (7.1.4 à l&amp;rsquo;heure où je rédige) sur une machine virtuelle Ubuntu server 64 bits. La seconde contient des morceaux de code commentés, issus de deux applications exemple : une en PHP brut, l&amp;rsquo;autre réalisée à l&amp;rsquo;aide du framework Symfony2 full-stack. Le but est d&amp;rsquo;apporter quelques exemples d&amp;rsquo;utilisation &lt;a href=&#34;https://github.com/getsentry/raven-php&#34; target=&#34;_blank&#34;&gt;de la librairie PHP&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;installation-et-configuration-de-sentry&#34;&gt;Installation et configuration de Sentry&lt;/h2&gt;
+
+&lt;h3 id=&#34;pré-requis&#34;&gt;Pré-requis&lt;/h3&gt;
+
+&lt;p&gt;Pour préparer cet article, j&amp;rsquo;ai monté une machine virtuelle Ubuntu server 64 bits afin de pouvoir travailler en local. Sentry peut cependant s&amp;rsquo;installer sur n&amp;rsquo;importe quel système Unix.&lt;/p&gt;
+
+&lt;p&gt;Sentry est codé en langage python, il nous faudra donc l&amp;rsquo;avoir installé ainsi que quelques outils de développement.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo su
+apt-get update
+apt-get upgrade
+apt-get install python-setuptools python-pip python-dev libxslt1-dev libxml2-dev
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Nous avons besoin d&amp;rsquo;une base de données, le guide d&amp;rsquo;installation officiel recommande PostgreSQL, &lt;a href=&#34;http://redis.io/&#34; target=&#34;_blank&#34;&gt;Redis&lt;/a&gt; est également requis. Vous pouvez aussi installer Postfix pour supporter l&amp;rsquo;envoi des notifications par mail.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;apt-get install postgresql postgresql-server-dev-all
+apt-get install redis-server
+apt-get install postfix
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Enfin un serveur HTTP est requis, Apache pourra convenir si vous l&amp;rsquo;avez déjà installé. Étant donné qu&amp;rsquo;il s&amp;rsquo;agit d&amp;rsquo;une nouvelle installation, je fais le choix d&amp;rsquo;installer Nginx.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;apt-get install nginx
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;préparation-de-la-base-de-données&#34;&gt;Préparation de la base de données&lt;/h3&gt;
+
+&lt;p&gt;Les commandes suivantes créent un nouvel utilisateur &lt;code&gt;sentry&lt;/code&gt; avec le mot de passe &lt;code&gt;sentry&lt;/code&gt;, à qui nous allons accorder tous les privilèges sur une nouvelle base de données également nommée &lt;code&gt;sentry&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;su postgres
+psql
+CREATE USER sentry WITH PASSWORD &#39;sentry&#39;;
+CREATE DATABASE sentry ENCODING &#39;UTF8&#39;;
+GRANT ALL PRIVILEGES ON DATABASE sentry to sentry;
+\q
+exit
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;création-de-l-environnement-virtuel-python-téléchargement-et-configuration-de-sentry-via-pip&#34;&gt;Création de l&amp;rsquo;environnement virtuel python, téléchargement et configuration de Sentry via pip&lt;/h3&gt;
+
+&lt;p&gt;Nous allons maintenant nous servir de l&amp;rsquo;utilitaire &lt;code&gt;virtualenv&lt;/code&gt; pour créer un environnement virtuel dans lequel nous allons installer Sentry avec la commande &lt;code&gt;pip&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;pip install -U virtualenv
+virtualenv /www/sentry/
+source /www/sentry/bin/activate
+pip install -U sentry
+pip install -U sentry[postgres]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Utilisons maintenant la commande suivante pour générer un fichier de configuration pour Sentry.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sentry init /etc/sentry.conf.py
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Nous allons maintenant éditer ce fichier pour renseigner les informations de base de données. Il faudra également descendre un peu plus bas pour modifier le paramètre &lt;code&gt;SENTRY_URL_PREFIX&lt;/code&gt;. Ce paramètre doit contenir le nom de domaine qui servira à accéder à notre serveur Sentry.&lt;/p&gt;
+
+&lt;p&gt;Pour l&amp;rsquo;exemple, j&amp;rsquo;ai mis &lt;code&gt;sentry.local&lt;/code&gt;, j&amp;rsquo;ai également pensé à ajouter une entrée dans mon fichier &lt;code&gt;/etc/hosts&lt;/code&gt; (sur ma machine hôte) afin de rattacher le domaine à l&amp;rsquo;IP de ma VM. Si vous travaillez sur un serveur en live, vous aurez besoin d&amp;rsquo;un domaine et d&amp;rsquo;une entrée DNS faisant pointer ce domaine vers l&amp;rsquo;IP du serveur.&lt;/p&gt;
+
+&lt;p&gt;Nous allons configurer Nginx comme reverse proxy pour servir les requêtes adressées à Sentry. Pour cette raison, la ligne contenant le paramètre &lt;code&gt;SENTRY_WEB_HOST&lt;/code&gt; sera commentée de façon à ce que Sentry ne réponde qu&amp;rsquo;à des adresses IP locales.&lt;/p&gt;
+
+&lt;p&gt;Mon fichier de configuration est le suivant : &lt;a href=&#34;https://gist.github.com/aubm/00b0ba9a602312e26717#file-sentry-conf-py&#34; target=&#34;_blank&#34;&gt;Voir le gist&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Une fois que tout est bon, nous pouvons lancer les migrations pour fournir la base de données.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sentry --config=/etc/sentry.conf.py upgrade
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Sentry est maintenant configuré et écoute sur le port 9000 en local uniquement. Une dernière chose avant de passer à la suite : créons un utilisateur qui nous servira à nous connecter à l&amp;rsquo;interface web.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sentry --config=/etc/sentry.conf.py createsuperuser
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note : la commande &lt;code&gt;deactivate&lt;/code&gt; permet de sortir de l&amp;rsquo;environnement virtuel python.&lt;/p&gt;
+
+&lt;h3 id=&#34;configurer-nginx&#34;&gt;Configurer Nginx&lt;/h3&gt;
+
+&lt;p&gt;Nous allons ajouter un hôte virtuel, que nous activerons en utilisant les commandes suivantes :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;nano /etc/nginx/sites-available/sentry.local
+ln -s /etc/nginx/sites-available/sentry.local /etc/nginx/sites-enabled/sentry.local
+service nginx restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Le contenu du fichier est disponible ici : &lt;a href=&#34;https://gist.github.com/aubm/00b0ba9a602312e26717#file-sentry-local-nginx-file&#34; target=&#34;_blank&#34;&gt;Voir le gist&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;lancer-les-processus-avec-supervisor&#34;&gt;Lancer les processus avec Supervisor&lt;/h3&gt;
+
+&lt;p&gt;A ce stade, Sentry est correctement installé et prêt à fonctionner en démarrant ces deux processus :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sentry --config=/etc/sentry.conf.py start http
+sentry --config=/etc/sentry.conf.py celery worker -B
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Le premier correspond à l&amp;rsquo;application web et embarque l&amp;rsquo;interface utilisateur et le webservice. Le second démarre les workers Celery qui traitent les tâches asynchrones qui permettent à Sentry de fonctionner.&lt;/p&gt;
+
+&lt;p&gt;Cependant, pour des questions pratiques nous allons utiliser le gestionnaire de processus Supervisor qui prendra en charge le démarrage de ces deux programmes.&lt;/p&gt;
+
+&lt;p&gt;Commençons par installer Supervisor et générer un fichier de configuration.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;easy_install supervisor
+echo_supervisord_conf &amp;gt; /etc/supervisord.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Éditons maintenant le fichier &lt;code&gt;/etc/supervisord.conf&lt;/code&gt; pour y ajouter (à la fin) le contenu de &lt;a href=&#34;https://gist.github.com/aubm/00b0ba9a602312e26717#file-end-of-supervisord-conf&#34; target=&#34;_blank&#34;&gt;ce gist&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Enfin, la commande suivante démarrera Supervisor et Sentry par la même.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;supervisord
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;utiliser-sentry-avec-des-applications-php&#34;&gt;Utiliser Sentry avec des applications PHP&lt;/h2&gt;
+
+&lt;h3 id=&#34;installation-de-raven-php&#34;&gt;Installation de raven-php&lt;/h3&gt;
+
+&lt;p&gt;La première chose à faire est de télécharger le paquet raven-php. Utilisons composer et ajoutons le paquet comme dépendance pour le projet.&lt;/p&gt;
+
+&lt;p&gt;Voilà le contenu du fichier &lt;code&gt;composer.json&lt;/code&gt; :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+    &amp;quot;require&amp;quot;: {
+        &amp;quot;raven/raven&amp;quot;: &amp;quot;dev-master&amp;quot;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Une fois fait la commande &lt;code&gt;composer install&lt;/code&gt; se chargera de télécharger la dernière version de la librairie.&lt;/p&gt;
+
+&lt;p&gt;Enfin - si ce n&amp;rsquo;est pas déjà fait - ajoutons la ligne suivante en début de fichier pour configurer le chargement automatique des classes du paquet.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;require_once __DIR__ . &#39;/vendor/autoload.php&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;envoyer-nos-premiers-messages&#34;&gt;Envoyer nos premiers messages&lt;/h3&gt;
+
+&lt;p&gt;Nous allons créer un objet de type &lt;code&gt;Raven_Client&lt;/code&gt; que nous utiliserons pour communiquer nos erreurs au serveur Sentry.&lt;/p&gt;
+
+&lt;p&gt;Voilà les lignes de code à ajouter à la suite de notre fichier :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;$sentry_api_key = &#39;http://21e21b43f3834e04b826ac24f9ef8cc9:acc747a904dc446793c5d31d9406ec79@sentry.local/2&#39;; 
+$sentry_client = new Raven_Client($sentry_api_key);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;La valeur de la variable &lt;code&gt;$sentry_api_key&lt;/code&gt; est propre à un projet. Cette information se récupère via l&amp;rsquo;interface web de Sentry en naviguant dans le projet, puis &amp;ldquo;Settings&amp;rdquo; puis &amp;ldquo;API Keys&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;Il ne reste plus qu&amp;rsquo;à envoyer notre premier message :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;$sentry_client-&amp;gt;captureMessage(&#39;Message test !&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Capturer une exception est tout aussi simple en utilisant par exemple le code suivant :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;try {
+    throw new Exception(&#39;Exception test&#39;, 500); 
+} catch (Exception $e) { 
+    $sentry_client-&amp;gt;captureException($e);
+ }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;figure&gt;
+&lt;img src=&#34;http://www.aubm.net/img/message_exception_test.png&#34; alt=&#34;Affichage des messages d&#39;erreur dans l&#39;interface web de Sentry&#34; class=&#34;img-responsive&#34;/&gt;
+&lt;figcaption&gt;Les messages tels qu&#39;ils sont affichés dans l&#39;interface web de Sentry.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h3 id=&#34;enregistrer-sentry-comme-gestionnaire-d-erreurs&#34;&gt;Enregistrer Sentry comme gestionnaire d&amp;rsquo;erreurs&lt;/h3&gt;
+
+&lt;p&gt;Il est possible de configurer Sentry comme gestionnaire d&amp;rsquo;erreurs et d&amp;rsquo;exceptions avec le code suivant :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;$error_handler = new Raven_ErrorHandler($sentry_client); 
+set_error_handler(array($error_handler, &#39;handleError&#39;));
+ set_exception_handler(array($error_handler, &#39;handleException&#39;));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Avec cette configuration, toutes les erreurs et les exceptions non &amp;ldquo;catchées&amp;rdquo; seront automatiquement envoyées à Sentry.&lt;/p&gt;
+
+&lt;h3 id=&#34;configurer-sentry-pour-symfony2&#34;&gt;Configurer Sentry pour Symfony2&lt;/h3&gt;
+
+&lt;p&gt;Configurer Sentry dans une application utilisant le framework full-stack de Symfony2 peut se faire de façon très simple grâce à &lt;a href=&#34;https://github.com/Seldaek/monolog/blob/master/src/Monolog/Handler/RavenHandler.php&#34; target=&#34;_blank&#34;&gt;Monolog qui intègre un handler pour Sentry&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Dans la configuration de Monolog, dans le fichier &lt;code&gt;config_prod.yml&lt;/code&gt; par exemple, il suffit de configurer ce handler.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;monolog:
+    handlers:
+        main:
+            type: fingers_crossed
+            action_level: error
+            handler: nested
+        nested:
+            type:  stream
+            path:  &amp;quot;%kernel.logs_dir%/%kernel.environment%.log&amp;quot;
+            level: debug
+        console:
+            type:  console
+        sentry:
+            type: raven
+            dsn: http://21e21b43f3834e04b826ac24f9ef8cc9:acc747a904dc446793c5d31d9406ec79@sentry.local/2
+            level: notice
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;ressources&#34;&gt;Ressources&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://sentry.readthedocs.org/en/latest/quickstart/&#34; target=&#34;_blank&#34;&gt;Guide d&amp;rsquo;installation officiel de Sentry&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://virtualenv.pypa.io/en/latest/&#34; target=&#34;_blank&#34;&gt;Pour en apprendre plus sur les virtualenv python&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pypi.python.org/pypi/pip&#34; target=&#34;_blank&#34;&gt;Pour en apprendre plus sur le gestionnaire de paquets python pip&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://supervisord.org/installing.html&#34; target=&#34;_blank&#34;&gt;Pour en apprendre plus sur le gestionnaire de processus supervisor&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://packagist.org/packages/raven/raven&#34; target=&#34;_blank&#34;&gt;Page packagist de raven-php&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://getcomposer.org/doc/00-intro.md&#34; target=&#34;_blank&#34;&gt;Introduction au gestionnaire de paquets php composer&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

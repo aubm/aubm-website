@@ -1,11 +1,27 @@
 baseurl = "http://www.aubm.net/"
-languageCode = "fr-FR"
 title = "Aubm"
-theme = "code-editor"
+theme = "bare"
 
-disqusShortname = "wwwaubmnet"
 googleAnalytics = "UA-38043974-6"
 
 [params]
-    author = "Aurélien Baumann (Aubm)"
-    locale = "fr-FR"
+mainSections = ["posts"]
+author = "Aurélien Baumann"
+email = "aur.baumann@gmail.com"
+description = 'This is me'
+postcss = false
+disableAttribution = true
+
+[[params.social]]
+icon = "github-circle"
+url = "https://github.com/aubm"
+
+[[params.social]]
+icon = "twitter"
+url = "https://twitter.com/kendo5731"
+
+[[params.social]]
+icon = "linkedin"
+url = "https://www.linkedin.com/in/aurelienbaumann/"
+
+

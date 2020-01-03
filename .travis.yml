@@ -2,9 +2,15 @@ install:
   - curl -LO https://github.com/gohugoio/hugo/releases/download/v0.62.1/hugo_0.62.1_Linux-64bit.deb
   - sudo dpkg -i hugo_0.62.1_Linux-64bit.deb
 
-script: ./deploy.sh
+script:
+  - hugo
+  - echo "www.aubm.net" > public/CNAME
 
-env:
-    global:
-        - GITHUB_REPO: aubm/aubm-website
-        - secure: ebr+O7cpZfZMwecYfGiJmEHLOt6R8RSF0X7DMLbUBfxjgqMwkxlN5I3Ocr90TAQU24NVv521oYJiS/K+q3FYkaa9o/jEEBG/MC61XbXPUgAzyGvN5Y9P9aZepHBG/y8lLvmhPfajSeavSmxkYluDafMQLt3WmL0jf0ZQKI04wux1AcK4KUKY8tWXTPITwIhxqwy4n8B4CNvDVi+NVgp0eZ/d4wJlsa1wW7gW/QhZDZ6IagfRboDWfOh+BLhuQdRTsB2f/KqzJDfOdkQ6A3mv5P/mqGGZFyLFdVFUsh/TQ92E73T/BuTBaiOb/3SH7sHC2pwcZiH3Srm80VDsu+mSwGwfamw05FiRLalbjXcyrdX6Qb8sGr3EualhwcOo+Qy3qTiMJMqw+nYQmUZIXo3hLeFdSfJkwA/WNhrBHABkVuFmZ43OlHyEOCa3q3swaOuJON41LM/p7PWozouSyL7XGdpFJoRgn2Zk98m70pDaIHNzhgIFO+6h0kEcotGJb3lNH4E1X2X+24Y8NNuqel2d+9ltETz83+y3hWZHzOQUvsCH6Zr025uhmdsrvykqcb3Kb7uIlq5F5GtduxyuVA62XfZO6BDnhhrntfwSB9/qh8eXL3OClVhD4HatUhwnhWpc32ZEiEqA69zHLc6Pn0MDComC3OkZYae8B1Vj2FKsc50=
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  local_dir: public
+  on:
+    branch: master

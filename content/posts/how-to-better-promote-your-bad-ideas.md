@@ -8,7 +8,7 @@ tags: []
 Ever found yourself in a situation where you had to promote an idea that you thought it was brilliant, but your co-workers did not?
 
 We don't always have good ideas, sometimes we poorly elaborate our instincts, and whatever we come up with doesn't pass the test of the evaluation by our pairs.
-If you colleagues have presented robust and logical arguments, then it's hard to defend your idea further.
+If your colleagues have presented robust and logical arguments, then it's hard to defend your idea further.
 
 The thing is, if you really care about these ideas, then it is really a shame that it would only take a solid and well established argumentation for them to be rejected. What if everything that comes from you ends up being gently put apart by the first well intended experienced expert.
 Well that would be outraging and unfair! After all, if you really want to store these sensitive payment transactions in an sqlite database running in a docker container located on a non-persistent local VM disk, it is your damn right to do so!
@@ -37,7 +37,7 @@ I'm sure the following quote, which by the way is a good illustration of a hasty
 
 > If it is good enough for Javascript, why can't we apply it in Rust?
 >
->-- _A developer who really enjoy Javascript_
+>-- _A developer who really enjoys Javascript_
 
 ### Cherry-picking
 
@@ -109,11 +109,11 @@ Let's see if the following rings any bell.
 >
 > &minus; Still that won't guarantee us that our images are fully secured. Why investing in an effort that won't satisfy all our needs?
 
-A solution doesn't need to be perfect to be the best your team can produce. That being said, this king of argument works surprisingly well in many contexts, so feel free to give it a shot!
+A solution doesn't need to be perfect to be the best your team can produce. That being said, this kind of argument works surprisingly well in many contexts, so feel free to give it a shot!
 
 ### The false analogy
 
-The use of analogies is a good strategy to understand new unknown concepts by comparing them to more familiar and somehow similar concepts.
+The use of analogies is a good strategy to understand new unknown concepts by comparing them to more familiar and somehow similar ones.
 For example, comparing containers to lightweight virtual machines can help someone at getting a first idea of the concept. But analogies have limits, and the more we deep into the specificities of the individual concepts, the less the analogy stays relevant.
 
 To put it another way, the less a person knows about a given topic, the easiest it will be for you to abuse of fallacious analogies. So whenever possible, take advantage of this!
@@ -174,7 +174,7 @@ Or put in other terms : playing the nazi card. This one is a kind of pre-package
 These techniques (among others) can be used to defend bad ideas, but good ideas can also be poorly defended by using them.
 In both cases, it remains a problem. The workspace should be a place where ideas (good and bad) are discussed honestly with logical and pragmatic arguments.
 
-Try and spot usages of these fallacious techniques both in your coworkers argumentation, and also in yours. By being aware of our biases and how they reveals themselves, we all work for a better communication with our pairs.
+Try and spot usages of these fallacious techniques both in your coworkers argumentation, and also in yours. By being aware of our biases and how they reveal themselves, we all work for a better communication with our pairs.
 
 ## Used resources
 

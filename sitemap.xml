@@ -1,149 +1,28 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
-  <url>
-    <loc>http://www.aubm.net/blog/pourquoi-big-o-est-important/</loc>
-    <lastmod>2016-12-08T22:01:52+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.aubm.net/blog/comment-vous-faire-une-idee-d-l-impact-de-la-latence-de-votre-televiseur-dans-vos-sessions-de-jeux-videos/</loc>
-    <lastmod>2016-11-11T16:53:03+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.aubm.net/blog/testing-d-une-app-golang-sur-appengine-une-maniere-de-gerer-l-erreur-newcontext-passed-an-unknown-http-request/</loc>
-    <lastmod>2016-10-13T19:38:59+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.aubm.net/blog/l-injection-de-dependances-a-l-esprit-dans-vos-applications-golang/</loc>
-    <lastmod>2016-05-09T18:45:44+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.aubm.net/blog/aller-plus-loin-avec-postman/</loc>
-    <lastmod>2016-02-19T21:47:28+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.aubm.net/blog/du-neuf-sous-le-capot/</loc>
-    <lastmod>2015-11-03T08:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.aubm.net/blog/gardez-le-code-explicite-court-et-modulaire/</loc>
-    <lastmod>2015-05-20T10:39:44+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.aubm.net/blog/contrainte-dunicite-dans-symfony-2-avec-doctrine/</loc>
-    <lastmod>2015-03-22T15:55:31+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.aubm.net/blog/mes-premiers-pas-avec-cakephp-3/</loc>
-    <lastmod>2015-03-13T16:22:40+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.aubm.net/blog/installation-et-utilisation-de-sentry/</loc>
-    <lastmod>2015-01-24T19:33:05+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.aubm.net/blog/astuce-phpstorm-partager-ses-lives-templates/</loc>
-    <lastmod>2014-10-11T18:39:40+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.aubm.net/blog/la-pagination-avec-doctrine-la-bonne-methode/</loc>
-    <lastmod>2014-10-06T19:45:13+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.aubm.net/blog/retour-dexperience-sur-joomla-point-de-vue-dun-developpeur/</loc>
-    <lastmod>2014-10-01T00:07:05+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.aubm.net/blog/webservice-restful-avec-symfony2-gerer-les-champs-de-type-datetime/</loc>
-    <lastmod>2014-07-03T19:24:23+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.aubm.net/blog/astuce-le-serveur-de-developpement-embarque-de-php/</loc>
-    <lastmod>2014-05-22T02:15:15+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.aubm.net/blog/utiliser-les-event-subscriber-avec-fosrestbundle-et-jmsserializerbundle/</loc>
-    <lastmod>2014-05-20T20:26:49+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.aubm.net/tags/astuce/</loc>
-    <lastmod>2016-02-19T21:47:28+01:00</lastmod>
-    <priority>0</priority>
-  </url>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
     <loc>http://www.aubm.net/</loc>
-    <lastmod>2016-12-08T22:01:52+01:00</lastmod>
-    <priority>0</priority>
+    <lastmod>2020-01-03T00:38:00+01:00</lastmod>
   </url>
   
   <url>
-    <loc>http://www.aubm.net/blog/</loc>
-    <lastmod>2016-12-08T22:01:52+01:00</lastmod>
-    <priority>0</priority>
+    <loc>http://www.aubm.net/posts/how-to-better-promote-your-bad-ideas/</loc>
+    <lastmod>2020-01-03T00:38:00+01:00</lastmod>
   </url>
   
   <url>
-    <loc>http://www.aubm.net/tags/cakephp/</loc>
-    <lastmod>2015-03-13T16:22:40+01:00</lastmod>
-    <priority>0</priority>
+    <loc>http://www.aubm.net/posts/</loc>
+    <lastmod>2020-01-03T00:38:00+01:00</lastmod>
   </url>
   
   <url>
-    <loc>http://www.aubm.net/tags/doctrine/</loc>
-    <lastmod>2015-03-22T15:55:31+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://www.aubm.net/tags/golang/</loc>
-    <lastmod>2016-05-09T18:45:44+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://www.aubm.net/tags/joomla/</loc>
-    <lastmod>2014-10-01T00:07:05+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://www.aubm.net/tags/php/</loc>
-    <lastmod>2015-03-22T15:55:31+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://www.aubm.net/tags/solution/</loc>
-    <lastmod>2015-01-24T19:33:05+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://www.aubm.net/tags/symfony/</loc>
-    <lastmod>2015-03-22T15:55:31+01:00</lastmod>
-    <priority>0</priority>
+    <loc>http://www.aubm.net/categories/</loc>
   </url>
   
   <url>
     <loc>http://www.aubm.net/tags/</loc>
-    <priority>0</priority>
   </url>
   
 </urlset>

@@ -29,7 +29,7 @@ For example, go outside your team's boundaries and with a bit of creative interp
 ### Argumentum ad populum _(appeals to the people)_
 
 That one is a close cousin of the ad verecundiam, only this time, you call the mass.
-It can go with several forms, but a common one is _If it has worked for them I don't see any reason why it wouldn't work for us._.
+It can go with several forms, but a common one is _If it has worked for them I don't see any reason why it wouldn't work for us_.
 
 Always wanted your company to go monorepo? Use the card _Google, Facebook, Microsoft and many others use a monorepo, we should definitely do that too._
 
@@ -100,12 +100,12 @@ This is called a straw man, in reference to the old military training where the 
 ### The perfect solution
 
 You probably have heard of that one, and I would even bet that you already witnessed it working.
-This sophism consists of rejecting a solution for the very one reason that it only address a portion of the problem.
+This sophism consists in rejecting a solution for the very one reason that it only address a portion of the problem.
 Let's see if the following rings any bell.
 
 > This curl command is not a faithful representation of what the user actually do on the system. Basing the test on this approach, we might as well do nothing at all!
 
-> &minus; We have decided to removed all unused system packages from our Docker images in order to limit the potential security breaches surface.
+> &minus; We have decided to remove all unused system packages from our Docker images in order to limit the potential security breaches surface.
 >
 > &minus; Still that won't guarantee us that our images are fully secured. Why investing in an effort that won't satisfy all our needs?
 
@@ -116,7 +116,7 @@ A solution doesn't need to be perfect to be the best your team can produce. That
 The use of analogies is a good strategy to understand new unknown concepts by comparing them to more familiar and somehow similar ones.
 For example, comparing containers to lightweight virtual machines can help someone at getting a first idea of the concept. But analogies have limits, and the more we deep into the specificities of the individual concepts, the less the analogy stays relevant.
 
-To put it another way, the less a person knows about a given topic, the easiest it will be for you to abuse of fallacious analogies. So whenever possible, take advantage of this!
+To put it another way, the less a person knows about a given topic, the easier it will be for you to abuse of fallacious analogies. So whenever possible, take advantage of this!
 
 > Bringing the whole Angular stack for an app as simple as that one is like using a sledgehammer to kill a gnat.
 >
@@ -142,7 +142,7 @@ Sometimes you feel like writing some documentation and sometimes you don't, deal
 
 ### The slippery slope
 
-Like the red herring, the goal of the slippery slope is to create a diversion. Only this time, we invoke a chain of undesirable consequences in order to demonstrate how bad it could be if we accepted the first element. Obviously, the last element of the chain and the ultimate consequence has to be very bad.
+Like the red herring, the goal of the slippery slope is to create a diversion. Only this time, we invoke a chain of undesirable consequences in order to demonstrate how bad it could be if we accepted the first element. Obviously, the last element of the chain (the ultimate consequence) has to be very bad.
 
 > &minus; This refactoring task is starting to go too far, we should clarify the scope of a first step, and set a schedule for other ones.
 >
@@ -165,7 +165,7 @@ Ad hominem is another diversion strategy, that must be adapted to the context. S
 
 ### Reductio ad Hitlerum
 
-Or put in other terms : playing the nazi card. This one is a kind of pre-packaged ad hominem and another verification of the [Godwin's law](https://en.wikipedia.org/wiki/Godwin%27s_law).
+Or put in other terms: playing the nazi card. This one is a kind of pre-packaged ad hominem and another verification of the [Godwin's law](https://en.wikipedia.org/wiki/Godwin%27s_law).
 
 > You want everyone to use two spaces indents, do you know that Hitler couldn't stand four spaces indents either?
 

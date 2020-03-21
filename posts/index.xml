@@ -5,10 +5,20 @@
     <link>https://www.aubm.net/posts/</link>
     <description>Recent content in Posts on Aubm</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 03 Jan 2020 00:38:00 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 21 Mar 2020 09:40:36 +0100</lastBuildDate>
     
 	<atom:link href="https://www.aubm.net/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Being the Best Is Not Enough</title>
+      <link>https://www.aubm.net/posts/being-the-best-is-not-enough/</link>
+      <pubDate>Sat, 21 Mar 2020 09:40:36 +0100</pubDate>
+      
+      <guid>https://www.aubm.net/posts/being-the-best-is-not-enough/</guid>
+      <description>Being the best, meaning having the best technical skills. It is not a rare thing for me to meet with someone, typically a fellow developer, who will give me the impression that having figured it all out about a technology is what makes you the best match for working on a particular project.
+I believe this statement is wrong and it may sound straightforward to say. But identifying what we are missing when we think like that is a bit less obvious.</description>
+    </item>
     
     <item>
       <title>How to Better Promote Your Bad Ideas</title>
@@ -17,7 +27,7 @@
       
       <guid>https://www.aubm.net/posts/how-to-better-promote-your-bad-ideas/</guid>
       <description>Ever found yourself in a situation where you had to promote an idea that you thought it was brilliant, but your co-workers did not?
-We don&#39;t always have good ideas, sometimes we poorly elaborate our instincts, and whatever we come up with doesn&#39;t pass the test of the evaluation by our pairs. If your colleagues have presented robust and logical arguments, then it&#39;s hard to defend your idea further.
+We don&amp;rsquo;t always have good ideas, sometimes we poorly elaborate our instincts, and whatever we come up with doesn&amp;rsquo;t pass the test of the evaluation by our pairs. If your colleagues have presented robust and logical arguments, then it&amp;rsquo;s hard to defend your idea further.
 The thing is, if you really care about these ideas, then it is really a shame that it would only take a solid and well established argumentation for them to be rejected.</description>
     </item>
     

@@ -2,7 +2,7 @@
 title: "How to Better Promote Your Bad Ideas"
 date: 2020-01-03T00:38:00+01:00
 draft: false
-tags: []
+tags: [Inspiration]
 ---
 
 Ever found yourself in a situation where you had to promote an idea that you thought it was brilliant, but your co-workers did not?

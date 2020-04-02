@@ -1,27 +1,36 @@
 baseurl = "https://www.aubm.net/"
 title = "Aubm"
-theme = "bare"
-
-googleAnalytics = "UA-38043974-6"
+theme = "noteworthy"
 
 [params]
-mainSections = ["posts"]
-author = "Aurélien Baumann"
-email = "aur.baumann@gmail.com"
-description = 'This is me'
-postcss = false
-disableAttribution = true
+# Main
+email = "mailto:aur.baumann@gmail.com"
+# facebook = "#"
+twitter = "https://twitter.com/kendo5731"
+# instagram = "#"
+# tumblr = "#"
+# reddit = "#"
+# pinterest = "#"
+# youtube = "#"
+# weibo = "#"
+# vk = "#"
+linkedin = "https://www.linkedin.com/in/aurelienbaumann/"
 
-[[params.social]]
-icon = "github-circle"
-url = "https://github.com/aubm"
+# Writing
+# medium = "#"
+# blogger = "#"
+# wordpress = "#"
 
-[[params.social]]
-icon = "twitter"
-url = "https://twitter.com/kendo5731"
+# Creative & Visual
+# dribbble = "#"
+# behance = "#"
+# deviantart = "#"
+# flickr = "#"
 
-[[params.social]]
-icon = "linkedin"
-url = "https://www.linkedin.com/in/aurelienbaumann/"
+# Programming
+github = "https://github.com/aubm"
+# stackoverflow = "#"
+# gitlab = "#"
+# codepen = "#"
 
-
+googleAnalytics = "UA-38043974-6"

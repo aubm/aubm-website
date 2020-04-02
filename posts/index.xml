@@ -31,5 +31,15 @@ We don&#39;t always have good ideas, sometimes we poorly elaborate our instincts
 The thing is, if you really care about these ideas, then it is really a shame that it would only take a solid and well established argumentation for them to be rejected.</description>
     </item>
     
+    <item>
+      <title>The Case of a Git Linear History</title>
+      <link>https://www.aubm.net/posts/the-case-of-a-git-linear-history/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.aubm.net/posts/the-case-of-a-git-linear-history/</guid>
+      <description>I recently left a team where I was the lead developer for about three years. I was regularly asked about why I wanted to keep the history of the git repository linear. Most of the time (but not always), the question came from fellow developers having a hard time rebasing a work branch.
+As a matter of fact, the question was also asked multiple times on StackOverflow, especially as What are advantages of keeping linear history in git or Git workflow and rebase vs merge questions.</description>
+    </item>
+    
   </channel>
 </rss>

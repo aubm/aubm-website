@@ -36,12 +36,4 @@
     <loc>https://www.aubm.net/categories/</loc>
   </url>
   
-  <url>
-    <loc>https://www.aubm.net/tags/git/</loc>
-  </url>
-  
-  <url>
-    <loc>https://www.aubm.net/posts/the-case-of-a-git-linear-history/</loc>
-  </url>
-  
 </urlset>

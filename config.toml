@@ -2,6 +2,10 @@ baseurl = "https://www.aubm.net/"
 title = "Aubm"
 theme = "noteworthy"
 
+disqusShortname = "wwwaubmnet"
+googleAnalytics = "UA-38043974-6"
+
+
 [params]
 # Main
 email = "mailto:aur.baumann@gmail.com"
@@ -32,5 +36,3 @@ github = "https://github.com/aubm"
 # stackoverflow = "#"
 # gitlab = "#"
 # codepen = "#"
-
-googleAnalytics = "UA-38043974-6"

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on Aubm</title>
+    <link>https://www.aubm.net/tags/git/</link>
+    <description>Recent content in Git on Aubm</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 02 Apr 2020 22:00:00 +0100</lastBuildDate>
+    
+	<atom:link href="https://www.aubm.net/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The Case of a Git Linear History</title>
+      <link>https://www.aubm.net/posts/the-case-of-a-git-linear-history/</link>
+      <pubDate>Thu, 02 Apr 2020 22:00:00 +0100</pubDate>
+      
+      <guid>https://www.aubm.net/posts/the-case-of-a-git-linear-history/</guid>
+      <description>I recently left a team where I was the lead developer for about three years. I was regularly asked about why I wanted to keep the history of the git repository linear. Most of the time (but not always), the question came from fellow developers having a hard time rebasing a work branch.
+As a matter of fact, the question was also asked multiple times on StackOverflow, especially as What are advantages of keeping linear history in git or Git workflow and rebase vs merge questions.</description>
+    </item>
+    
+  </channel>
+</rss>

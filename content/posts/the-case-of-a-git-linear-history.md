@@ -45,7 +45,7 @@ Now here is an example of a non-linear history.
 
 It gives more information about the process of creating the alphabet. Thanks to the graph, we can see that the work on letters k to z was conducted in parallel with another work. We can see when exactly it was integrated.
 While this information can be useful, it comes at the cost of added complexity in the history.
-In order to review each individual step, we need to walk though two different and complementary routes. Our novel is now more of a role playbook that needs to be re-played to get of full appreciation of it. This becomes even more complex, when mixing up more branches.
+In order to review each individual step, we need to walk though two different and complementary routes. Our novel is now more of a role playbook that needs to be re-played to get a full appreciation of it. This becomes even more complex, when mixing up more branches.
 
 But things get confusing when the graph is flattened, with commits printed in one dimension, sorted chronologically.
 This is how the history is represented on Github, Gitlab or Bitbucket in the `/commits` view.
@@ -302,7 +302,7 @@ This is very hazardous, and we would not have encountered this issue with a line
 * cbf6c73 init alphabet.txt with letters a to e
 ```
 
-I want to mention [this article](https://blog.quantic.edu/2015/02/03/git-bisect-debugging-with-feature-branches/). It proposes a workaround this very issue. Though not impossible, it is more tedious and less precise.
+I want to mention [this article](https://blog.quantic.edu/2015/02/03/git-bisect-debugging-with-feature-branches/). It proposes a workaround for this very issue. Though not impossible, it is more tedious and less precise.
 
 ### Easy git revert
 
@@ -414,7 +414,7 @@ Keeping a linear history means that developers will need to rebase their work br
 * cbf6c73 init alphabet.txt with letters a to e
 ```
 
-The last commit in branch `master` changed the name of `alphabet.txt`. When rebasing branch `add-missing-letters`, changes brought to `alphabet.txt` will be reported to `latin-alphabet.txt`. __So yes, the process is destructive__, history is rewritten. It is up to you to estimate the value of keeping the indication that `add-missing-letters` originates from a version of `master` where the file was not renamed yet. At least now, knowing that this will come at other expenses in terms of readability and some tools ease of use, you can make an informed decision.
+The last commit in branch `master` changed the name of `alphabet.txt`. When rebasing branch `add-missing-letters`, changes brought to `alphabet.txt` will be reapplied on `latin-alphabet.txt`. __So yes, the process is destructive__, history is rewritten. It is up to you to estimate the value of keeping the indication that `add-missing-letters` originates from a version of `master` where the file was not renamed yet. At least now, knowing that this will come at other expenses in terms of readability and some tools ease of use, you can make an informed decision.
 
 #### Keeping a linear history doesn't necessarily mean squashing everything around
 
@@ -422,7 +422,7 @@ Squashing a topic branch commits before merge is not necessary for keeping the h
 I want to make this quick digression because I feel like the confusion is often made.
 If you find it relevant, it is perfectly fine to keep commits separated in the branch when merging.
 
-Furthermore, it is possible to use merge commits while requiring branches to be rebased on the target.
+Furthermore, it is possible to use merge commits and still require branches to be rebased on the target.
 The term of semi-linear history is used to describe such logs.
 
 ```
@@ -437,7 +437,7 @@ The term of semi-linear history is used to describe such logs.
 * cbf6c73 init alphabet.txt with letters a to e
 ```
 
-Keeping a semi-linear history has the same advantages than keeping a linear history.
+Regarding readability, bisectability and revertability, a semi-linear history has the same advantages than a linear history.
 
 ### Rebasing is hard, time consuming, reserved for the elite
 
@@ -445,7 +445,7 @@ In the _Git Branching - Rebasing_ chapter of the [git web book](https://git-scm.
 
 Rebase is a more advanced git command that requires reading some documentation and a bit of practice to master.
 But so is mastering a programming language, understanding a runtime environment or getting used to a new IDE.
-In comparison, learning how to perform a simple rebase operation is a very reasonable investment, especially for someone with basic knowledge of git. So no it is not reserved for the elite.
+In comparison, learning how to perform a simple rebase operation is a very reasonable investment, especially for someone with basic knowledge in git. So no, it is not reserved for the elite.
 
 Moreover, major git providers have resources and options that help to maintain a linear or semi-linear history :
 

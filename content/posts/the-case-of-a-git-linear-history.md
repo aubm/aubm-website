@@ -1,6 +1,6 @@
 ---
 title: "The Case of a Git Linear History"
-date: 2020-04-02T23:00+01:00
+date: 2020-04-02T22:00:00+01:00
 draft: false
 tags: [Git]
 ---

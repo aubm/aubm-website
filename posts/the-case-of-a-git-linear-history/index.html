@@ -156,7 +156,7 @@ if (!doNotTrack) {
 I was regularly asked about why I wanted to keep the history of the git repository linear. Most of the time (but not always), the question came from fellow developers having a hard time rebasing a work branch.</p>
 <p>As a matter of fact, the question was also asked multiple times on StackOverflow, especially as <a href="https://stackoverflow.com/questions/20348629/what-are-advantages-of-keeping-linear-history-in-git">What are advantages of keeping linear history in git</a> or <a href="https://stackoverflow.com/questions/457927/git-workflow-and-rebase-vs-merge-questions">Git workflow and rebase vs merge questions</a>.</p>
 <p>When reading the responses and their associated comments, it appears that the opinion is somewhat divided. Searching the web for <em>git linear history</em> or <em>git merge vs rebase</em>, I found many blog posts promoting or demoting linear history. From what I could see, despite the number of available resources, the listed pros and cons arguments are quite redundant, however not always well detailed.
-This blog post will dig into the most recurrent arguments. Let's start with the pros.</p>
+This blog post will dig into the most recurrent arguments. Let&rsquo;s start with the pros.</p>
 <h2 id="pros">Pros</h2>
 <h3 id="it-is-easier-to-follow">It is easier to follow</h3>
 <p>Below is an example of a linear history. It is called linear because every reference has only one parent.
@@ -320,7 +320,7 @@ index 719a59f,0edb856..8451816
 ++Z
 </code></pre><h3 id="easy-git-bisect">Easy git bisect</h3>
 <p>This is a very common argument in favor of a linear history, but I hardly found a satisfying explanation.
-If never used <a href="https://git-scm.com/docs/git-bisect">bisect</a> before, and don't especially plan for using it any time soon, maybe this is not such a strong argument.
+If never used <a href="https://git-scm.com/docs/git-bisect">bisect</a> before, and don&rsquo;t especially plan for using it any time soon, maybe this is not such a strong argument.
 Building on my previous example, here is altered version where I strategically introduced an errored commit.</p>
 <pre><code>* 7c4be78 (master) Merge branch 'add-missing-letters'
 |\
@@ -332,8 +332,8 @@ Building on my previous example, here is altered version where I strategically i
 |/
 * 6f6ed85 add letters from f to j
 * cbf6c73 init alphabet.txt with letters a to e
-</code></pre><p>Here is the detail of the indicted commit. Arguably if every bug was that self-explaining we wouldn't have much trouble tracking them!
-Anyway let's try and catch the one, using bisect.</p>
+</code></pre><p>Here is the detail of the indicted commit. Arguably if every bug was that self-explaining we wouldn&rsquo;t have much trouble tracking them!
+Anyway let&rsquo;s try and catch the one, using bisect.</p>
 <pre><code>commit 45b257c9b1e6a4b8a4d67957add3d5c5176a00e8
 Author: &lt;troll@gmail.com&gt;
 Date:   Thu Apr 2 16:09:20 2020 +0200
@@ -371,7 +371,7 @@ Date:   Thu Apr 2 16:09:20 2020 +0200
 
 :100644 100644 92dfa216416a1ac944633ab674568f8bae139d95 f8c295c135e5d24d913c7b1c720e2e0deeaeb052 M	alphabet.txt
 bisect run success
-</code></pre><p>Bisect didn't find the right commit, so what happened? Let's focus on the portion of the graph that git considered, leaving the rest.</p>
+</code></pre><p>Bisect didn&rsquo;t find the right commit, so what happened? Let&rsquo;s focus on the portion of the graph that git considered, leaving the rest.</p>
 <pre><code>* 7c4be78 (master) Merge branch 'add-missing-letters'
 |\
 * | 45b257c oops... accidentally delete letter E
@@ -381,7 +381,7 @@ bisect run success
 | * d84cbe6 add letters from k to o
 |/
 </code></pre><p>After sorting the commits chronologically, git tries to determine the commit in the middle of the list. As one of the nodes is a merge commit, git needs to treat both branches separately and it starts with the first parent of <code>7c4be78 (master) Merge branch 'add-missing-letters'</code>, which is the <code>add-missing-letters</code> branch. There are three commits in the branch, so the first break is commit <code>11f0ed9 add letters from p to t</code>.</p>
-<p>Then, the test command is ran and this is where things get wrong. Because branch <code>add-missing-letters</code> doesn't have commit <code>1dc63f0 capitalize all letters</code>, the test command fails (exit with status 1). In this context, the appropriate test command should search for <code>e</code> instead of <code>E</code>. We didn't anticipate that and only considered the history of branch <code>master</code>, because of that, git found a false bad commit.</p>
+<p>Then, the test command is ran and this is where things get wrong. Because branch <code>add-missing-letters</code> doesn&rsquo;t have commit <code>1dc63f0 capitalize all letters</code>, the test command fails (exit with status 1). In this context, the appropriate test command should search for <code>e</code> instead of <code>E</code>. We didn&rsquo;t anticipate that and only considered the history of branch <code>master</code>, because of that, git found a false bad commit.</p>
 <p>Moving on, git will then try to determine if the error already existed in commit <code>d84cbe6 add letters from k to o</code>.
 As it did, git is telling us that it is <em>the first bad commit</em>.</p>
 <p>Funny thing is, if branch <code>add-missing-letters</code> originated from commit <code>1dc63f0 capitalize all letters</code>, then <code>E</code> would have been there. Git would then have determined that all commits in the branch were good ones, and would have moved on to the second parent of <code>7c4be78 (master) Merge branch 'add-missing-letters'</code>, eventually finding the actual source of the bug.</p>
@@ -396,7 +396,7 @@ As it did, git is telling us that it is <em>the first bad commit</em>.</p>
 </code></pre><p>I want to mention <a href="https://blog.quantic.edu/2015/02/03/git-bisect-debugging-with-feature-branches/">this article</a>. It proposes a workaround for this very issue. Though not impossible, it is more tedious and less precise.</p>
 <h3 id="easy-git-revert">Easy git revert</h3>
 <p>This is the last recurrent argument for keeping a linear history.
-Let's rewind to an earlier example.</p>
+Let&rsquo;s rewind to an earlier example.</p>
 <pre><code>* 7c4be78 (master) Merge branch 'add-missing-letters'
 |\
 * | 1dc63f0 capitalize all letters
@@ -413,7 +413,7 @@ Let's rewind to an earlier example.</p>
 <li>Meanwhile, <code>1dc63f0</code> changed the case of the existing letters in branch <code>master</code>, <code>alphabet.txt</code> now has A to J.</li>
 <li>Branch <code>add-missing-letters</code> was merged into <code>master</code>. Changes from <code>master</code> were taken into account, and the work adapted so that now the alphabet is complete with capital letters only.</li>
 </ul>
-<p>Now let's say that for some reason, we want to roll back letters u to z. Using revert with commit <code>c0e53d5 (add-missing-letters) add letters from u to z</code> produces the following conflict.</p>
+<p>Now let&rsquo;s say that for some reason, we want to roll back letters u to z. Using revert with commit <code>c0e53d5 (add-missing-letters) add letters from u to z</code> produces the following conflict.</p>
 <pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
 A
 B
@@ -485,7 +485,7 @@ This could mitigate the argument. Still, building on the previous examples, we w
 * 6f6ed85 add letters from f to j
 * cbf6c73 init alphabet.txt with letters a to e
 </code></pre><p>The last commit in branch <code>master</code> changed the name of <code>alphabet.txt</code>. When rebasing branch <code>add-missing-letters</code>, changes brought to <code>alphabet.txt</code> will be reapplied on <code>latin-alphabet.txt</code>. <strong>So yes, the process is destructive</strong>, history is rewritten. It is up to you to estimate the value of keeping the indication that <code>add-missing-letters</code> originates from a version of <code>master</code> where the file was not renamed yet. At least now, knowing that this will come at other expenses in terms of readability and some tools ease of use, you can make an informed decision.</p>
-<h4 id="keeping-a-linear-history-doesnt-necessarily-mean-squashing-everything-around">Keeping a linear history doesn't necessarily mean squashing everything around</h4>
+<h4 id="keeping-a-linear-history-doesnt-necessarily-mean-squashing-everything-around">Keeping a linear history doesn&rsquo;t necessarily mean squashing everything around</h4>
 <p>Squashing a topic branch commits before merge is not necessary for keeping the history linear.
 I want to make this quick digression because I feel like the confusion is often made.
 If you find it relevant, it is perfectly fine to keep commits separated in the branch when merging.</p>
@@ -502,7 +502,7 @@ The term of semi-linear history is used to describe such logs.</p>
 * cbf6c73 init alphabet.txt with letters a to e
 </code></pre><p>Regarding readability, bisectability and revertability, a semi-linear history has the same advantages than a linear history.</p>
 <h3 id="rebasing-is-hard-time-consuming-reserved-for-the-elite">Rebasing is hard, time consuming, reserved for the elite</h3>
-<p>In the <em>Git Branching - Rebasing</em> chapter of the <a href="https://git-scm.com/book/en/v2/Git-Branching-Rebasing">git web book</a>, the <em>merge</em> command is mentioned as the <em>easiest way to integrate two branches</em> with divergent history. The method is indeed more direct, requires less commands and manual steps, however it should be recalled that easiest doesn't necessarily mean best or recommended.</p>
+<p>In the <em>Git Branching - Rebasing</em> chapter of the <a href="https://git-scm.com/book/en/v2/Git-Branching-Rebasing">git web book</a>, the <em>merge</em> command is mentioned as the <em>easiest way to integrate two branches</em> with divergent history. The method is indeed more direct, requires less commands and manual steps, however it should be recalled that easiest doesn&rsquo;t necessarily mean best or recommended.</p>
 <p>Rebase is a more advanced git command that requires reading some documentation and a bit of practice to master.
 But so is mastering a programming language, understanding a runtime environment or getting used to a new IDE.
 In comparison, learning how to perform a simple rebase operation is a very reasonable investment, especially for someone with basic knowledge in git. So no, it is not reserved for the elite.</p>

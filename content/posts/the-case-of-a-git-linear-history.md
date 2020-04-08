@@ -45,7 +45,7 @@ Now here is an example of a non-linear history.
 
 It gives more information about the process of creating the alphabet. Thanks to the graph, we can see that the work on letters k to z was conducted in parallel with another work. We can see when exactly it was integrated.
 While this information can be useful, it comes at the cost of added complexity in the history.
-In order to review each individual step, we need to walk though two different and complementary routes. Our novel is now more of a role playbook that needs to be re-played to get a full appreciation of it. This becomes even more complex, when mixing up more branches.
+In order to review each individual step, we need to walk through two different and complementary routes. Our novel is now more of a role playbook that needs to be re-played to get a full appreciation of it. This becomes even more complex, when mixing up more branches.
 
 But things get confusing when the graph is flattened, with commits printed in one dimension, sorted chronologically.
 This is how the history is represented on Github, Gitlab or Bitbucket in the `/commits` view.

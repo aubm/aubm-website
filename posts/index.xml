@@ -5,10 +5,20 @@
     <link>https://www.aubm.net/posts/</link>
     <description>Recent content in Posts on Aubm</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 02 Apr 2020 22:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 26 Apr 2020 15:00:07 +0200</lastBuildDate>
     
 	<atom:link href="https://www.aubm.net/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>The Certified Kubernetes Application Developer and Administrator Certifications</title>
+      <link>https://www.aubm.net/posts/the-certified-kubernetes-application-developer-and-administrator-certifications/</link>
+      <pubDate>Sun, 26 Apr 2020 15:00:07 +0200</pubDate>
+      
+      <guid>https://www.aubm.net/posts/the-certified-kubernetes-application-developer-and-administrator-certifications/</guid>
+      <description>After a few years of daily work with Kubernetes, I decided to become a Certified Kubernetes Application Developer (CKAD) as well as a Certified Kubernetes Administrator (CKA). As I&amp;rsquo;ve just taken and successfully passed the exams, I figured this was a good opportunity for a story.
+My background experience My first steps with Kubernetes go back a few years ago, when I began experiencing on Google Cloud Platform and was amazed by how easy and fun it was to deploy applications on Google App Engine.</description>
+    </item>
     
     <item>
       <title>The Case of a Git Linear History</title>

@@ -1,3 +1,20 @@
 img {
 	max-width: 100%;
 }
+
+.job-title {
+	text-align: center;
+	margin-bottom: 1.5em;
+}
+
+@mixin media($for-tablet-up) {
+    @media only screen and (min-width: $for-tablet-up) {
+        @content;
+    }
+}
+
+@include media(900px) {
+	.job-title {
+		text-align: left;
+	}
+}

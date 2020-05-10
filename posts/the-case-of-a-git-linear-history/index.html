@@ -160,8 +160,8 @@ I was regularly asked about why I wanted to keep the history of the git reposito
 <p>As a matter of fact, the question was also asked multiple times on StackOverflow, especially as <a href="https://stackoverflow.com/questions/20348629/what-are-advantages-of-keeping-linear-history-in-git">What are advantages of keeping linear history in git</a> or <a href="https://stackoverflow.com/questions/457927/git-workflow-and-rebase-vs-merge-questions">Git workflow and rebase vs merge questions</a>.</p>
 <p>When reading the responses and their associated comments, it appears that the opinion is somewhat divided. Searching the web for <em>git linear history</em> or <em>git merge vs rebase</em>, I found many blog posts promoting or demoting linear history. From what I could see, despite the number of available resources, the listed pros and cons arguments are quite redundant, however not always well detailed.
 This blog post will dig into the most recurrent arguments. Let&rsquo;s start with the pros.</p>
-<h2 id="pros">Pros</h2>
-<h3 id="it-is-easier-to-follow">It is easier to follow</h3>
+<a class="headline-hash" href="#pros"><h2 id="pros">Pros</a> </h2>
+<a class="headline-hash" href="#it-is-easier-to-follow"><h3 id="it-is-easier-to-follow">It is easier to follow</a> </h3>
 <p>Below is an example of a linear history. It is called linear because every reference has only one parent.
 Hitting down the road to the past of this alphabet repository, each commit is like a new page of a book. They are incremental and chronological, there are no fork roads on the way back to the root of the project.</p>
 <pre><code>* b0aaccd (master) add letters from U to Z
@@ -321,7 +321,7 @@ index 719a59f,0edb856..8451816
 ++X
 ++Y
 ++Z
-</code></pre><h3 id="easy-git-bisect">Easy git bisect</h3>
+</code></pre><a class="headline-hash" href="#easy-git-bisect"><h3 id="easy-git-bisect">Easy git bisect</a> </h3>
 <p>This is a very common argument in favor of a linear history, but I hardly found a satisfying explanation.
 If never used <a href="https://git-scm.com/docs/git-bisect">bisect</a> before, and don&rsquo;t especially plan for using it any time soon, maybe this is not such a strong argument.
 Building on my previous example, here is altered version where I strategically introduced an errored commit.</p>
@@ -397,7 +397,7 @@ As it did, git is telling us that it is <em>the first bad commit</em>.</p>
 * 6f6ed85 add letters from f to j
 * cbf6c73 init alphabet.txt with letters a to e
 </code></pre><p>I want to mention <a href="https://blog.quantic.edu/2015/02/03/git-bisect-debugging-with-feature-branches/">this article</a>. It proposes a workaround for this very issue. Though not impossible, it is more tedious and less precise.</p>
-<h3 id="easy-git-revert">Easy git revert</h3>
+<a class="headline-hash" href="#easy-git-revert"><h3 id="easy-git-revert">Easy git revert</a> </h3>
 <p>This is the last recurrent argument for keeping a linear history.
 Let&rsquo;s rewind to an earlier example.</p>
 <pre><code>* 7c4be78 (master) Merge branch 'add-missing-letters'
@@ -476,8 +476,8 @@ In the case of the linear version of this history, the revert applies seamlessly
 * cbf6c73 init alphabet.txt with letters a to e
 </code></pre><p>That being said, git revert is not cheap, and often not realistic for patching a set of files where a lot of modifications happened since the original patch was applied.
 This could mitigate the argument. Still, building on the previous examples, we were able to show how a non-linear history can complicate things more.</p>
-<h2 id="cons">Cons</h2>
-<h3 id="incremental-build-efforts-are-lost">Incremental build efforts are lost</h3>
+<a class="headline-hash" href="#cons"><h2 id="cons">Cons</a> </h2>
+<a class="headline-hash" href="#incremental-build-efforts-are-lost"><h3 id="incremental-build-efforts-are-lost">Incremental build efforts are lost</a> </h3>
 <p>Keeping a linear history means that developers will need to rebase their work branches before merging. When applying a patch on a more recent base, chances are that some portions of the work will be invalidated by the latest changes.</p>
 <pre><code>* f19b505 (master) rename alphabet.txt to latin-alphabet.txt
 | * c0e53d5 (add-missing-letters) add letters from u to z
@@ -488,7 +488,7 @@ This could mitigate the argument. Still, building on the previous examples, we w
 * 6f6ed85 add letters from f to j
 * cbf6c73 init alphabet.txt with letters a to e
 </code></pre><p>The last commit in branch <code>master</code> changed the name of <code>alphabet.txt</code>. When rebasing branch <code>add-missing-letters</code>, changes brought to <code>alphabet.txt</code> will be reapplied on <code>latin-alphabet.txt</code>. <strong>So yes, the process is destructive</strong>, history is rewritten. It is up to you to estimate the value of keeping the indication that <code>add-missing-letters</code> originates from a version of <code>master</code> where the file was not renamed yet. At least now, knowing that this will come at other expenses in terms of readability and some tools ease of use, you can make an informed decision.</p>
-<h4 id="keeping-a-linear-history-doesnt-necessarily-mean-squashing-everything-around">Keeping a linear history doesn&rsquo;t necessarily mean squashing everything around</h4>
+<a class="headline-hash" href="#keeping-a-linear-history-doesnt-necessarily-mean-squashing-everything-around"><h4 id="keeping-a-linear-history-doesnt-necessarily-mean-squashing-everything-around">Keeping a linear history doesn&rsquo;t necessarily mean squashing everything around</a> </h4>
 <p>Squashing a topic branch commits before merge is not necessary for keeping the history linear.
 I want to make this quick digression because I feel like the confusion is often made.
 If you find it relevant, it is perfectly fine to keep commits separated in the branch when merging.</p>
@@ -504,7 +504,7 @@ The term of semi-linear history is used to describe such logs.</p>
 * 6f6ed85 add letters from f to j
 * cbf6c73 init alphabet.txt with letters a to e
 </code></pre><p>Regarding readability, bisectability and revertability, a semi-linear history has the same advantages than a linear history.</p>
-<h3 id="rebasing-is-hard-time-consuming-reserved-for-the-elite">Rebasing is hard, time consuming, reserved for the elite</h3>
+<a class="headline-hash" href="#rebasing-is-hard-time-consuming-reserved-for-the-elite"><h3 id="rebasing-is-hard-time-consuming-reserved-for-the-elite">Rebasing is hard, time consuming, reserved for the elite</a> </h3>
 <p>In the <em>Git Branching - Rebasing</em> chapter of the <a href="https://git-scm.com/book/en/v2/Git-Branching-Rebasing">git web book</a>, the <em>merge</em> command is mentioned as the <em>easiest way to integrate two branches</em> with divergent history. The method is indeed more direct, requires less commands and manual steps, however it should be recalled that easiest doesn&rsquo;t necessarily mean best or recommended.</p>
 <p>Rebase is a more advanced git command that requires reading some documentation and a bit of practice to master.
 But so is mastering a programming language, understanding a runtime environment or getting used to a new IDE.
@@ -524,7 +524,7 @@ When starting using <code>git rebase</code>, I found these situations confusing 
 Rebasing a branch means rebasing individual commits. This is the semi-automatic equivalent of a method consisting in starting a new branch from master, and manually cherry-picking commits, one by one.
 Rebasing a commit means creating a new one (with a different parent), so if the next commit alters the same sources, conflicts will have to be resolved as for any <em>regular</em> conflict originating from a reference that was never an ancestor.</p>
 <p>It can indeed be more time consuming than resolving all conflicts at once. But it is a price to pay if you want to preserve the individual steps of the branch. Branches with few commits or with orthogonal changes between commits help to mitigate or even completely remove this issue.</p>
-<h2 id="conclusion">Conclusion</h2>
+<a class="headline-hash" href="#conclusion"><h2 id="conclusion">Conclusion</a> </h2>
 <p>Because everything is incremental and chronological, it is easy to navigate in the linear history, and it is also easy to use advanced features like bisect and revert. But artificially maintaining a linear history involves constantly rebasing topic branches, which is an advanced git feature that requires a slightly higher mastering of git. In addition, portions of work history are erased in the process.</p>
 <p>If you are wondering whether or not you want to maintain a linear history, you may want to ask yourself what you want your git history to be used for. If your project was a novel, and you want each commit in the master branch to be a new page of the story, then you want a linear history. However if you want your repository to contain the complete and unaltered records of everything that happened in the process of writing the novel, then you will not aim for a linear history.</p>
 <p>Quoting the <em>Git Branching - Rebasing</em> chapter of the <a href="https://git-scm.com/book/en/v2/Git-Branching-Rebasing">git web book</a>:</p>

@@ -161,13 +161,13 @@ If your colleagues have presented robust and logical arguments, then it&rsquo;s 
 <p>The thing is, if you really care about these ideas, then it is really a shame that it would only take a solid and well established argumentation for them to be rejected. What if everything that comes from you ends up being gently put apart by the first well intended experienced expert.
 Well that would be outraging and unfair! After all, if you really want to store these sensitive payment transactions in an sqlite database running in a docker container located on a non-persistent local VM disk, it is your damn right to do so!</p>
 <p>In this article we will discuss and practice several techniques that will help you better promote your bad ideas.</p>
-<h2 id="techniques">Techniques</h2>
-<h3 id="argumentum-ad-verecundiam-_appeals-to-authorities_">Argumentum ad verecundiam <em>(appeals to authorities)</em></h3>
+<a class="headline-hash" href="#techniques"><h2 id="techniques">Techniques</a> </h2>
+<a class="headline-hash" href="#argumentum-ad-verecundiam-_appeals-to-authorities_"><h3 id="argumentum-ad-verecundiam-_appeals-to-authorities_">Argumentum ad verecundiam <em>(appeals to authorities)</em></a> </h3>
 <p>This first one is a safe bet, as it has already proven its effectiveness in many scenarios.</p>
 <p>You might think that it is reserved to the ones in your team that stand in a position of authority of some kind. It is indeed easy if that is your case because then you don&rsquo;t really need to put a lot of effort, just go <em>We&rsquo;ll go with my idea, I take full responsibility on that one.</em> or <em>I&rsquo;ve been working in this team for 2 years and you just arrived. Trust me, you don&rsquo;t want to bring that up.</em>.</p>
 <p>But the truth is, anyone can appeal to authorities.
 For example, go outside your team&rsquo;s boundaries and with a bit of creative interpretation you will always find some guy&rsquo;s blog post or presentation video that supports your idea.</p>
-<h3 id="argumentum-ad-populum-_appeals-to-the-people_">Argumentum ad populum <em>(appeals to the people)</em></h3>
+<a class="headline-hash" href="#argumentum-ad-populum-_appeals-to-the-people_"><h3 id="argumentum-ad-populum-_appeals-to-the-people_">Argumentum ad populum <em>(appeals to the people)</em></a> </h3>
 <p>That one is a close cousin of the ad verecundiam, only this time, you call the mass.
 It can go with several forms, but a common one is <em>If it has worked for them I don&rsquo;t see any reason why it wouldn&rsquo;t work for us</em>.</p>
 <p>Always wanted your company to go monorepo? Use the card <em>Google, Facebook, Microsoft and many others use a monorepo, we should definitely do that too.</em></p>
@@ -176,7 +176,7 @@ It can go with several forms, but a common one is <em>If it has worked for them 
 <p>If it is good enough for Javascript, why can&rsquo;t we apply it in Rust?</p>
 <p>&ndash; <em>A developer who really enjoys Javascript</em></p>
 </blockquote>
-<h3 id="cherry-picking">Cherry-picking</h3>
+<a class="headline-hash" href="#cherry-picking"><h3 id="cherry-picking">Cherry-picking</a> </h3>
 <p>As when using git, cherry-picking is a powerful manipulation tool.</p>
 <p>Used in combination with other techniques, you can achieve powerful combos that will shake your coworkers for sure, like when combining with the ad verecundiam in the below example.</p>
 <blockquote>
@@ -185,7 +185,7 @@ It can go with several forms, but a common one is <em>If it has worked for them 
 </blockquote>
 <p>Of course there is a context in which this opinionated standpoint was made, and people might as well consider that the invoked authority is wrong but your reviewer Jimmy doesn&rsquo;t need to know that.
 The only thing that he needs to understand, is that Rob Pike actually said that, period.</p>
-<h3 id="ex-vulgus-scientia-_popular-wisdom_">Ex vulgus scientia <em>(popular wisdom)</em></h3>
+<a class="headline-hash" href="#ex-vulgus-scientia-_popular-wisdom_"><h3 id="ex-vulgus-scientia-_popular-wisdom_">Ex vulgus scientia <em>(popular wisdom)</em></a> </h3>
 <p>This one is a particularly useful way to play a shell game that will appear as a striking argument for the uninitiated. It consists of taking popular maxims and proverbs and simply using them as arguments.</p>
 <p>Imagine a situation where you have to create a thumb up / thumb down based rating widget. The backend for the widget could simply store a double counter, one for the total number of up votes, and one for the total number of down votes. But what if the marketing team later changes its mind, and in a few weeks by now, they ask you to change your rating widget into a multiple stars based system.
 Fortunately for the company you are working for, you are a very farseeing person.
@@ -193,7 +193,7 @@ You consider designing your backend so that it stores the complete history of vo
 <p>Now enters your reviewer Jimmy who expectedly says that your solution is too complex. Then is a perfect timing for unleashing a <em>He who can do more can do less</em>. Jimmy will be left voiceless, distraught. In his deep inside he will still have the feeling that he had a point but the magic thing is that you don&rsquo;t need to erase that feeling, because you just pulled the wisdom trigger that inserted doubt in Jimmy&rsquo;s mind and he will do the work for you.
 Now he will think <em>He who can do more can indeed do less. Maybe I was wrong and it is a good idea. After all this marketing team is an ever changing entity</em>, and voilà!</p>
 <p>The good thing about popular wisdom maxims is that you can use them to justify anything and everything. For example, the situation could very well have been the opposite, with Jimmy trying to convince you that the future-proof backend is a good idea. Then a simple <em>Leave well enough alone</em> would have made the case.</p>
-<h3 id="the-false-dilemma">The false dilemma</h3>
+<a class="headline-hash" href="#the-false-dilemma"><h3 id="the-false-dilemma">The false dilemma</a> </h3>
 <p>When we are forced to make a difficult choice between two equally reasonable alternatives, that is what we call a dilemma.
 Real dilemmas exist like whether going all native or hybrid for your new mobile app.</p>
 <p>One useful manipulation technique consists of creating a false dilemma. You do that by persuading your opponent that there are only two mutually exclusive solutions to a given problem.
@@ -207,7 +207,7 @@ One solution is precisely where you want to go, and the other is very undesirabl
 </blockquote>
 <p>Whether you really can&rsquo;t stand your old stack anymore, or are too lazy to take some extra care with the containers you ship to production, these lines are worth it.
 It would only require a lack of imagination from your opponent, who would not be able to realize, for example that the stack could only be partially changed fragment per fragment, or that the Docker container could use a fixed tag of the official java image from Docker hub.</p>
-<h3 id="the-straw-man">The straw man</h3>
+<a class="headline-hash" href="#the-straw-man"><h3 id="the-straw-man">The straw man</a> </h3>
 <p>When you face a strong argument, it is hard not to lose face. One way people sometimes react to that is by reconsidering their position, but remember that you don&rsquo;t want to let your coworkers win. Admitting you are wrong is not an option.</p>
 <p>If your opponent&rsquo;s argument is too solid, you might as well subtlety change it by exaggerating it or by making seem like it is used to defend a lesser idea. That way, the argument is way easier to reject.
 This is called a straw man, in reference to the old military training where the soldier fights against a straw man that substitutes the opponent. Of course in that case, it is admitted by all that the military man is fighting a dummy. In the context of a verbal debate, rejecting a mocked version of your opponent&rsquo;s argument will produce the same effect as rejecting the original one. This takes some practice in order for your straw men not to look too obvious.</p>
@@ -219,7 +219,7 @@ This is called a straw man, in reference to the old military training where the 
 <p>− Going open source is not that simple considering the history of the project and how it reflects the company internal policy.</p>
 <p>− If you can&rsquo;t see the benefits of giving back to the community, then I guess we just don&rsquo;t share the same values.</p>
 </blockquote>
-<h3 id="the-perfect-solution">The perfect solution</h3>
+<a class="headline-hash" href="#the-perfect-solution"><h3 id="the-perfect-solution">The perfect solution</a> </h3>
 <p>You probably have heard of that one, and I would even bet that you already witnessed it working.
 This sophism consists in rejecting a solution for the very one reason that it only address a portion of the problem.
 Let&rsquo;s see if the following rings any bell.</p>
@@ -231,7 +231,7 @@ Let&rsquo;s see if the following rings any bell.</p>
 <p>− Still that won&rsquo;t guarantee us that our images are fully secured. Why investing in an effort that won&rsquo;t satisfy all our needs?</p>
 </blockquote>
 <p>A solution doesn&rsquo;t need to be perfect to be the best your team can produce. That being said, this kind of argument works surprisingly well in many contexts, so feel free to give it a shot!</p>
-<h3 id="the-false-analogy">The false analogy</h3>
+<a class="headline-hash" href="#the-false-analogy"><h3 id="the-false-analogy">The false analogy</a> </h3>
 <p>The use of analogies is a good strategy to understand new unknown concepts by comparing them to more familiar and somehow similar ones.
 For example, comparing containers to lightweight virtual machines can help someone at getting a first idea of the concept. But analogies have limits, and the more we deep into the specificities of the individual concepts, the less the analogy stays relevant.</p>
 <p>To put it another way, the less a person knows about a given topic, the easier it will be for you to abuse of fallacious analogies. So whenever possible, take advantage of this!</p>
@@ -239,7 +239,7 @@ For example, comparing containers to lightweight virtual machines can help someo
 <p>Bringing the whole Angular stack for an app as simple as that one is like using a sledgehammer to kill a gnat.</p>
 <p>&ndash; <em>Unbiased anonymous React enthusiast</em></p>
 </blockquote>
-<h3 id="red-herring">Red herring</h3>
+<a class="headline-hash" href="#red-herring"><h3 id="red-herring">Red herring</a> </h3>
 <p>A red herring is a diversion, something that you make up in order to mislead your opponent.
 The name originates from the stories of escaped prisoners who covered their traces for the dogs with red herring in south United States.</p>
 <p>There are many situations in which you might want to spread some red herring too. Imagine for example that your reviewer Jimmy has some security concerns about the way that you implemented your content rating widget and he comes to you to discuss them. Your response might be <em>Happy to hear that we do care about security in this company, considering how many bugs we have on our authorization gateway</em>.</p>
@@ -251,14 +251,14 @@ But does Jimmy need to realize that? Of course not.</p>
 <p>− I could do that, or I could focus on this framework update, don&rsquo;t you think that would be a better use of my time and skills?</p>
 </blockquote>
 <p>Sometimes you feel like writing some documentation and sometimes you don&rsquo;t, deal with it Jimmy.</p>
-<h3 id="the-slippery-slope">The slippery slope</h3>
+<a class="headline-hash" href="#the-slippery-slope"><h3 id="the-slippery-slope">The slippery slope</a> </h3>
 <p>Like the red herring, the goal of the slippery slope is to create a diversion. Only this time, we invoke a chain of undesirable consequences in order to demonstrate how bad it could be if we accepted the first element. Obviously, the last element of the chain (the ultimate consequence) has to be very bad.</p>
 <blockquote>
 <p>− This refactoring task is starting to go too far, we should clarify the scope of a first step, and set a schedule for other ones.</p>
 <p>− If we do not go to the end of it, then we will never do. Inevitably after a short period of time, we will find ourselves in the impossibility to update the framework, which means no more security patches, therefore more and more open faults in production, which will create the need for more on-call weekends.</p>
 </blockquote>
 <p>The reason why it works is that your opponent won&rsquo;t notice that your chain is fragile because the links are pure speculation.</p>
-<h3 id="argumentum-ad-hominem">Argumentum ad hominem</h3>
+<a class="headline-hash" href="#argumentum-ad-hominem"><h3 id="argumentum-ad-hominem">Argumentum ad hominem</a> </h3>
 <p>This one stands for <em>to the person</em>. You can use it when it is easier to reject your opponent rather than the arguments.
 Ad hominem is another diversion strategy, that must be adapted to the context. So free the creativity of the troll that sleeps inside you.</p>
 <blockquote>
@@ -271,16 +271,16 @@ Ad hominem is another diversion strategy, that must be adapted to the context. S
 <blockquote>
 <p>You say that you learned that from your AngularJS experience? Well how do you enjoy the present my dear dinosaur?</p>
 </blockquote>
-<h3 id="reductio-ad-hitlerum">Reductio ad Hitlerum</h3>
+<a class="headline-hash" href="#reductio-ad-hitlerum"><h3 id="reductio-ad-hitlerum">Reductio ad Hitlerum</a> </h3>
 <p>Or put in other terms: playing the nazi card. This one is a kind of pre-packaged ad hominem and another verification of the <a href="https://en.wikipedia.org/wiki/Godwin%27s_law">Godwin&rsquo;s law</a>.</p>
 <blockquote>
 <p>You want everyone to use two spaces indents, do you know that Hitler couldn&rsquo;t stand four spaces indents either?</p>
 </blockquote>
-<h2 id="conclusion">Conclusion</h2>
+<a class="headline-hash" href="#conclusion"><h2 id="conclusion">Conclusion</a> </h2>
 <p>These techniques (among others) can be used to defend bad ideas, but good ideas can also be poorly defended by using them.
 In both cases, it remains a problem. The workspace should be a place where ideas (good and bad) are discussed honestly with logical and pragmatic arguments.</p>
 <p>Try and spot usages of these fallacious techniques both in your coworkers argumentation, and also in yours. By being aware of our biases and how they reveal themselves, we all work for a better communication with our pairs.</p>
-<h2 id="used-resources">Used resources</h2>
+<a class="headline-hash" href="#used-resources"><h2 id="used-resources">Used resources</a> </h2>
 <p>I this article, I tried to give back only a small fraction of what the following resources address.</p>
 <ul>
 <li>[fr] <a href="https://www.amazon.fr/Petit-dautod%C3%A9fense-intellectuelle-Normand-Baillargeon/dp/2895960445">Petit cours d&rsquo;autodéfense intellectuelle - <em>Normand Baillargeon</em></a></li>

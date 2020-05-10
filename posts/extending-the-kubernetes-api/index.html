@@ -158,7 +158,7 @@ if (!doNotTrack) {
         <p>Kubernetes offers various way to add custom functionalities and to modify the way built-in features work.
 Today I want to talk about extending Kubernetes by using custom resources and controllers.
 Let&rsquo;s take a close look at how to do that, but first a quick story!</p>
-<h2 id="why-extending-kubernetes">Why extending Kubernetes</h2>
+<a class="headline-hash" href="#why-extending-kubernetes"><h2 id="why-extending-kubernetes">Why extending Kubernetes</a> </h2>
 <p>As I mentioned <a href="/posts/the-certified-kubernetes-application-developer-and-administrator-certifications">in my previous post</a>, my journey on the cloud began with <a href="https://cloud.google.com/appengine">Google App Engine</a>.
 As a developer, I was pretty happy with the path to production of the service.
 The experience was (and still is) really simple, I just had to focus on the code and the <a href="https://cloud.google.com/sdk">SDK</a> would take care of the whole deployment workflow.
@@ -249,7 +249,7 @@ I mean, it took some time for me to adopt ingress and services, and now I have t
 <p><img src="/img/terry-crews-says-why.jpg" alt="Terry Crews says WHYYY?!"></p>
 <p>The point is, even though Kubernetes has enabled crafting reliable and repeatable deployments on various environments, we still need the simplicity of App Engine.
 I was curious to see how I could leverage the extension points of Kubernetes, in order to implement a deployment workflow that would be simpler to use.</p>
-<h2 id="the-operator-pattern">The operator pattern</h2>
+<a class="headline-hash" href="#the-operator-pattern"><h2 id="the-operator-pattern">The operator pattern</a> </h2>
 <p>There are many <a href="https://kubernetes.io/docs/concepts/extend-kubernetes/extend-cluster/#extension-points">extension points in Kubernetes</a>, from kubectl plugins which add sub commands to storage plugins which add new storage types. The one I want to focus on consists in:</p>
 <ul>
 <li>adding new resource types to the Kubernetes API server, that users will be able to manipulate using standard kubectl.</li>
@@ -257,7 +257,7 @@ I was curious to see how I could leverage the extension points of Kubernetes, in
 </ul>
 <p>Documentation and a lot of other useful resources can be found on this approach which is commonly known as the <a href="https://kubernetes.io/docs/concepts/extend-kubernetes/operator/">operator pattern</a>.</p>
 <p>The watcher program is called a <strong>controller</strong> and it makes use of custom resources defined in <strong>custom resource definitions</strong> or <strong>CRDs</strong>.</p>
-<h2 id="defining-custom-resources">Defining custom resources</h2>
+<a class="headline-hash" href="#defining-custom-resources"><h2 id="defining-custom-resources">Defining custom resources</a> </h2>
 <p>Here is an example of what I chose to call an <code>Application</code>, which I believe is a very original and clever name.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">apiVersion</span>: k8s-app-runner.aubm.net/v1
 <span style="color:#66d9ef">kind</span>: Application
@@ -307,7 +307,7 @@ For example use <code>kubectl explain applications.spec</code> to navigate throu
 Or use <code>kubectl get applications</code>, even with advanced formatting options like <code>kubectl get applications -o custom-columns=NAME:.metadata.name</code>, which outputs:</p>
 <pre><code>NAME
 my-app
-</code></pre><h2 id="implementing-the-controller">Implementing the controller</h2>
+</code></pre><a class="headline-hash" href="#implementing-the-controller"><h2 id="implementing-the-controller">Implementing the controller</a> </h2>
 <blockquote>
 <p>For better readibility, code snippets are shortened. The complete working code is accessible <a href="https://github.com/aubm/k8s-app-runner/tree/master/bare-controller-runtime">here on Github</a>. It has no comments and only serves as a reference for the code examples in the article.</p>
 </blockquote>
@@ -319,7 +319,7 @@ Kubernetes ships a bunch of controllers for standard resources like the replicat
 </blockquote>
 <p>I chose to implement the application controller in Go, so I used the <a href="https://github.com/kubernetes-sigs/controller-runtime">sigs.k8s.io/controller-runtime</a> package which provides <em>tools to construct Kubernetes-style controllers</em>.</p>
 <p>Let&rsquo;s review how to do that.</p>
-<h3 id="minimal-bootstrap">Minimal bootstrap</h3>
+<a class="headline-hash" href="#minimal-bootstrap"><h3 id="minimal-bootstrap">Minimal bootstrap</a> </h3>
 <p>Below is a minimal code snippet, where I eluded the slightly verbose error management just to focus on the key steps of the controller bootstrap process.</p>
 <p>Everything starts by creating a new <code>Manager</code>, which is responsible for orchestrating controllers and providing them with their shared dependencies like the API or cache clients. The <code>NewManager</code> factory takes a client configuration and a few other options which are left to their defaults here.</p>
 <blockquote>
@@ -346,7 +346,7 @@ We&rsquo;ll go into more details about the implementation of that function later
 
 	<span style="color:#a6e22e">mgr</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">SetupSignalHandler</span>())
 }
-</code></pre></div><h3 id="the-reconciliation-loop">The reconciliation loop</h3>
+</code></pre></div><a class="headline-hash" href="#the-reconciliation-loop"><h3 id="the-reconciliation-loop">The reconciliation loop</a> </h3>
 <p>The type <code>applicationReconciler</code> implements the <code>Reconcilier</code> interface, which is pretty straightforward, it only has one method which is defined as follow.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;sigs.k8s.io/controller-runtime/pkg/reconcile&#34;</span>
 
@@ -367,7 +367,7 @@ We&rsquo;ll go into more details about the implementation of that function later
 </ul>
 <p><a href="https://github.com/aubm/k8s-app-runner/blob/master/kubebuilder/controllers/application_controller.go">Here</a> you can go check how I&rsquo;ve implemented that part.</p>
 <p>If for some reason the method returns an error, the controller will invoke the method again, until it eventually successfully reconciles the resource. Whether or not the method succeeds, it is possible to control if and when to call the reconcilier back by setting custom values in <code>reconcile.Result.Requeue</code> (<em>boolean</em>) or <code>reconcile.Result.RequeueAfter</code> (<em>standard time.Duration</em>). No matter what, the reconcilier will be invoked again for any new events on the controlled resources. This whole process is called the reconciliation loop.</p>
-<h3 id="more-details-about-the-application-type">More details about the Application type</h3>
+<a class="headline-hash" href="#more-details-about-the-application-type"><h3 id="more-details-about-the-application-type">More details about the Application type</a> </h3>
 <p>Below is the Go definition of the <code>Application</code> type. It is used to decode/encode all the fields of a Kubernetes application. As you see, types from <code>metav1</code> are used to avoid some boilerplate code for common fields like <code>apiVersion</code>, <code>kind</code>, <code>metadata.name</code>, etc&hellip;</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> <span style="color:#a6e22e">metav1</span> <span style="color:#e6db74">&#34;k8s.io/apimachinery/pkg/apis/meta/v1&#34;</span>
 
@@ -431,7 +431,7 @@ We see the group name and version provided in the <code>GroupVersion</code> prop
 </code></pre></div><blockquote>
 <p>If we look closer at <code>SchemeBuilder.Register</code>, we see that it only accepts objects of type interface <code>k8s.io/apimachinery/pkg/runtime.Object</code>. Two methods must be implemented, the first <code>GetObjectKind() schema.ObjectKind</code> is done for free by embedding the <code>metav1.TypeMeta</code> into the <code>Application</code> type, the second <code>DeepCopyObject() Object</code> is relatively boring, we&rsquo;ll see later how we can leverage code generation to avoid implementing this ourselves.</p>
 </blockquote>
-<h3 id="validating-admission-webhooks">Validating admission webhooks</h3>
+<a class="headline-hash" href="#validating-admission-webhooks"><h3 id="validating-admission-webhooks">Validating admission webhooks</a> </h3>
 <p>The OpenAPI v3 specification supports validation for field values, but it has some limitations.
 Let&rsquo;s say that we want to reject a request that attempts to create an application where <code>minReplicas</code> is greater than <code>maxReplicas</code>.</p>
 <p>For that, Kubernetes supports another extension point which is called <a href="https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook"><em>validating admission webhooks</em></a>.
@@ -470,7 +470,7 @@ What <em>wired</em> means here, is that an actual HTTP server will be started an
 }
 </code></pre></div><p>Now deploying an errored application specification, using <code>kubectl apply</code>, will produce an error like the one below (more on deploying webhooks later).</p>
 <pre><code>Error from server (minReplicas can not be greater than maxReplicas, minReplicas=10 maxReplicas=3): error when creating &quot;my-app.yaml&quot;: admission webhook &quot;vapplication.kb.io&quot; denied the request: minReplicas can not be greater than maxReplicas, minReplicas=10 maxReplicas=3
-</code></pre><h3 id="mutating-admission-webhooks">Mutating admission webhooks</h3>
+</code></pre><a class="headline-hash" href="#mutating-admission-webhooks"><h3 id="mutating-admission-webhooks">Mutating admission webhooks</a> </h3>
 <p>Mutating admission webhooks are a second type of webhooks.
 They are executed before validation, and are used to patch the resource.
 They are typically used to specify default values on created/updated resources.</p>
@@ -482,7 +482,7 @@ From the previous example, there is nothing more to add in the main function. Ba
 	}
 	<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">ObjectMeta</span>.<span style="color:#a6e22e">Annotations</span>[<span style="color:#e6db74">&#34;from-application-mutator-with-love&#34;</span>] = <span style="color:#e6db74">&#34;Hello there&#34;</span>
 }
-</code></pre></div><h3 id="admission-webhooks-for-core-objects">Admission webhooks for core objects</h3>
+</code></pre></div><a class="headline-hash" href="#admission-webhooks-for-core-objects"><h3 id="admission-webhooks-for-core-objects">Admission webhooks for core objects</a> </h3>
 <p>In the previous examples, I used <code>mgr.NewWebhookManagedBy</code> to register new webhooks in a very convenient way.
 This works fine for custom resources, but because you can&rsquo;t add methods to external Go types, you can&rsquo;t use it for creating webhooks on built-in resources.
 If I wanted to do the same thing for pods, then I&rsquo;d need to register a webhook &ldquo;the hard way&rdquo;. Let&rsquo;s see how to do that by reviewing the below example.</p>
@@ -565,7 +565,7 @@ Hopefully the helper function <code>admission.PatchResponseFromRaw</code> can he
 	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">admission</span>.<span style="color:#a6e22e">Allowed</span>(<span style="color:#e6db74">&#34;&#34;</span>)
 }
 </code></pre></div><p>Go further by consulting the <a href="https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#write-an-admission-webhook-server">documentation</a>. It provides useful information and more examples for writing an admission webhook server.</p>
-<h2 id="deploying-the-controller">Deploying the controller</h2>
+<a class="headline-hash" href="#deploying-the-controller"><h2 id="deploying-the-controller">Deploying the controller</a> </h2>
 <p>At this point, we know more about how to build a controller and run it on a local machine.
 But in real life, a controller runs as a pod in the cluster.
 To make that happen, we still have to setup a few things.</p>
@@ -573,9 +573,9 @@ To make that happen, we still have to setup a few things.</p>
 <blockquote>
 <p>If you want to go and directly review the manifests, you can find them <a href="https://github.com/aubm/k8s-app-runner/blob/master/bare-controller-runtime/config/target/manifests.yaml">here</a>.</p>
 </blockquote>
-<h3 id="a-service">A service</h3>
+<a class="headline-hash" href="#a-service"><h3 id="a-service">A service</a> </h3>
 <p>For the Kubernetes API server to be able to successfully contact the webhooks, we need to expose our controller pod with a clusterIP service. Nothing special about that service, I chosed port 443, and the target port should be the one configured in manager options, that is 9443.</p>
-<h3 id="tls-configuration">TLS configuration</h3>
+<a class="headline-hash" href="#tls-configuration"><h3 id="tls-configuration">TLS configuration</a> </h3>
 <p>The Kubernetes API server uses HTTPS when it needs to call the webhooks.
 For the deployment to support that, a SSL certificate (<code>tls.crt</code>) and key (<code>tls.key</code>) must be provisioned in the <code>/tmp/k8s-webhook-server/serving-certs</code> folder in the controller pod.</p>
 <blockquote>
@@ -597,7 +597,7 @@ openssl x509 -req -in tls.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out tls.
 <p>When generating the CSR for the controller, it is important that the CN (common name) associated to the certificate matches the url that the Kubernetes API server will call, that is <code>&lt;serviceName&gt;.&lt;serviceNamespace&gt;.&lt;svc&gt;</code>. See the note in <a href="https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#configure-admission-webhooks-on-the-fly">https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#configure-admission-webhooks-on-the-fly</a></p>
 </blockquote>
 <p>Once this is done, you can create a <a href="https://kubernetes.io/docs/concepts/configuration/secret/">TLS secret</a> and mount it in the controller deployment.</p>
-<h3 id="webhook-configuration-objects">Webhook configuration objects</h3>
+<a class="headline-hash" href="#webhook-configuration-objects"><h3 id="webhook-configuration-objects">Webhook configuration objects</a> </h3>
 <p>We need some way to tell the API server to invoke the webhooks for the appropriate resources and operations.
 Kubernetes let us configure this on the fly by creating <code>MutatingWebhookConfiguration</code> and <code>ValidatingWebhookConfiguration</code> objects.</p>
 <p>Examples can be found in the <a href="https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#configure-admission-webhooks-on-the-fly">documentation</a>, a couple attention points are worth mentionning.</p>
@@ -610,18 +610,18 @@ cat ca.crt.pem | base64
 </code></pre></div><blockquote>
 <p>One more thing, if you&rsquo;ve taken a look at the complete manifests, you may have noticed <a href="https://github.com/aubm/k8s-app-runner/blob/master/bare-controller-runtime/config/target/manifests.yaml#L194-L199">this extra configuration</a>. This is done to prevent the pod mutating webhook from intercepting its own creation, which would result in a deadlock. More on that <a href="https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#avoiding-deadlocks-in-self-hosted-webhooks">here</a>.</p>
 </blockquote>
-<h3 id="rbac-configuration">RBAC configuration</h3>
+<a class="headline-hash" href="#rbac-configuration"><h3 id="rbac-configuration">RBAC configuration</a> </h3>
 <p>When running outside of the cluster, the controller uses the local <a href="https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/">kubeconfig</a>.
 When running in the cluster, the controller must be granted the appropriate permissions to create/update/delete/list/watch the desired resources.</p>
 <p>You can consult the <a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/">documentation</a> to get more information about role based access control (RBAC) in Kubernetes, or you can check the <a href="https://github.com/aubm/k8s-app-runner/blob/master/bare-controller-runtime/config/target/manifests.yaml#L211-L259">configured cluster role and cluster role binding for our example controller</a>.</p>
-<h2 id="go-faster-with-controller-gen">Go faster with controller-gen</h2>
+<a class="headline-hash" href="#go-faster-with-controller-gen"><h2 id="go-faster-with-controller-gen">Go faster with controller-gen</a> </h2>
 <p>Now we are all set! You might think that it took quite a lot of work to get there.
 Writing the CRD, the RBAC configuration and the webhooks configuration is indeed really time consuming, especially given the fact that you have to keep them in sync with the actual code. Besides, if you remember the backstory, the whole point of this was to write less yaml!</p>
 <p>Fortunately, you don&rsquo;t have to do this all by hand, instead you can use code generation. <a href="https://github.com/kubernetes-sigs/controller-tools">This Github repository here</a> hosts a tool called <strong>controller-gen</strong>. It uses comment markers to extract information from the code, and automatically generate yaml files, or even some boilerplate code.</p>
 <p>You can install controller-gen by running the below command. Also make sure to add <code>&quot;$(go env GOPATH)/bin&quot;</code> to your system <code>PATH</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">GO111MODULE<span style="color:#f92672">=</span>on go get -v sigs.k8s.io/controller-tools/cmd/controller-gen
 controller-gen --version
-</code></pre></div><h3 id="the-runtimeobject-interface">The runtime.Object interface</h3>
+</code></pre></div><a class="headline-hash" href="#the-runtimeobject-interface"><h3 id="the-runtimeobject-interface">The runtime.Object interface</a> </h3>
 <p>If you remember earlier, I mentionned a way to generate the <code>DeepCopyObject</code> method, required by the <code>Application</code> type to implement the <code>runtime.Object</code> interface. Here is how to do it using controller-gen.</p>
 <p>In the file where <code>Application</code> is declared, annotate <code>Application</code> with the comment marker <code>// +kubebuilder:object:root=true</code> placed on top of the type declaration. Because of this annotation, controller-gen understands that the type is meant to be used as a <code>runtime.Object</code> and so it will add the <code>DeepCopyObject</code> method to it. Because of the way controller-gen implements the method, additional methods also must be added on non-scalar <code>Application</code> properties and their sub-properties. To make that happen, each type declaration can be annotation with a <code>// +kubebuilder:object:generate=true</code> comment marker, alternatively a single one can be placed at package level, as in the example below.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// +kubebuilder:object:generate=true
@@ -641,7 +641,7 @@ controller-gen --version
 </blockquote>
 <p>The content is generated in a file named <code>zz_generated.deepcopy.go</code> (which of course should not be edited), go check the result <a href="https://github.com/aubm/k8s-app-runner/blob/master/bare-controller-runtime/api/zz_generated.deepcopy.go">here</a> to see what it looks like.</p>
 <p>More details about Object/DeepCopy markers in the documentations <a href="https://book.kubebuilder.io/reference/markers/object.html">here</a>.</p>
-<h3 id="generate-crds">Generate CRDs</h3>
+<a class="headline-hash" href="#generate-crds"><h3 id="generate-crds">Generate CRDs</a> </h3>
 <p>CRDs can be generated by controller-gen. But first, some minor adjustments need to be made in the <code>Application</code> type declaration.
 Because CRDs generation with controller-gen <a href="https://github.com/kubernetes-sigs/controller-tools/blob/v0.3.0/pkg/crd/schema.go#L322-L324">doesn&rsquo;t support nested fields with anonymous type</a>, <code>Application</code> needs to be broken down as follow:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ApplicationSpec</span> <span style="color:#66d9ef">struct</span> {
@@ -672,7 +672,7 @@ Get more options (like CRDs version, or output path) by checking <code>controlle
 <li><a href="https://book.kubebuilder.io/reference/markers/crd-validation.html">https://book.kubebuilder.io/reference/markers/crd-validation.html</a></li>
 <li><a href="https://book.kubebuilder.io/reference/markers/crd-processing.html">https://book.kubebuilder.io/reference/markers/crd-processing.html</a></li>
 </ul>
-<h3 id="generate-rbac">Generate RBAC</h3>
+<a class="headline-hash" href="#generate-rbac"><h3 id="generate-rbac">Generate RBAC</a> </h3>
 <p>Generating RBAC works the same way, documentation for markers is available <a href="https://book.kubebuilder.io/reference/markers/rbac.html">here</a>. Generally a good idea is to place them next to the controller code, that needs the permissions. The example below will add permissions to get, list, watch, update, patch and delete applications, and also get, update and patch an application&rsquo;s status.</p>
 <p>Generate a <code>ClusterRole</code> named <code>manager-role</code> by running <code>controller-gen rbac:roleName=manager-role paths=&quot;./...&quot;</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// +kubebuilder:rbac:groups=k8s-app-runner.aubm.net,resources=applications,verbs=get;list;watch;create;update;patch;delete
@@ -681,14 +681,14 @@ Get more options (like CRDs version, or output path) by checking <code>controlle
 <span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">r</span> <span style="color:#a6e22e">ApplicationReconcilier</span>) <span style="color:#a6e22e">Reconcile</span>(<span style="color:#a6e22e">request</span> <span style="color:#a6e22e">reconcile</span>.<span style="color:#a6e22e">Request</span>) (<span style="color:#a6e22e">reconcile</span>.<span style="color:#a6e22e">Result</span>, <span style="color:#66d9ef">error</span>) {
 	<span style="color:#75715e">// [...]
 </span><span style="color:#75715e"></span>}
-</code></pre></div><h3 id="webhooks">Webhooks</h3>
+</code></pre></div><a class="headline-hash" href="#webhooks"><h3 id="webhooks">Webhooks</a> </h3>
 <p>Finally, controller-gen has support for generating webhooks definition files. There again, documentation is available <a href="https://book.kubebuilder.io/reference/markers/webhook.html">here</a>. In the example below you can see how to write a marker to generate a <code>MutatingWebhookConfiguration</code> with the command <code>controller-gen webhook paths=&quot;./...&quot;</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// +kubebuilder:webhook:path=/mutate-k8s-app-runner-aubm-net-v1-application,mutating=true,failurePolicy=fail,groups=k8s-app-runner.aubm.net,resources=applications,verbs=create;update,versions=v1,name=mapplication.kb.io
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Application</span>) <span style="color:#a6e22e">Default</span>() {
 	<span style="color:#75715e">// [...]
 </span><span style="color:#75715e"></span>}
-</code></pre></div><h2 id="kubebuilder">Kubebuilder</h2>
+</code></pre></div><a class="headline-hash" href="#kubebuilder"><h2 id="kubebuilder">Kubebuilder</a> </h2>
 <p>And that&rsquo;s about it! You&rsquo;ve seen everything you need to start creating your own operator.
 Congratulations and thank you for making it through here!</p>
 <p>Before you go, you might want to hear about <a href="https://github.com/kubernetes-sigs/kubebuilder">Kubebuilder</a>.
@@ -696,11 +696,11 @@ Kuberbuilder is a framework for extending the Kubernetes API with custom resourc
 You really want to consider using it for your next operator.
 What it does essentially, is scaffolding a project with all the pieces from <strong>controller-runtime</strong> and <strong>controller-gen</strong> put together, so that you can get started right away with coding.</p>
 <p>Take a look at the documentation <a href="https://book.kubebuilder.io/">here</a> and don&rsquo;t hesitage to join the very welcoming community on the <em>#kubebuilder</em> channel on <a href="https://kubernetes.slack.com/">kubernetes.slack.com</a>!</p>
-<h2 id="what-else-can-an-operator-do">What else can an operator do?</h2>
+<a class="headline-hash" href="#what-else-can-an-operator-do"><h2 id="what-else-can-an-operator-do">What else can an operator do?</a> </h2>
 <p>The <a href="https://kubernetes.io/docs/concepts/extend-kubernetes/operator/#example">Kubernetes documentation</a> mention a few examples of what an operator can do.</p>
 <p>From deploying an application on demand to orchestrating distributed stateful systems like <a href="https://www.elastic.co/fr/elasticsearch">Elasticsearch</a> or <a href="https://spark.apache.org/">Apache Spark</a>, operators can do a lot.
 Projects like <a href="https://istio.io/">Istio</a> or <a href="https://knative.dev/">Knative</a> are great examples, but more can be found on <a href="https://operatorhub.io/">OperatorHub.io</a>, which is a dedicated portal for reusable operators.</p>
-<h2 id="useful-resources">Useful resources</h2>
+<a class="headline-hash" href="#useful-resources"><h2 id="useful-resources">Useful resources</a> </h2>
 <ul>
 <li><a href="https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps">Google Cloud Blog - Best practices for building Kubernetes Operators and stateful apps</a></li>
 <li><a href="https://book.kubebuilder.io/">Kubebuilder book</a></li>

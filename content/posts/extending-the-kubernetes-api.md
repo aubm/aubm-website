@@ -5,7 +5,7 @@ draft: false
 tags: [Kubernetes, Golang]
 ---
 
-Kubernetes offers various way to add custom functionalities and to modify the way built-in features work.
+Kubernetes offers various ways to add custom functionalities and to modify the way built-in features work.
 Today I want to talk about extending Kubernetes by using custom resources and controllers.
 Let's take a close look at how to do that, but first a quick story!
 

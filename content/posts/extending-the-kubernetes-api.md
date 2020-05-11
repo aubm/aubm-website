@@ -16,7 +16,7 @@ As a developer, I was pretty happy with the path to production of the service.
 The experience was (and still is) really simple, I just had to focus on the code and the [SDK](https://cloud.google.com/sdk) would take care of the whole deployment workflow.
 No additional work needed, the workloads scale automatically from zero and you can even manage traffic routing across multiple versions of an app using a very simplified interface.
 
-All this come at the expense of some restrictions.
+All this comes at the expense of some restrictions.
 App Engine ([standard](https://cloud.google.com/appengine/docs/standard)) is limited to specific runtime environments and it is not a good fit for legacy or stateful applications.
 At some point, I started working on a project where multi-cloud was a critical aspect of the design. Deployments had to be reproducible on various cloud environments, and for that, App Engine was not so great either.
 So I turned myself on Kubernetes, and from there the code path to production obviously became a bit more complicated.
@@ -118,7 +118,7 @@ I was curious to see how I could leverage the extension points of Kubernetes, in
 
 ## The operator pattern
 
-There are many [extension points in Kubernetes](https://kubernetes.io/docs/concepts/extend-kubernetes/extend-cluster/#extension-points), from kubectl plugins which add sub commands to storage plugins which add new storage types. The one I want to focus on consists in:
+There are many [extension points in Kubernetes](https://kubernetes.io/docs/concepts/extend-kubernetes/extend-cluster/#extension-points), from kubectl plugins which add sub commands, to storage plugins which add new storage types. The one I want to focus on consists in:
 
 - adding new resource types to the Kubernetes API server, that users will be able to manipulate using standard kubectl.
 - writing and deploying a program that will watch those custom resources, and take appropriate actions to reconcile the cluster state with the user desired state.

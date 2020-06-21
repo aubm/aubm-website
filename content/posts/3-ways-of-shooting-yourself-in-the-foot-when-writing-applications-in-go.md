@@ -12,7 +12,7 @@ This is 3 ways of shooting yourself in the foot when writing applications in Go.
 ## Channels overflow
 
 Among many other things, Go is great for its concurrent programming model.
-Goroutines, channels and packages from the standard library like `sync` offer a great experience when it comes to solving problems with concurrency. Concurrency is also kind of the gateway for new Go users. Some leave because of the lack of certain features that they love from another langage, some stay for the simplicity, or boringness (yes this is a feature), the opinionated toolchain, the welcoming community, or else. Either way, the ability of Go to offer simple yet powerful concurrency primitives has been a critical part of the success of the langage.
+Goroutines, channels and packages from the standard library like [sync](https://golang.org/pkg/sync/) offer a great experience when it comes to solving problems with concurrency. Concurrency is also kind of the gateway for new Go users. Some leave because of the lack of certain features that they love from another langage, some stay for the simplicity, or boringness (yes this is a feature), the opinionated toolchain, the welcoming community, or else. Either way, the ability of Go to offer simple yet powerful concurrency primitives has been a critical part of the success of the langage.
 
 But great powers comes with great responsibility, and it's easy to get carried away with all the new possibilities.
 
@@ -125,7 +125,7 @@ On the Jaeger web UI which should be accessible on [http://localhost:16686](http
 
 ![A request trace on Jaeger](/img/jaeger-request-trace.png)
 
-From the trace, we can see that despite the fact that the work is distributed accross multiple goroutines and channels, processing an image is really a sequential task.
+From the trace, we can see that despite the fact that the work is distributed across multiple goroutines and channels, processing an image is really a sequential task.
 At best, we can concurrently process several images. The current code turns out to be over complicated for that.
 
 The below code sample is a simpler version that does exactly the same thing.
@@ -174,7 +174,7 @@ Now let's clean up the running containers and move on.
 docker rm -f jaeger channels
 ```
 
-## Unbound concurrency
+## Unbounded concurrency
 
 Next is a case that I've often seen in Go codebases because it can be easily forgotten.
 
@@ -249,8 +249,8 @@ docker run \
   --restart=always \
   -p 8081:8080 \
   --memory=200m \
-  --name=unbound \
-  aubm/random-go-tips concurrency unbound
+  --name=unbounded \
+  aubm/random-go-tips concurrency unbounded
 ```
 
 Now we run some tests using `curl` and measure the elapsed time.
@@ -342,12 +342,12 @@ curl: (52) Empty reply from server
 curl "http://localhost:8081/" --fail -XPOST -d   0,00s user 0,00s system 0% cpu 6,432 total
 ```
 
-The first took 15.846 seconds which is close enough to what we could have expected (about 5 times the time that it took to process 3 images).
+The first took 15.846 seconds which is close enough to what we should have expected (about 5 times the time that it took to process 3 images).
 
 The second command failed however. Let's inspect the container to see its state.
 
 ```bash
-docker inspect unbound | jq '.[].State'
+docker inspect unbounded | jq '.[].State'
 ```
 
 (Output)
@@ -368,7 +368,7 @@ docker inspect unbound | jq '.[].State'
 }
 ```
 
-We can see from there that the container was OOM killed.
+We can see from there that the container has been OOMkilled.
 The request made the container load too many images in memory.
 We did not anticipate that when the second version of the code was implemented.
 Now a single request could bring the server down for all users.
@@ -469,7 +469,7 @@ This is way better, the request worked and went way faster than the original seq
 Now let's clean everything up and move on.
 
 ```bash
-docker rm -f sequence unbound pool
+docker rm -f sequence unbounded pool
 ```
 
 ## Unhandled context cancelation
@@ -478,7 +478,7 @@ The third way to shoot yourself in the foot has to do with context.
 And more specifically, what happens when we forget to handle context cancelation.
 
 [Context](https://golang.org/pkg/context/) is a package from the standard library whose primary focus is to help with cancelation of long running or heavy computation goroutines.
-So you have a variable of type `context.Context`, the convention for the name of that variable `ctx`. Calling `ctx.Done()` gets you a channel which produces a value when the context is canceled.
+So you have a variable of type `context.Context`, the convention for the name of that variable is `ctx`. Calling `ctx.Done()` gets you a channel which produces a value when the context is canceled.
 The package provides functions for creating contexts that will automatically be canceled at [a given time](https://golang.org/pkg/context/#WithDeadline), [after a given duration](https://golang.org/pkg/context/#WithTimeout), or when manually using a provided [callback function](https://golang.org/pkg/context/#WithCancel).
 
 So let's go back to one of our previous examples. In this one, images are resized sequentially, one by one.

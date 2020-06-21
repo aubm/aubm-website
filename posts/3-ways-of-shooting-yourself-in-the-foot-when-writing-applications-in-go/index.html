@@ -160,7 +160,7 @@ This post is about a few funny and somewhat not obvious bad Go patterns.
 This is 3 ways of shooting yourself in the foot when writing applications in Go.</p>
 <a class="headline-hash" href="#channels-overflow"><h2 id="channels-overflow">Channels overflow</a> </h2>
 <p>Among many other things, Go is great for its concurrent programming model.
-Goroutines, channels and packages from the standard library like <code>sync</code> offer a great experience when it comes to solving problems with concurrency. Concurrency is also kind of the gateway for new Go users. Some leave because of the lack of certain features that they love from another langage, some stay for the simplicity, or boringness (yes this is a feature), the opinionated toolchain, the welcoming community, or else. Either way, the ability of Go to offer simple yet powerful concurrency primitives has been a critical part of the success of the langage.</p>
+Goroutines, channels and packages from the standard library like <a href="https://golang.org/pkg/sync/">sync</a> offer a great experience when it comes to solving problems with concurrency. Concurrency is also kind of the gateway for new Go users. Some leave because of the lack of certain features that they love from another langage, some stay for the simplicity, or boringness (yes this is a feature), the opinionated toolchain, the welcoming community, or else. Either way, the ability of Go to offer simple yet powerful concurrency primitives has been a critical part of the success of the langage.</p>
 <p>But great powers comes with great responsibility, and it&rsquo;s easy to get carried away with all the new possibilities.</p>
 <p>Let&rsquo;s look at the below code sample, it has a function <code>Run</code> that starts a webserver which reads and JSON decodes a list of image URLs, and sends them into a channel <code>urlChan</code>.
 From there, some work is executed in the background, using 3 goroutines:</p>
@@ -251,7 +251,7 @@ From there, some work is executed in the background, using 3 goroutines:</p>
 </span><span style="color:#e6db74">]&#39;</span>
 </code></pre></div><p>On the Jaeger web UI which should be accessible on <a href="http://localhost:16686">http://localhost:16686</a>, we filter by service <code>imageResizer</code>, then click at on a generated trace. Here is what we can observe.</p>
 <p><img src="/img/jaeger-request-trace.png" alt="A request trace on Jaeger"></p>
-<p>From the trace, we can see that despite the fact that the work is distributed accross multiple goroutines and channels, processing an image is really a sequential task.
+<p>From the trace, we can see that despite the fact that the work is distributed across multiple goroutines and channels, processing an image is really a sequential task.
 At best, we can concurrently process several images. The current code turns out to be over complicated for that.</p>
 <p>The below code sample is a simpler version that does exactly the same thing.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Run</span>(<span style="color:#a6e22e">config</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">Config</span>) {
@@ -290,7 +290,7 @@ At best, we can concurrently process several images. The current code turns out 
 </code></pre></div><p>It can be tempting to experiment with these features, but we should make sure that we actually need them. Otherwise we can end up with bits of unnecessarily complicated code.</p>
 <p>Now let&rsquo;s clean up the running containers and move on.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker rm -f jaeger channels
-</code></pre></div><a class="headline-hash" href="#unbound-concurrency"><h2 id="unbound-concurrency">Unbound concurrency</a> </h2>
+</code></pre></div><a class="headline-hash" href="#unbounded-concurrency"><h2 id="unbounded-concurrency">Unbounded concurrency</a> </h2>
 <p>Next is a case that I&rsquo;ve often seen in Go codebases because it can be easily forgotten.</p>
 <p>Let&rsquo;s look at the below code sample.
 The function has the standard HTTP handler signature.
@@ -347,8 +347,8 @@ The service should now be significantly faster.</p>
 </span><span style="color:#ae81ff"></span>  --restart<span style="color:#f92672">=</span>always <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -p 8081:8080 <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  --memory<span style="color:#f92672">=</span>200m <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  --name<span style="color:#f92672">=</span>unbound <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>  aubm/random-go-tips concurrency unbound
+</span><span style="color:#ae81ff"></span>  --name<span style="color:#f92672">=</span>unbounded <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  aubm/random-go-tips concurrency unbounded
 </code></pre></div><p>Now we run some tests using <code>curl</code> and measure the elapsed time.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">time curl <span style="color:#e6db74">&#34;http://localhost:8080/&#34;</span> --fail -XPOST -d <span style="color:#e6db74">&#39;[
 </span><span style="color:#e6db74">  &#34;https://picsum.photos/id/0/2560/1440&#34;,
@@ -407,9 +407,9 @@ The service should now be significantly faster.</p>
 </code></pre></div><p>(Output)</p>
 <pre><code>curl: (52) Empty reply from server
 curl &quot;http://localhost:8081/&quot; --fail -XPOST -d   0,00s user 0,00s system 0% cpu 6,432 total
-</code></pre><p>The first took 15.846 seconds which is close enough to what we could have expected (about 5 times the time that it took to process 3 images).</p>
+</code></pre><p>The first took 15.846 seconds which is close enough to what we should have expected (about 5 times the time that it took to process 3 images).</p>
 <p>The second command failed however. Let&rsquo;s inspect the container to see its state.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker inspect unbound | jq <span style="color:#e6db74">&#39;.[].State&#39;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker inspect unbounded | jq <span style="color:#e6db74">&#39;.[].State&#39;</span>
 </code></pre></div><p>(Output)</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;Status&#34;</span>: <span style="color:#e6db74">&#34;running&#34;</span>,
@@ -424,7 +424,7 @@ curl &quot;http://localhost:8081/&quot; --fail -XPOST -d   0,00s user 0,00s syst
   <span style="color:#f92672">&#34;StartedAt&#34;</span>: <span style="color:#e6db74">&#34;2020-06-21T15:42:45.4609026Z&#34;</span>,
   <span style="color:#f92672">&#34;FinishedAt&#34;</span>: <span style="color:#e6db74">&#34;2020-06-21T15:42:45.1495252Z&#34;</span>
 }
-</code></pre></div><p>We can see from there that the container was OOM killed.
+</code></pre></div><p>We can see from there that the container has been OOMkilled.
 The request made the container load too many images in memory.
 We did not anticipate that when the second version of the code was implemented.
 Now a single request could bring the server down for all users.
@@ -505,12 +505,12 @@ This is slightly more complicated but now there is a maximum of 3 simultaneous i
 <pre><code>curl &quot;http://localhost:8082/&quot; --fail -XPOST -d   0,00s user 0,01s system 0% cpu 5,497 total
 </code></pre><p>This is way better, the request worked and went way faster than the original sequential version.</p>
 <p>Now let&rsquo;s clean everything up and move on.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker rm -f sequence unbound pool
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker rm -f sequence unbounded pool
 </code></pre></div><a class="headline-hash" href="#unhandled-context-cancelation"><h2 id="unhandled-context-cancelation">Unhandled context cancelation</a> </h2>
 <p>The third way to shoot yourself in the foot has to do with context.
 And more specifically, what happens when we forget to handle context cancelation.</p>
 <p><a href="https://golang.org/pkg/context/">Context</a> is a package from the standard library whose primary focus is to help with cancelation of long running or heavy computation goroutines.
-So you have a variable of type <code>context.Context</code>, the convention for the name of that variable <code>ctx</code>. Calling <code>ctx.Done()</code> gets you a channel which produces a value when the context is canceled.
+So you have a variable of type <code>context.Context</code>, the convention for the name of that variable is <code>ctx</code>. Calling <code>ctx.Done()</code> gets you a channel which produces a value when the context is canceled.
 The package provides functions for creating contexts that will automatically be canceled at <a href="https://golang.org/pkg/context/#WithDeadline">a given time</a>, <a href="https://golang.org/pkg/context/#WithTimeout">after a given duration</a>, or when manually using a provided <a href="https://golang.org/pkg/context/#WithCancel">callback function</a>.</p>
 <p>So let&rsquo;s go back to one of our previous examples. In this one, images are resized sequentially, one by one.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Run</span>(<span style="color:#a6e22e">config</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">Config</span>) {

@@ -5,10 +5,19 @@
     <link>https://www.aubm.net/tags/</link>
     <description>Recent content in Tags on Aubm</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 21 Jun 2020 09:40:36 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 10 Dec 2020 21:18:01 -0500</lastBuildDate>
     
 	<atom:link href="https://www.aubm.net/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Inspiration</title>
+      <link>https://www.aubm.net/tags/inspiration/</link>
+      <pubDate>Thu, 10 Dec 2020 21:18:01 -0500</pubDate>
+      
+      <guid>https://www.aubm.net/tags/inspiration/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Golang</title>
@@ -34,15 +43,6 @@
       <pubDate>Thu, 02 Apr 2020 22:00:00 +0100</pubDate>
       
       <guid>https://www.aubm.net/tags/git/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Inspiration</title>
-      <link>https://www.aubm.net/tags/inspiration/</link>
-      <pubDate>Sat, 21 Mar 2020 09:40:36 +0100</pubDate>
-      
-      <guid>https://www.aubm.net/tags/inspiration/</guid>
       <description></description>
     </item>
     

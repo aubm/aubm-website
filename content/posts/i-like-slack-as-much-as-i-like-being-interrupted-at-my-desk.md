@@ -10,9 +10,9 @@ The other day I was using Slack to chat with my project manager Johana and just 
 The delivery guy was there with the Christmas chocolates I had ordered a few days ago. I do love chocolates.
 I took the package and went back to my computer, eager to get started with my next task.
 
-Time went on and a few days later, I logged in an important meeting, where my colleague Sigurd was expected to give this big presentation to one of our best clients.
+Time went on and a few days later, I logged into an important meeting, where my colleague Sigurd was expected to give this big presentation to one of our best clients.
 I arrived last, and right after I said hello to everybody, Johana said to me : “So are you ready to start the presentation?”.
-At this moment I can feel my brain cooling as I realize Sigurd is not in the meeting.
+At this moment I could feel my brain cooling as I realized Sigurd was not in the meeting.
 
 Let's rewind back a few days to the moment I received my beloved chocolates and went back to my computer to unlock it, what happened is that I simply missed a new message from Johana before I switched context.
 

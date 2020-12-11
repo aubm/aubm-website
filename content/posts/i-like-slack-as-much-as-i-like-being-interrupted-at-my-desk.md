@@ -18,7 +18,7 @@ Let's rewind back a few days to the moment I received my beloved chocolates and 
 
 > "By the way, Sigurd won’t be able to make it to our meeting next week. I told him you can do it, I hope it's alright."
 
-Long story short: the client is really unhappy, the company loses its most profitable contract, everybody is sent back home and now I live in the street. And even though I don’t have any colleague whose name is Johana or Sigurd and this little story never actually happened, it could have. The point is: I don’t think it’s fair to expect a response to a message sent on Slack.
+Long story short: the client is really unhappy, the company loses its most profitable contract, everybody is sent back home and now I live in the street. And even though I don’t have any colleague whose name is Johana or Sigurd and this little story never actually happened, it could have. The point is: I don’t think it’s fair to always expect a response to a message sent on Slack.
 
 Coming back from a two weeks vacation, chances are that you will have missed a lot. Clearing a mailbox with 300 unread items certainly is a challenge, but still I find it less stressful than catching up on 300 unread messages on Slack channels.
 And if you are more the type of person who keeps track of work communications, even during your days off, it’s still possible to respond later to an email, because it will stay in your mailbox until you’ve treated it.

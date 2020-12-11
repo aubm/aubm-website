@@ -35,7 +35,7 @@ Slack channels are shared with the whole company and authors decide to publish t
 If you want to be sure that I acknowledge your message or if you need a response, your best shot is to send me an email.
 
 Sending a message on Slack is the distributed equivalent of knocking to someone’s desk.
-When you take the decision to go through the whole corridor to reach someone’s desk, you know right from the moment when you get up from your chair that there is a chance that the person won’t be there. It’s synchronous communication. Just like HTTP, if the server is down, you don’t get a response.
+When you take the decision to go through the whole corridor to reach someone’s desk, you know right from the moment you get up from your chair that there is a chance that the person won’t be there. It’s synchronous communication. Just like HTTP, if the server is down, you don’t get a response.
 When sending a message on Slack, have the same assumptions as when you get up from your chair.
 
 I don’t dislike Slack, I don’t love it either, I just like it as much as I like being interrupted at my desk. It depends. In doubt, send an email or bring chocolates.

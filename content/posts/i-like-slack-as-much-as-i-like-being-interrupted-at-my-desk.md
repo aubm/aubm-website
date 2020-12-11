@@ -14,29 +14,30 @@ Time went on and a few days later, I logged in an important meeting, where my co
 I arrived last, and right after I said hello to everybody, Johana said to me : “So are you ready to start the presentation?”.
 At this moment I can feel my brain cooling as I realize Sigurd is not in the meeting.
 
-Let's rewind back a few days to the moment I received my beloved chocolates and went back to my computer and unlocked it, I just didn’t see the new message from Johana before I switched my window.
+Let's rewind back a few days to the moment I received my beloved chocolates and went back to my computer to unlock it, what happened is that I simply missed a new message from Johana before I switched context.
 
 > "By the way, Sigurd won’t be able to make it to our meeting next week. I told him you can do it, I hope it's alright."
 
-Long story short, the client is really unhappy, the company loses its most profitable contract, everybody is sent back home and now I live in the street. And even though I don’t have any colleague whose name is Johana or Sigurd and this little story never actually happened, it could have. The point is: I don’t think it’s fair to expect a response to a message sent on Slack.
+Long story short: the client is really unhappy, the company loses its most profitable contract, everybody is sent back home and now I live in the street. And even though I don’t have any colleague whose name is Johana or Sigurd and this little story never actually happened, it could have. The point is: I don’t think it’s fair to expect a response to a message sent on Slack.
 
-Coming back from a two weeks vacation, chances are that you will have missed a lot. Clearing a mailbox with 300 unread items certainly is a challenge, but still I find it easier than catching up on 300 unread messages on Slack channels.
-And if you are more the type of person who still keeps track of work communications, even during your days off, it’s still possible to respond later to an email, because it will stay in your mailbox until you’ve treated it.
-This is not true with Slack messages, if you don’t catch it right away, there are good chances that it will be lost in the flow and you’ll forget about it, and you’ll live in the street.
+Coming back from a two weeks vacation, chances are that you will have missed a lot. Clearing a mailbox with 300 unread items certainly is a challenge, but still I find it less stressful than catching up on 300 unread messages on Slack channels.
+And if you are more the type of person who keeps track of work communications, even during your days off, it’s still possible to respond later to an email, because it will stay in your mailbox until you’ve treated it.
+This is not true with Slack messages, if you don’t catch it right away, there are good chances that it will be lost in the flow and you’ll forget about it, and then you’ll live in the street.
 
 ![Monkeys with ringing bells](/img/monkeys_bells.jpg)
 
-I just think mails scale better than Slack messages.
+I just think emails scale better than Slack messages.
 
 The notification icon disappears when your Slack window displays the new content. Emails stay unread until you open them, and Gmail lets you reschedule them if you prefer to remove distractions.
 
-Slack channels are shared with the whole company and authors decide to publish their messages either in one of the existing channels, a new one, a small private group or maybe a thread somewhere. You can organize your mailbox as you want.
+Slack channels are shared with the whole company and authors decide to publish their messages either in one of the existing channels, a new one, a small private group or maybe a thread somewhere. You can organize your mailbox the way you want.
 
 If you want to be sure that I acknowledge your message or if you need a response, your best shot is to send me an email.
 
 Sending a message on Slack is the distributed equivalent of knocking to someone’s desk.
 When you take the decision to go through the whole corridor to reach someone’s desk, you know right from the moment when you get up from your chair that there is a chance that the person won’t be there. It’s synchronous communication. Just like HTTP, if the server is down, you don’t get a response.
-When you send a message on Slack, have the same assumptions as when you get up from your chair.
-I don’t like Slack, I don’t dislike it either, I just like it as much as I like being interrupted at my desk. It depends. In doubt, send an email or bring chocolates.
+When sending a message on Slack, have the same assumptions as when you get up from your chair.
+
+I don’t dislike Slack, I don’t like it either, I just like it as much as I like being interrupted at my desk. It depends. In doubt, send an email or bring chocolates.
 
 Love.

@@ -5,6 +5,8 @@ draft: false
 tags: [Git]
 ---
 
+![Loki Timekeepers](/img/loki-timekeepers.jpeg)
+
 I recently left a team where I was the lead developer for about three years.
 I was regularly asked about why I wanted to keep the history of the git repository linear. Most of the time (but not always), the question came from fellow developers having a hard time rebasing a work branch.
 

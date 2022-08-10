@@ -5,7 +5,7 @@
     <link>https://www.aubm.net/posts/</link>
     <description>Recent content in Posts on Aubm</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 10 Jul 2022 18:10:01 -0400</lastBuildDate>
+    <lastBuildDate>Wed, 10 Aug 2022 18:10:01 -0400</lastBuildDate>
     
 	<atom:link href="https://www.aubm.net/posts/index.xml" rel="self" type="application/rss+xml" />
     
@@ -13,7 +13,7 @@
     <item>
       <title>Please Use Dependency Injection, If Not For Me, Do It For Your Unit Tests</title>
       <link>https://www.aubm.net/posts/please-use-dependency-injection-if-not-for-me-do-it-for-your-unit-tests/</link>
-      <pubDate>Sun, 10 Jul 2022 18:10:01 -0400</pubDate>
+      <pubDate>Wed, 10 Aug 2022 18:10:01 -0400</pubDate>
       
       <guid>https://www.aubm.net/posts/please-use-dependency-injection-if-not-for-me-do-it-for-your-unit-tests/</guid>
       <description>TLDR; see title.

@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no"/>
+
+    <title>Please Use Dependency Injection, If Not For Me, Do It For Your Unit Tests | Aubm</title>
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#FF3DB4">
+    <meta name="theme-color" content="#ffffff">
+
+    
+    
+    
+    <link rel="stylesheet" href="https://www.aubm.net/css/main.min.7176e7c9689c2b175ea64c893dda23007aed7d9ae9a7a7a15fd152cc31c28178.css"/>
+
+    
+    
+    
+
+    
+    
+ 
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-38043974-6', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+</head>
+
+    <body>
+        
+<nav>
+  <header>
+    <div class="site-title">
+        <a href="/">Aubm</a>
+    </div>
+    <div class="job-title">
+    	<i>Software developer and cloud architect at <a href="https://stack-labs.com/">Stack-Labs</a></i>
+    </div>
+</header>
+  <div class="nav-menu">
+  
+  <a class="color-link nav-link" href="https://www.aubm.net/index.xml" target="_blank" rel="noopener" type="application/rss+xml">RSS</a>
+</div>
+<footer class="footer">
+	<div class="social-icons">
+        
+    <a class="social-icon" href="mailto:aur.baumann@gmail.com" target="_blank" rel="noopener" title="Email">
+        <svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" fill="#ABABAB" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
+            <path d="M25.2794292,5.59128519 L14,16.8707144 L2.72057081,5.59128519 C3.06733103,5.30237414 3.51336915,5.12857603 4,5.12857603 L24,5.12857603 C24.4866308,5.12857603 24.932669,5.30237414 25.2794292,5.59128519 Z M25.9956978,6.99633695 C25.998551,7.04004843 26,7.08414302 26,7.12857603 L26,20.871424 C26,21.0798433 25.9681197,21.2808166 25.9089697,21.4697335 L18.7156355,14.2763993 L25.9956978,6.99633695 Z M24.9498374,22.6319215 C24.6672737,22.7846939 24.3437653,22.871424 24,22.871424 L4,22.871424 C3.5268522,22.871424 3.09207889,22.7071233 2.74962118,22.432463 L10.0950247,15.0870594 L13.9848068,18.9768415 L14.1878486,18.7737996 L14.2030419,18.7889929 L17.6549753,15.3370594 L24.9498374,22.6319215 Z M2.00810114,21.0526627 C2.00273908,20.9929669 2,20.9325153 2,20.871424 L2,7.12857603 C2,7.08414302 2.00144896,7.04004843 2.00430222,6.99633695 L9.03436454,14.0263993 L2.00810114,21.0526627 Z"></path>
+        </svg>
+    </a>
+    
+
+    
+
+    
+    <a class="social-icon" href="https://twitter.com/kendo5731" target="_blank" rel="noopener" title="Twitter">
+        <svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" fill="#ABABAB" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
+            <path d="M8.991284,24.971612 C19.180436,24.971612 24.752372,16.530224 24.752372,9.210524 C24.752372,8.970656 24.747512,8.731868 24.736496,8.494376 C25.818008,7.712564 26.758256,6.737 27.5,5.62622 C26.507372,6.067076 25.439252,6.364292 24.318752,6.498212 C25.462472,5.812628 26.340512,4.727444 26.754584,3.434036 C25.684088,4.068536 24.499004,4.53002 23.23724,4.778528 C22.226468,3.701876 20.786828,3.028388 19.193828,3.028388 C16.134404,3.028388 13.653536,5.509256 13.653536,8.567492 C13.653536,9.0023 13.702244,9.424904 13.797176,9.830552 C9.19346,9.599108 5.11106,7.39472 2.3792,4.04294 C1.903028,4.861364 1.629032,5.812628 1.629032,6.827072 C1.629032,8.74904 2.606972,10.445612 4.094024,11.438132 C3.185528,11.41016 2.331788,11.160464 1.585184,10.745096 C1.583888,10.768208 1.583888,10.791428 1.583888,10.815728 C1.583888,13.49888 3.493652,15.738584 6.028088,16.246508 C5.562932,16.373084 5.07326,16.44134 4.56782,16.44134 C4.210988,16.44134 3.863876,16.406024 3.526484,16.34144 C4.231724,18.542264 6.276596,20.143796 8.701412,20.18894 C6.805148,21.674696 4.416836,22.56008 1.821488,22.56008 C1.374476,22.56008 0.93362,22.534592 0.5,22.4834 C2.951708,24.054476 5.862524,24.971612 8.991284,24.971612"></path>
+        </svg>
+    </a>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <a class="social-icon" href="https://www.linkedin.com/in/aurelienbaumann/" target="_blank" rel="noopener" title="LinkedIn">
+        <svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" fill="#ABABAB" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
+            <path d="M2,3.654102 C2,2.69908141 2.79442509,1.92397846 3.77383592,1.92397846 L24.2261641,1.92397846 C25.2058917,1.92397846 26,2.69908141 26,3.654102 L26,24.3462148 C26,25.3015521 25.2058917,26.0760215 24.2261641,26.0760215 L3.77383592,26.0760215 C2.79442509,26.0760215 2,25.3015521 2,24.3465315 L2,3.65378524 L2,3.654102 Z M9.27526132,22.1415901 L9.27526132,11.2356668 L5.65030092,11.2356668 L5.65030092,22.1415901 L9.27557808,22.1415901 L9.27526132,22.1415901 Z M7.46341463,9.74691162 C8.72727273,9.74691162 9.51409566,8.90940767 9.51409566,7.86284447 C9.49033893,6.79252455 8.72727273,5.97846056 7.48748812,5.97846056 C6.24675325,5.97846056 5.43649034,6.79252455 5.43649034,7.86284447 C5.43649034,8.90940767 6.22299652,9.74691162 7.4396579,9.74691162 L7.46309788,9.74691162 L7.46341463,9.74691162 Z M11.2815965,22.1415901 L14.9062401,22.1415901 L14.9062401,16.0519481 C14.9062401,15.7263225 14.9299968,15.4000634 15.0256573,15.1675641 C15.2876148,14.5159962 15.8840672,13.8416218 16.8856509,13.8416218 C18.1970225,13.8416218 18.7218879,14.8416218 18.7218879,16.3078872 L18.7218879,22.1415901 L22.3465315,22.1415901 L22.3465315,15.8885017 C22.3465315,12.5388027 20.5584416,10.9800443 18.1735825,10.9800443 C16.2182452,10.9800443 15.3595185,12.072854 14.8824834,12.8172315 L14.9065569,12.8172315 L14.9065569,11.2359835 L11.2819132,11.2359835 C11.3291099,12.2591067 11.2815965,22.1419069 11.2815965,22.1419069 L11.2815965,22.1415901 Z"></path>
+        </svg>
+    </a>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+    
+    <a class="social-icon" href="https://github.com/aubm" target="_blank" rel="noopener" title="GitHub">
+        <svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" fill="#ABABAB" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
+            <path d="M13.9988029,1.32087331 C6.82105037,1.32087331 1,7.14112562 1,14.3212723 C1,20.0649109 4.72454649,24.9370678 9.89038951,26.6560892 C10.5408085,26.7757983 10.7778323,26.374374 10.7778323,26.0296121 C10.7778323,25.7215609 10.7666595,24.9035493 10.760275,23.8189856 C7.14426471,24.6042767 6.38131925,22.0760223 6.38131925,22.0760223 C5.78995672,20.5740732 4.93762853,20.1742451 4.93762853,20.1742451 C3.75729765,19.3682044 5.02701126,19.3841656 5.02701126,19.3841656 C6.33183953,19.4759425 7.01817121,20.7241085 7.01817121,20.7241085 C8.17775254,22.7104801 10.0611744,22.1366749 10.8017741,21.8038838 C10.919887,20.9643246 11.2558703,20.3913175 11.6269683,20.066507 C8.74038491,19.7385043 5.70536235,18.6228163 5.70536235,13.6413251 C5.70536235,12.2223743 6.21213051,11.0611968 7.04370914,10.1530044 C6.90963504,9.82420367 6.46351945,8.50181809 7.17139875,6.71256734 C7.17139875,6.71256734 8.26234691,6.36301702 10.7459099,8.04532771 C11.78259,7.75642995 12.8950858,7.61277914 14.000399,7.60719272 C15.1049142,7.61277914 16.2166119,7.75642995 17.2548881,8.04532771 C19.736855,6.36301702 20.8262071,6.71256734 20.8262071,6.71256734 C21.5356825,8.50181809 21.0895669,9.82420367 20.9562909,10.1530044 C21.7894656,11.0611968 22.2922435,12.2223743 22.2922435,13.6413251 C22.2922435,18.6355852 19.2524325,19.734514 16.3570705,20.0561322 C16.8231376,20.4575564 17.2389269,21.2508282 17.2389269,22.4638795 C17.2389269,24.2012564 17.2229657,25.603448 17.2229657,26.0296121 C17.2229657,26.3775663 17.4575954,26.7821827 18.116793,26.6552912 C23.2786458,24.9322794 27,20.0633148 27,14.3212723 C27,7.14112562 21.1789496,1.32087331 13.9988029,1.32087331"></path>
+        </svg>
+    </a>
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+</div>
+
+
+
+
+	<p><a href="https://github.com/kimcc/hugo-theme-noteworthy" target="_blank" rel="noopener">Noteworthy theme</a></p>
+	<p><a href="https://gohugo.io" target="_blank" rel="noopener">Built with Hugo</a></p>
+
+	<script src="https://www.aubm.net/js/main.min.fa5c2b23e07b5d9bfad267a52b4b24fdb053e6fb7524993383594926a3ac270c.js" integrity="sha256-+lwrI+B7XZv60melK0sk/bBT5vt1JJkzg1lJJqOsJww="></script>
+</footer>
+</nav>
+        <div id="content" class="content-container">
+        
+<h1 class="post-title">Please Use Dependency Injection, If Not For Me, Do It For Your Unit Tests</h1>
+    
+    <time>July 10, 2022</time>
+    
+    <div>
+        <p>
+        <p>TLDR; see title.</p>
+<p>Long time no see, and it&rsquo;s been a while since we haven&rsquo;t talked about Go.
+I still love the language, I still use it on a daily basis, and today I feel like talking a bit
+about dependency injection. So hold on to your seats because it&rsquo;s going to get boring very soon, or not we&rsquo;ll see.</p>
+<a class="headline-hash" href="#whats-the-problem"><h2 id="whats-the-problem">What&rsquo;s the problem?</a> </h2>
+<p>Take the following file.
+It has a <code>Fetch</code> function that takes base currency and a target currency, and it fetches the exchange rate between
+the two currencies by contacting an API that has that information in JSON format.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#f92672">package</span> <span style="color:#a6e22e">exchangerate</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;encoding/json&#34;</span>
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;net/http&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+)
+
+<span style="color:#66d9ef">const</span> (
+    <span style="color:#a6e22e">exchangeRateApiAddrEnvVar</span> = <span style="color:#e6db74">&#34;EXCHANGE_RATE_API_ADDR&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Fetch</span>(<span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">target</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">rate</span> <span style="color:#66d9ef">float64</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+    <span style="color:#a6e22e">addr</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;https://api.exchangerate.host&#34;</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#a6e22e">exchangeRateApiAddrEnvVar</span>); <span style="color:#a6e22e">s</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;&#34;</span> {
+        <span style="color:#a6e22e">addr</span> = <span style="color:#a6e22e">s</span>
+    }
+
+    <span style="color:#a6e22e">resp</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%s/latest?base=%s&amp;symbols=%s&#34;</span>, <span style="color:#a6e22e">addr</span>, <span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">target</span>))
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;failed to contact exchangerate API: %w&#34;</span>, <span style="color:#a6e22e">err</span>)
+    }
+    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Body</span>.<span style="color:#a6e22e">Close</span>()
+
+    <span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ExchangeRatesApiResponse</span>{}
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">NewDecoder</span>(<span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Body</span>).<span style="color:#a6e22e">Decode</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">r</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;failed to json decode exchange rate api response: %w&#34;</span>, <span style="color:#a6e22e">err</span>)
+    }
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Rates</span>[<span style="color:#a6e22e">target</span>], <span style="color:#66d9ef">nil</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ExchangeRatesApiResponse</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">Rates</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">float64</span> <span style="color:#e6db74">`json:&#34;rates&#34;`</span>
+}
+</code></pre></div><p>Let&rsquo;s say we want to write a unit test for <code>Fetch</code>.
+Since it&rsquo;s going to be easier to write it if we control the data returned by the API,
+and since we can&rsquo;t change what the actual API returns (at least I can&rsquo;t, and maybe you can
+and if that&rsquo;s the case, well thank you this is a cool API), we have made the function to
+fetch the address set in an environment variable.</p>
+<p>So we&rsquo;ll use that to make the test use a local test HTTP server.
+It&rsquo;s easy enough, let&rsquo;s do this.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#f92672">package</span> <span style="color:#a6e22e">exchangerate</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;encoding/json&#34;</span>
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;net/http&#34;</span>
+	<span style="color:#e6db74">&#34;net/http/httptest&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+	<span style="color:#e6db74">&#34;testing&#34;</span>
+
+	<span style="color:#e6db74">&#34;github.com/stretchr/testify/assert&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestFetch</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+	<span style="color:#a6e22e">tests</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">struct</span> {
+		<span style="color:#a6e22e">name</span>         <span style="color:#66d9ef">string</span>
+		<span style="color:#a6e22e">base</span>         <span style="color:#66d9ef">string</span>
+		<span style="color:#a6e22e">target</span>       <span style="color:#66d9ef">string</span>
+		<span style="color:#a6e22e">expectedRate</span> <span style="color:#66d9ef">float64</span>
+	}{
+		{
+			<span style="color:#a6e22e">name</span>:         <span style="color:#e6db74">&#34;EUR -&gt; CAD&#34;</span>,
+			<span style="color:#a6e22e">base</span>:         <span style="color:#e6db74">&#34;EUR&#34;</span>,
+			<span style="color:#a6e22e">target</span>:       <span style="color:#e6db74">&#34;CAD&#34;</span>,
+			<span style="color:#a6e22e">expectedRate</span>: <span style="color:#ae81ff">1.30</span>,
+		},
+		{
+			<span style="color:#a6e22e">name</span>:         <span style="color:#e6db74">&#34;CAD -&gt; EUR&#34;</span>,
+			<span style="color:#a6e22e">base</span>:         <span style="color:#e6db74">&#34;CAD&#34;</span>,
+			<span style="color:#a6e22e">target</span>:       <span style="color:#e6db74">&#34;EUR&#34;</span>,
+			<span style="color:#a6e22e">expectedRate</span>: <span style="color:#ae81ff">0.75</span>,
+		},
+	}
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">test</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">tests</span> {
+		<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">name</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+			<span style="color:#a6e22e">testServer</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">httptest</span>.<span style="color:#a6e22e">NewServer</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandlerFunc</span>(<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+				<span style="color:#a6e22e">assert</span>.<span style="color:#a6e22e">Equal</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;/latest?base=%s&amp;symbols=%s&#34;</span>, <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">target</span>), <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">String</span>())
+				<span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">NewEncoder</span>(<span style="color:#a6e22e">w</span>).<span style="color:#a6e22e">Encode</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ExchangeRatesApiResponse</span>{
+					<span style="color:#a6e22e">Rates</span>: <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">float64</span>{
+						<span style="color:#e6db74">&#34;CAD&#34;</span>: <span style="color:#ae81ff">1.30</span>,
+						<span style="color:#e6db74">&#34;EUR&#34;</span>: <span style="color:#ae81ff">0.75</span>,
+					},
+				})
+			}))
+			<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">testServer</span>.<span style="color:#a6e22e">Close</span>()
+			<span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Setenv</span>(<span style="color:#a6e22e">exchangeRateApiAddrEnvVar</span>, <span style="color:#a6e22e">testServer</span>.<span style="color:#a6e22e">URL</span>)
+
+			<span style="color:#a6e22e">rate</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Fetch</span>(<span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">target</span>)
+			<span style="color:#a6e22e">assert</span>.<span style="color:#a6e22e">NoError</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">err</span>)
+			<span style="color:#a6e22e">assert</span>.<span style="color:#a6e22e">Equal</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">test</span>.<span style="color:#a6e22e">expectedRate</span>, <span style="color:#a6e22e">rate</span>)
+		})
+	}
+}
+</code></pre></div><p>There you go, the function has a test.</p>
+<a class="headline-hash" href="#okay-but-whats-the-problem"><h2 id="okay-but-whats-the-problem">Okay but what&rsquo;s the problem?</a> </h2>
+<p>Here is the main file.
+It just calls the <code>Fetch</code> function and passes it the base currency and the target currency
+that it got from command flags.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;flag&#34;</span>
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+
+	<span style="color:#e6db74">&#34;github.com/aubm/golang-dependency-injection/pkg/exchangerate&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">base</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">target</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">StringVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">base</span>, <span style="color:#e6db74">&#34;base&#34;</span>, <span style="color:#e6db74">&#34;EUR&#34;</span>, <span style="color:#e6db74">&#34;the base currency&#34;</span>)
+	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">StringVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">target</span>, <span style="color:#e6db74">&#34;target&#34;</span>, <span style="color:#e6db74">&#34;CAD&#34;</span>, <span style="color:#e6db74">&#34;the target currency&#34;</span>)
+	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Parse</span>()
+
+	<span style="color:#a6e22e">rate</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">exchangerate</span>.<span style="color:#a6e22e">Fetch</span>(<span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">target</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stderr</span>, <span style="color:#e6db74">&#34;failed to fetch %s to %s exchange rate: %v&#34;</span>, <span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">err</span>)
+	}
+
+	<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>, <span style="color:#e6db74">&#34;%s to %s exchange rate is %v&#34;</span>, <span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">rate</span>)
+}
+</code></pre></div><p>Now to the problem: since <code>Fetch(...)</code> is baked in <code>main</code>, if we want
+to write a unit test on the main function, we&rsquo;ll have to do the whole
+local test http server sh*t again, which is boring (told you) and really
+doesn&rsquo;t scale when the code base gains weight.</p>
+<p>Let&rsquo;s talk about two very similar techniques to tackle that situation
+that I&rsquo;ve observed, and why I think they&rsquo;re wrong.</p>
+<a class="headline-hash" href="#make-it-tomorrows-problem"><h2 id="make-it-tomorrows-problem">Make it tomorrow&rsquo;s problem</a> </h2>
+<p>This is actually a pretty smart technique in situations where the person
+who will be working on the project tomorrow is not you.
+Some will argue that it is not nice, but I&rsquo;m not here to judge.</p>
+<p>In most situations, it&rsquo;s going to be you, and pooping on the floor
+that is yours to clean is not a very rational thing to do.
+But again I&rsquo;m not here to judge, so if you think this is okay to be so by all
+means, poop away!</p>
+<a class="headline-hash" href="#make-do"><h2 id="make-do">Make do</a> </h2>
+<p>Here is the deal: if we don&rsquo;t want to repeat the things we&rsquo;ve done in the unit test
+for <code>Fetch</code>, let&rsquo;s just test the most of <code>main</code> that is not the call to <code>Fetch</code>.</p>
+<p>Here is what the new <code>main</code> function looks like.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;flag&#34;</span>
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+
+	<span style="color:#e6db74">&#34;github.com/aubm/golang-dependency-injection/pkg/exchangerate&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">target</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">getBaseAndTarget</span>()
+
+	<span style="color:#a6e22e">rate</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">exchangerate</span>.<span style="color:#a6e22e">Fetch</span>(<span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">target</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stderr</span>, <span style="color:#e6db74">&#34;failed to fetch %s to %s exchange rate: %v&#34;</span>, <span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">err</span>)
+	}
+
+	<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>, <span style="color:#e6db74">&#34;%s to %s exchange rate is %v&#34;</span>, <span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">rate</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getBaseAndTarget</span>() (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">string</span>) {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">base</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">target</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">StringVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">base</span>, <span style="color:#e6db74">&#34;base&#34;</span>, <span style="color:#e6db74">&#34;EUR&#34;</span>, <span style="color:#e6db74">&#34;the base currency&#34;</span>)
+	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">StringVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">target</span>, <span style="color:#e6db74">&#34;target&#34;</span>, <span style="color:#e6db74">&#34;CAD&#34;</span>, <span style="color:#e6db74">&#34;the target currency&#34;</span>)
+	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Parse</span>()
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">target</span>
+}
+</code></pre></div><p>There, now we can just have a unit test on <code>getBaseAndTarget</code> and job done.
+If you feel satisfied with this solution, then I respectfully disagree.</p>
+<p>To me this feels like admitting our defeat.
+We paid the lack of a better solution in test reliability.
+Conclusion: Go sucks, programming sucks, bye.</p>
+<p><img src="/img/david-goodenough.webp" alt="David Goodenough"></p>
+<p>Or we can try another approach.</p>
+<a class="headline-hash" href="#dependency-injection-is-your-scary-friend"><h2 id="dependency-injection-is-your-scary-friend">Dependency injection is your scary friend</a> </h2>
+<p>Look at this new main file.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;log&#34;</span>
+
+	<span style="color:#e6db74">&#34;github.com/aubm/golang-dependency-injection/pkg/app&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">app</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">Initialize</span>()
+	<span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">Run</span>()
+}
+</code></pre></div><p>Beautiful, isn&rsquo;t it? I like it empty too.</p>
+<p>Now I&rsquo;ve moved everything into a new <code>app</code> package.
+Let&rsquo;s open it and see what is different from before.</p>
+<p>This is <code>app.go</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#f92672">package</span> <span style="color:#a6e22e">app</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;flag&#34;</span>
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+
+	<span style="color:#e6db74">&#34;github.com/aubm/golang-dependency-injection/pkg/exchangerate&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewApp</span>(<span style="color:#a6e22e">fetcher</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">exchangerate</span>.<span style="color:#a6e22e">ApiFetcher</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">App</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">App</span>{<span style="color:#a6e22e">fetcher</span>: <span style="color:#a6e22e">fetcher</span>}
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">App</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">fetcher</span> <span style="color:#a6e22e">exchangerate</span>.<span style="color:#a6e22e">Fetcher</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">App</span>) <span style="color:#a6e22e">Run</span>() <span style="color:#66d9ef">error</span> {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">base</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">target</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">StringVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">base</span>, <span style="color:#e6db74">&#34;base&#34;</span>, <span style="color:#e6db74">&#34;EUR&#34;</span>, <span style="color:#e6db74">&#34;the base currency&#34;</span>)
+	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">StringVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">target</span>, <span style="color:#e6db74">&#34;target&#34;</span>, <span style="color:#e6db74">&#34;CAD&#34;</span>, <span style="color:#e6db74">&#34;the target currency&#34;</span>)
+	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Parse</span>()
+
+	<span style="color:#a6e22e">rate</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">fetcher</span>.<span style="color:#a6e22e">Fetch</span>(<span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">target</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;failed to fetch %s to %s exchange rate: %w&#34;</span>, <span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">err</span>)
+	}
+
+	<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>, <span style="color:#e6db74">&#34;%s to %s exchange rate is %v&#34;</span>, <span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">rate</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+}
+</code></pre></div><p>Everything that used to be in <code>main</code> is now in <code>Run</code>, with one
+little change though: <code>Run</code> is attached to <code>*App</code>, which has a <code>fetcher</code> property
+of type <code>exchangerate.Fetcher</code>.</p>
+<p>What is it, you asked? It&rsquo;s an interface, take a look at it.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Fetcher</span> <span style="color:#66d9ef">interface</span> {
+    <span style="color:#a6e22e">Fetch</span>(<span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">target</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">rate</span> <span style="color:#66d9ef">float64</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>)
+}
+</code></pre></div><p>What&rsquo;s good with an interface is that you can pass an actual
+implementation, let say something like that.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewApiFetcher</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">ApiFetcher</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ApiFetcher</span>{}
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ApiFetcher</span> <span style="color:#66d9ef">struct</span>{}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#f92672">*</span><span style="color:#a6e22e">ApiFetcher</span>) <span style="color:#a6e22e">Fetch</span>(<span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">target</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">rate</span> <span style="color:#66d9ef">float64</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+    <span style="color:#75715e">// nothing new under the sun
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>or you something completely different, say&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MockFetcher</span> <span style="color:#66d9ef">struct</span>{}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#f92672">*</span><span style="color:#a6e22e">MockFetcher</span>) <span style="color:#a6e22e">Fetch</span>(<span style="color:#a6e22e">base</span>, <span style="color:#a6e22e">target</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">rate</span> <span style="color:#66d9ef">float64</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+	println(<span style="color:#e6db74">&#34;I do nothing lol&#34;</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">nil</span>
+}
+</code></pre></div><p>And with that, we could write a proper unit test on <code>*App.Run</code>, because that
+will build.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#f92672">package</span> <span style="color:#a6e22e">app</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;testing&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestApp_Run</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+	<span style="color:#a6e22e">app</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">App</span>{
+		<span style="color:#a6e22e">fetcher</span>: <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">MockFetcher</span>{},
+	}
+	<span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">Run</span>()
+}
+</code></pre></div><p>And the cherry on the top: to a certain extent (which is the interface definition)
+we can change the implementation of <code>*ApiFetch.Fetch</code> without changing a single line
+to <code>*App.Run</code> or its unit test. Now we have scalability.</p>
+<p><img src="/img/success-kid.jpeg" alt="Success kid"></p>
+<p>In a real world case, it would be good to have <code>MockFetcher</code> work for us
+by making the returned values configurable so that we can test how <code>*App.Run</code>
+reacts to different values. For the test to be complete, we would also want to
+make sure <code>*App.fetcher.Fetch</code> is actually called.
+There are libraries out there that can help you generate mocks based on interfaces
+definitions. One I like is <a href="https://github.com/golang/mock">github.com/golang/mock</a>.</p>
+<a class="headline-hash" href="#bonus-take"><h2 id="bonus-take">Bonus take</a> </h2>
+<p>You notice that I haven&rsquo;t zoomed in <code>app.Initialize()</code>, which is the first line in the
+new almost empty <code>main</code>.</p>
+<p>I assume you guessed what&rsquo;s in there but let&rsquo;s look anyway at <code>init.go</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#f92672">package</span> <span style="color:#a6e22e">app</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;github.com/aubm/golang-dependency-injection/pkg/exchangerate&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Initialize</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">App</span> {
+	<span style="color:#a6e22e">fetcher</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">exchangerate</span>.<span style="color:#a6e22e">NewApiFetcher</span>()
+	<span style="color:#a6e22e">app</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">NewApp</span>(<span style="color:#a6e22e">fetcher</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">app</span>
+}
+</code></pre></div><p>Here we use the constructor functions that we saw earlier
+to build the whole application graph.</p>
+<p>Since in this case we only have two types, this is easy enough.
+But keeping <code>Initialize</code> in sync with the changes throughout a codebase that
+goes larger and larger as we add more types that depend on each others is boring.
+It&rsquo;s not particularly difficult, but it really is boring.</p>
+<p>This is something <a href="https://github.com/google/wire">github.com/google/wire</a> can help you with.</p>
+
+        </p>
+    </div>
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "wwwaubmnet" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    <div class="page-footer">
+        
+        <hr class="footer-divider">
+        
+            <a class="tag" href="/tags/golang">#Golang</a>
+        
+      
+    </div>
+
+
+        
+        </div>
+        <footer class="footer-mobile">
+	<div class="social-icons">
+        
+    <a class="social-icon" href="mailto:aur.baumann@gmail.com" target="_blank" rel="noopener" title="Email">
+        <svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" fill="#ABABAB" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
+            <path d="M25.2794292,5.59128519 L14,16.8707144 L2.72057081,5.59128519 C3.06733103,5.30237414 3.51336915,5.12857603 4,5.12857603 L24,5.12857603 C24.4866308,5.12857603 24.932669,5.30237414 25.2794292,5.59128519 Z M25.9956978,6.99633695 C25.998551,7.04004843 26,7.08414302 26,7.12857603 L26,20.871424 C26,21.0798433 25.9681197,21.2808166 25.9089697,21.4697335 L18.7156355,14.2763993 L25.9956978,6.99633695 Z M24.9498374,22.6319215 C24.6672737,22.7846939 24.3437653,22.871424 24,22.871424 L4,22.871424 C3.5268522,22.871424 3.09207889,22.7071233 2.74962118,22.432463 L10.0950247,15.0870594 L13.9848068,18.9768415 L14.1878486,18.7737996 L14.2030419,18.7889929 L17.6549753,15.3370594 L24.9498374,22.6319215 Z M2.00810114,21.0526627 C2.00273908,20.9929669 2,20.9325153 2,20.871424 L2,7.12857603 C2,7.08414302 2.00144896,7.04004843 2.00430222,6.99633695 L9.03436454,14.0263993 L2.00810114,21.0526627 Z"></path>
+        </svg>
+    </a>
+    
+
+    
+
+    
+    <a class="social-icon" href="https://twitter.com/kendo5731" target="_blank" rel="noopener" title="Twitter">
+        <svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" fill="#ABABAB" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
+            <path d="M8.991284,24.971612 C19.180436,24.971612 24.752372,16.530224 24.752372,9.210524 C24.752372,8.970656 24.747512,8.731868 24.736496,8.494376 C25.818008,7.712564 26.758256,6.737 27.5,5.62622 C26.507372,6.067076 25.439252,6.364292 24.318752,6.498212 C25.462472,5.812628 26.340512,4.727444 26.754584,3.434036 C25.684088,4.068536 24.499004,4.53002 23.23724,4.778528 C22.226468,3.701876 20.786828,3.028388 19.193828,3.028388 C16.134404,3.028388 13.653536,5.509256 13.653536,8.567492 C13.653536,9.0023 13.702244,9.424904 13.797176,9.830552 C9.19346,9.599108 5.11106,7.39472 2.3792,4.04294 C1.903028,4.861364 1.629032,5.812628 1.629032,6.827072 C1.629032,8.74904 2.606972,10.445612 4.094024,11.438132 C3.185528,11.41016 2.331788,11.160464 1.585184,10.745096 C1.583888,10.768208 1.583888,10.791428 1.583888,10.815728 C1.583888,13.49888 3.493652,15.738584 6.028088,16.246508 C5.562932,16.373084 5.07326,16.44134 4.56782,16.44134 C4.210988,16.44134 3.863876,16.406024 3.526484,16.34144 C4.231724,18.542264 6.276596,20.143796 8.701412,20.18894 C6.805148,21.674696 4.416836,22.56008 1.821488,22.56008 C1.374476,22.56008 0.93362,22.534592 0.5,22.4834 C2.951708,24.054476 5.862524,24.971612 8.991284,24.971612"></path>
+        </svg>
+    </a>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <a class="social-icon" href="https://www.linkedin.com/in/aurelienbaumann/" target="_blank" rel="noopener" title="LinkedIn">
+        <svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" fill="#ABABAB" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
+            <path d="M2,3.654102 C2,2.69908141 2.79442509,1.92397846 3.77383592,1.92397846 L24.2261641,1.92397846 C25.2058917,1.92397846 26,2.69908141 26,3.654102 L26,24.3462148 C26,25.3015521 25.2058917,26.0760215 24.2261641,26.0760215 L3.77383592,26.0760215 C2.79442509,26.0760215 2,25.3015521 2,24.3465315 L2,3.65378524 L2,3.654102 Z M9.27526132,22.1415901 L9.27526132,11.2356668 L5.65030092,11.2356668 L5.65030092,22.1415901 L9.27557808,22.1415901 L9.27526132,22.1415901 Z M7.46341463,9.74691162 C8.72727273,9.74691162 9.51409566,8.90940767 9.51409566,7.86284447 C9.49033893,6.79252455 8.72727273,5.97846056 7.48748812,5.97846056 C6.24675325,5.97846056 5.43649034,6.79252455 5.43649034,7.86284447 C5.43649034,8.90940767 6.22299652,9.74691162 7.4396579,9.74691162 L7.46309788,9.74691162 L7.46341463,9.74691162 Z M11.2815965,22.1415901 L14.9062401,22.1415901 L14.9062401,16.0519481 C14.9062401,15.7263225 14.9299968,15.4000634 15.0256573,15.1675641 C15.2876148,14.5159962 15.8840672,13.8416218 16.8856509,13.8416218 C18.1970225,13.8416218 18.7218879,14.8416218 18.7218879,16.3078872 L18.7218879,22.1415901 L22.3465315,22.1415901 L22.3465315,15.8885017 C22.3465315,12.5388027 20.5584416,10.9800443 18.1735825,10.9800443 C16.2182452,10.9800443 15.3595185,12.072854 14.8824834,12.8172315 L14.9065569,12.8172315 L14.9065569,11.2359835 L11.2819132,11.2359835 C11.3291099,12.2591067 11.2815965,22.1419069 11.2815965,22.1419069 L11.2815965,22.1415901 Z"></path>
+        </svg>
+    </a>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+    
+    <a class="social-icon" href="https://github.com/aubm" target="_blank" rel="noopener" title="GitHub">
+        <svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" fill="#ABABAB" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
+            <path d="M13.9988029,1.32087331 C6.82105037,1.32087331 1,7.14112562 1,14.3212723 C1,20.0649109 4.72454649,24.9370678 9.89038951,26.6560892 C10.5408085,26.7757983 10.7778323,26.374374 10.7778323,26.0296121 C10.7778323,25.7215609 10.7666595,24.9035493 10.760275,23.8189856 C7.14426471,24.6042767 6.38131925,22.0760223 6.38131925,22.0760223 C5.78995672,20.5740732 4.93762853,20.1742451 4.93762853,20.1742451 C3.75729765,19.3682044 5.02701126,19.3841656 5.02701126,19.3841656 C6.33183953,19.4759425 7.01817121,20.7241085 7.01817121,20.7241085 C8.17775254,22.7104801 10.0611744,22.1366749 10.8017741,21.8038838 C10.919887,20.9643246 11.2558703,20.3913175 11.6269683,20.066507 C8.74038491,19.7385043 5.70536235,18.6228163 5.70536235,13.6413251 C5.70536235,12.2223743 6.21213051,11.0611968 7.04370914,10.1530044 C6.90963504,9.82420367 6.46351945,8.50181809 7.17139875,6.71256734 C7.17139875,6.71256734 8.26234691,6.36301702 10.7459099,8.04532771 C11.78259,7.75642995 12.8950858,7.61277914 14.000399,7.60719272 C15.1049142,7.61277914 16.2166119,7.75642995 17.2548881,8.04532771 C19.736855,6.36301702 20.8262071,6.71256734 20.8262071,6.71256734 C21.5356825,8.50181809 21.0895669,9.82420367 20.9562909,10.1530044 C21.7894656,11.0611968 22.2922435,12.2223743 22.2922435,13.6413251 C22.2922435,18.6355852 19.2524325,19.734514 16.3570705,20.0561322 C16.8231376,20.4575564 17.2389269,21.2508282 17.2389269,22.4638795 C17.2389269,24.2012564 17.2229657,25.603448 17.2229657,26.0296121 C17.2229657,26.3775663 17.4575954,26.7821827 18.116793,26.6552912 C23.2786458,24.9322794 27,20.0633148 27,14.3212723 C27,7.14112562 21.1789496,1.32087331 13.9988029,1.32087331"></path>
+        </svg>
+    </a>
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+</div>
+
+
+
+
+	<div class="footer-mobile-links">
+		<p><a href="https://github.com/kimcc/hugo-theme-noteworthy" target="_blank" rel="noopener">Noteworthy theme</a></p>
+		<span class="divider-bar">|</span>
+		<p><a href="https://gohugo.io" target="_blank" rel="noopener">Built with Hugo</a></p>
+	</div>
+
+	<script src="https://www.aubm.net/js/main.min.fa5c2b23e07b5d9bfad267a52b4b24fdb053e6fb7524993383594926a3ac270c.js" integrity="sha256-+lwrI+B7XZv60melK0sk/bBT5vt1JJkzg1lJJqOsJww="></script>
+</footer>
+    </body>
+</html>

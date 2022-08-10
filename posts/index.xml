@@ -5,10 +5,21 @@
     <link>https://www.aubm.net/posts/</link>
     <description>Recent content in Posts on Aubm</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 10 Dec 2020 21:18:01 -0500</lastBuildDate>
+    <lastBuildDate>Sun, 10 Jul 2022 18:10:01 -0400</lastBuildDate>
     
 	<atom:link href="https://www.aubm.net/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Please Use Dependency Injection, If Not For Me, Do It For Your Unit Tests</title>
+      <link>https://www.aubm.net/posts/please-use-dependency-injection-if-not-for-me-do-it-for-your-unit-tests/</link>
+      <pubDate>Sun, 10 Jul 2022 18:10:01 -0400</pubDate>
+      
+      <guid>https://www.aubm.net/posts/please-use-dependency-injection-if-not-for-me-do-it-for-your-unit-tests/</guid>
+      <description>TLDR; see title.
+Long time no see, and it&amp;rsquo;s been a while since we haven&amp;rsquo;t talked about Go. I still love the language, I still use it on a daily basis, and today I feel like talking a bit about dependency injection. So hold on to your seats because it&amp;rsquo;s going to get boring very soon, or not we&amp;rsquo;ll see.
+What&amp;rsquo;s the problem? Take the following file. It has a Fetch function that takes base currency and a target currency, and it fetches the exchange rate between the two currencies by contacting an API that has that information in JSON format.</description>
+    </item>
     
     <item>
       <title>I like Slack as much as I like being interrupted at my desk</title>

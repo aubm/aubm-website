@@ -36,3 +36,8 @@ github = "https://github.com/aubm"
 # stackoverflow = "#"
 # gitlab = "#"
 # codepen = "#"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

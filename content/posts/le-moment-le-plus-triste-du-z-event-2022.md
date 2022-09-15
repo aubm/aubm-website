@@ -68,12 +68,12 @@ L’édition 2022 du Z Event a à nouveau battu son propre record en atteignant 
 Voir cela arriver dans un contexte inflationniste où la guerre fait rage à l’autre bout de l’Europe, tend à confirmer la tendance d’un renversement progressif de l’opinion générale vers une disposition d’esprit plus réceptive aux restrictions de certaines libertés en faveur de l’environnement.
 Et nous devons encourager cela.
 
-![Macron tweet #ZEVENT2022](/img/macron-tweet-zevent-2022.png)
+<blockquote class="twitter-tweet"><p lang="fr" dir="ltr"><a href="https://twitter.com/hashtag/ZEVENT22?src=hash&amp;ref_src=twsrc%5Etfw">#ZEVENT22</a>, bonsoir ! <a href="https://t.co/NAPJ1wxm6y">pic.twitter.com/NAPJ1wxm6y</a></p>&mdash; Emmanuel Macron (@EmmanuelMacron) <a href="https://twitter.com/EmmanuelMacron/status/1569044716678676481?ref_src=twsrc%5Etfw">September 11, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Puis vient le moment où le président Emmanuel Macron publie une vidéo sur Twitter dans laquelle il félicite et exprime son soutien pour l'événement et la cause environnementale, [avant de recevoir ce qu’on appelle en bon français une shitstorm](https://www.youtube.com/watch?v=4UHMj_Zz9hM).
 Certains streameurs ne se sont pas embarrassés de bienveillance, voire même de respect.
-Certains ont manqué de dignité, dénonçant une certaine hypocrisie de la part du président, précisant que c’est justement “à cause de gens comme lui entre autres, qu’on fait ces évènements là”, précisions agrémentée d’une cocasse suggestion d’aller “se faire foutre”.
-Je comprends bien pourquoi on peut y voir un certain cynisme, ou de l’appropriation politique de l’évènement par un responsable politique que certains opposants ont qualifié de “climato-hypocrite”.
+Certains ont manqué de dignité, dénonçant une certaine hypocrisie de la part du président, précisant que c’est justement "à cause de gens comme lui entre autres, qu’on fait ces évènements là", précision agrémentée d’une cocasse suggestion d’aller "se faire foutre".
+Je comprends bien pourquoi on peut y voir un certain cynisme, ou de l’appropriation politique de l’évènement par un responsable politique que certains opposants ont qualifié de "climato-hypocrite".
 Vu de ma fenêtre toutefois, cela témoigne d’un manque de compréhension du fonctionnement normal d’une démocratie.
 
 De mon point de vue, cette vidéo est un signe que la démocratie fonctionne de la façon dont elle est supposée fonctionner.

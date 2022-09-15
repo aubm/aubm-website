@@ -65,7 +65,7 @@ And we must encourage that.
 
 ![Macron's tweet #ZEVENT2022](/img/macron-tweet-zevent-2022.png)
 
-There comes the moment President Macron published a video on Twitter in which he expressed his support for the event and the cause it bears, and essentially received a shit storm in response.
+There comes the moment President Macron published a video on Twitter in which he expressed his support for the event and the cause it bears, and [essentially received a shit storm in response](https://www.youtube.com/watch?v=4UHMj_Zz9hM).
 Some streamers didn’t bother with kindness or even respect, some lost their temper, or pointed out the fact that Macron and his pairs were the very reason they did this charity event.
 I get why people describe this as cynical, considering it as political appropriation.
 But to me this really shows a lack of understanding of how a democracy is supposed to function.

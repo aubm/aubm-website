@@ -63,7 +63,7 @@ The 2022 edition of the Z Event has broken its own donations record again, reach
 This, happening in the current inflationary context with war striking at the other end of Europe, must be another positive indicator of the general opinion shifting more and more to a pro-environmental restrictions acceptance state of mind.
 And we must encourage that.
 
-![Macron's tweet #ZEVENT2022](/img/macron-tweet-zevent-2022.png)
+<blockquote class="twitter-tweet"><p lang="fr" dir="ltr"><a href="https://twitter.com/hashtag/ZEVENT22?src=hash&amp;ref_src=twsrc%5Etfw">#ZEVENT22</a>, bonsoir ! <a href="https://t.co/NAPJ1wxm6y">pic.twitter.com/NAPJ1wxm6y</a></p>&mdash; Emmanuel Macron (@EmmanuelMacron) <a href="https://twitter.com/EmmanuelMacron/status/1569044716678676481?ref_src=twsrc%5Etfw">September 11, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 There comes the moment President Macron published a video on Twitter in which he expressed his support for the event and the cause it bears, and [essentially received a shit storm in response](https://www.youtube.com/watch?v=4UHMj_Zz9hM).
 Some streamers didn’t bother with kindness or even respect, some lost their temper, or pointed out the fact that Macron and his pairs were the very reason they did this charity event.

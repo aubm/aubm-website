@@ -5,10 +5,21 @@
     <link>https://www.aubm.net/posts/</link>
     <description>Recent content in Posts on Aubm</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 10 Aug 2022 18:10:01 -0400</lastBuildDate>
+    <lastBuildDate>Wed, 14 Sep 2022 23:09:04 -0400</lastBuildDate>
     
 	<atom:link href="https://www.aubm.net/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>The Saddest Moment of the Z Event 2022</title>
+      <link>https://www.aubm.net/posts/the-saddest-moment-of-the-z-event-2022/</link>
+      <pubDate>Wed, 14 Sep 2022 23:09:04 -0400</pubDate>
+      
+      <guid>https://www.aubm.net/posts/the-saddest-moment-of-the-z-event-2022/</guid>
+      <description>It was when president Macron tweeted about it, and here is why.
+First and foremost, quoting Wikipedia for those who might not have heard about it.
+ The Z Event is a francophone charity project created by Adrien Nougaret and Alexandre Dachary (respectively known under the pseudonyms ZeratoR and Dach) whose goal is to bring together French streamers to collect donations that will support a charity. Organized on the Twitch streaming site, it has raised more money than any other french video gaming event.</description>
+    </item>
     
     <item>
       <title>Please Use Dependency Injection, If Not For Me, Do It For Your Unit Tests</title>

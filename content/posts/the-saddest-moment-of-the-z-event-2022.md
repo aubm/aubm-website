@@ -1,5 +1,5 @@
 ---
-title: "The Saddest Moment of the Z Event 2022"
+title: "The Saddest Moment of the Z Event 2022 🇬🇧"
 date: 2022-09-14T23:09:04-04:00
 draft: false
 tags: [Inspiration, Politics]

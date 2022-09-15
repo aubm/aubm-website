@@ -5,7 +5,7 @@ draft: false
 tags: [Inspiration, Politics]
 ---
 
-Lire l'article en anglais [ici](https://www.aubm.net/posts/the-saddest-moment-of-the-z-event-2022/).
+🇬🇧 Read in english [here](https://www.aubm.net/posts/the-saddest-moment-of-the-z-event-2022/) 🇬🇧
 
 C’était quand le président Macron a tweeté à propos de l'événement, voilà pourquoi.
 

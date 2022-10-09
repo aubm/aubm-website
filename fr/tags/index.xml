@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Aubm</title>
+    <link>https://www.aubm.net/fr/tags/</link>
+    <description>Recent content in Tags on Aubm</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 09 Oct 2022 00:41:07 -0400</lastBuildDate>
+    
+	<atom:link href="https://www.aubm.net/fr/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Inspiration</title>
+      <link>https://www.aubm.net/fr/tags/inspiration/</link>
+      <pubDate>Sun, 09 Oct 2022 00:41:07 -0400</pubDate>
+      
+      <guid>https://www.aubm.net/fr/tags/inspiration/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Politics</title>
+      <link>https://www.aubm.net/fr/tags/politics/</link>
+      <pubDate>Sun, 09 Oct 2022 00:41:07 -0400</pubDate>
+      
+      <guid>https://www.aubm.net/fr/tags/politics/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Politics on Aubm</title>
+    <link>https://www.aubm.net/fr/tags/politics/</link>
+    <description>Recent content in Politics on Aubm</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 09 Oct 2022 00:41:07 -0400</lastBuildDate>
+    
+	<atom:link href="https://www.aubm.net/fr/tags/politics/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Comment j’ai mis mes compétences en programmation au service de mes finances personnelles (partie 1)</title>
+      <link>https://www.aubm.net/fr/posts/how-my-programming-skills-helped-me-with-my-personal-finances-part-1/</link>
+      <pubDate>Sun, 09 Oct 2022 00:41:07 -0400</pubDate>
+      
+      <guid>https://www.aubm.net/fr/posts/how-my-programming-skills-helped-me-with-my-personal-finances-part-1/</guid>
+      <description>Il y a un peu plus de deux ans, j’ai quitté la France pour m’installer au Canada, ce qui a levé un certain nombre d’interrogations autour de la question de l’argent. Je me suis notamment demandé comment allait fonctionner l’imposition. Je me suis également posé la question de savoir s’il était judicieux de convertir mes euros en dollars, et si oui combien. Mais ce que j’avais le plus hâte de découvrir, c’était combien d’argent cela allait me coûter pour maintenir un train de vie similaire à celui que je menais en France.</description>
+    </item>
+    
+  </channel>
+</rss>

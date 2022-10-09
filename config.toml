@@ -6,6 +6,26 @@ disqusShortname = "wwwaubmnet"
 googleAnalytics = "UA-38043974-6"
 
 
+defaultContentLanguage = 'en'
+[languages]
+  [languages.en]
+#     title = 'Aubm'
+#     contentDir = 'content/english'
+    languageName = 'English'
+    weight = 1
+#     [languages.en.params]
+#       linkedin = 'https://linkedin.com/whoever'
+  [languages.fr]
+#     title = 'Mon blogue'
+    languageName = 'Français'
+    weight = 2
+#     contentDir = 'content/french'
+    [languages.fr.params]
+#       linkedin = 'https://linkedin.com/fr/whoever'
+#       [languages.fr.params.navigation]
+#         help = 'Aide'
+
+
 [params]
 # Main
 email = "mailto:aur.baumann@gmail.com"

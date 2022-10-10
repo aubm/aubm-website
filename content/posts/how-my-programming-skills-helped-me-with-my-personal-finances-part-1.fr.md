@@ -94,7 +94,7 @@ Une fois ces règles clarifiées, nous avions besoin d’un outil pour nous assi
 J’ai donc travaillé à intégrer quelques nouvelles informations nécessaires au tableur, comme le propriétaire de chaque compte, et l’éventuelle personne à qui était associée à une dépense (en laissant cette colonne vide si la dépense est associée aux foyer). J’ai ensuite mis ma casquette de programmeur, j’ai produit un petit script coin de table pour nous compiler tout ça et le tour était joué.
 
 ```
- ./hit-me -month 2021-08
+ > ./hit-me -month 2021-08
 XXX owes YYY 167$
 ```
 

@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
-    <loc>https://www.aubm.net/</loc>
+    <loc>https://www.aubm.net/disclaimer/</loc>
     <lastmod>2022-09-26T17:39:14-04:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://www.aubm.net/</loc>
+    <lastmod>2022-09-15T01:41:03-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -17,16 +21,7 @@
                 hreflang="en"
                 href="https://www.aubm.net/"
                 />
-  </url>
-  
-  <url>
-    <loc>https://www.aubm.net/disclaimer/</loc>
-    <lastmod>2022-09-26T17:39:14-04:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/tags/inspiration/</loc>
     <lastmod>2022-09-15T01:41:03-04:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -41,16 +36,12 @@
                 hreflang="en"
                 href="https://www.aubm.net/tags/inspiration/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/posts/le-moment-le-plus-triste-du-z-event-2022/</loc>
     <lastmod>2022-09-15T01:41:03-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/tags/politics/</loc>
     <lastmod>2022-09-15T01:41:03-04:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -65,9 +56,7 @@
                 hreflang="en"
                 href="https://www.aubm.net/tags/politics/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/posts/</loc>
     <lastmod>2022-09-15T01:41:03-04:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -82,9 +71,7 @@
                 hreflang="en"
                 href="https://www.aubm.net/posts/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/tags/</loc>
     <lastmod>2022-09-15T01:41:03-04:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -99,93 +86,77 @@
                 hreflang="en"
                 href="https://www.aubm.net/tags/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/posts/the-saddest-moment-of-the-z-event-2022/</loc>
     <lastmod>2022-09-14T23:09:04-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://www.aubm.net/fr/posts/the-saddest-moment-of-the-z-event-2022/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.aubm.net/posts/the-saddest-moment-of-the-z-event-2022/"
+                />
+  </url><url>
     <loc>https://www.aubm.net/tags/golang/</loc>
     <lastmod>2022-08-10T18:10:01-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/posts/please-use-dependency-injection-if-not-for-me-do-it-for-your-unit-tests/</loc>
     <lastmod>2022-08-10T18:10:01-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/posts/i-like-slack-as-much-as-i-like-being-interrupted-at-my-desk/</loc>
     <lastmod>2020-12-10T21:18:01-05:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/posts/3-ways-of-shooting-yourself-in-the-foot-when-writing-applications-in-go/</loc>
     <lastmod>2020-06-21T09:40:36+01:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/posts/extending-the-kubernetes-api/</loc>
     <lastmod>2020-05-09T18:00:07+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/tags/kubernetes/</loc>
     <lastmod>2020-05-09T18:00:07+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/posts/the-certified-kubernetes-application-developer-and-administrator-certifications/</loc>
     <lastmod>2020-04-26T15:00:07+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/tags/git/</loc>
     <lastmod>2020-04-02T22:00:00+01:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/posts/the-case-of-a-git-linear-history/</loc>
     <lastmod>2020-04-02T22:00:00+01:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/posts/being-the-best-is-not-enough/</loc>
     <lastmod>2020-03-21T09:40:36+01:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/posts/how-to-better-promote-your-bad-ideas/</loc>
     <lastmod>2020-01-03T00:38:00+01:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/categories/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -200,5 +171,4 @@
                 href="https://www.aubm.net/categories/"
                 />
   </url>
-  
 </urlset>

@@ -5,11 +5,7 @@
     <link>https://www.aubm.net/tags/golang/</link>
     <description>Recent content in Golang on Aubm</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 10 Aug 2022 18:10:01 -0400</lastBuildDate>
-    
-	<atom:link href="https://www.aubm.net/tags/golang/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 10 Aug 2022 18:10:01 -0400</lastBuildDate><atom:link href="https://www.aubm.net/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Please Use Dependency Injection, If Not For Me, Do It For Your Unit Tests</title>
       <link>https://www.aubm.net/posts/please-use-dependency-injection-if-not-for-me-do-it-for-your-unit-tests/</link>

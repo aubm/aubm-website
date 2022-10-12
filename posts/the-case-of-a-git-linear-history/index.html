@@ -19,7 +19,7 @@
     
     
     
-    <link rel="stylesheet" href="https://www.aubm.net/css/main.min.8f3b6d19aef7a886373487d2afbf55093974f3c1e0533b9fee38785f468c080b.css"/>
+    <link rel="stylesheet" href="https://www.aubm.net/css/main.min.1af005ca9a2a2440826c195800222e2131308677997cd8bc8e2c787f898197f3.css"/>
 
     
     
@@ -40,8 +40,7 @@ if (!doNotTrack) {
 	
 	ga('send', 'pageview');
 }
-</script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8883802230197004" crossorigin="anonymous"></script>
+</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8883802230197004" crossorigin="anonymous"></script>
 </head>
     <body>
         
@@ -52,6 +51,13 @@ if (!doNotTrack) {
     </div>
     <div class="job-title">
     	<i>Just a random programmer who occasionally shares insights and opinions</i>
+    </div>
+    <div class="languages">
+        
+        <div><a class="color-link" href="https://www.aubm.net/">English</a></div>
+        
+        <div><a class="color-link" href="https://www.aubm.net/fr/">Français</a></div>
+        
     </div>
 </header>
   <div class="nav-menu">
@@ -145,11 +151,14 @@ if (!doNotTrack) {
 	<p><a href="https://github.com/kimcc/hugo-theme-noteworthy" target="_blank" rel="noopener">Noteworthy theme</a></p>
 	<p><a href="https://gohugo.io" target="_blank" rel="noopener">Built with Hugo</a></p>
 
-	<script src="https://www.aubm.net/js/main.min.fa5c2b23e07b5d9bfad267a52b4b24fdb053e6fb7524993383594926a3ac270c.js" integrity="sha256-+lwrI+B7XZv60melK0sk/bBT5vt1JJkzg1lJJqOsJww="></script>
+	<script src="https://www.aubm.net/js/main.min.a7205ef73b078c8daed6fe1b0826e8ba229ffabbb69d299d9446cf41f2c7d8aa.js" integrity="sha256-pyBe9zsHjI2u1v4bCCbouiKf+ru2nSmdlEbPQfLH2Ko="></script>
 </footer>
 </nav>
         <div id="content" class="content-container">
         
+
+
+
 <h1 class="post-title">The Case of a Git Linear History</h1>
     
     <time>April 2, 2020</time>
@@ -166,14 +175,14 @@ This blog post will dig into the most recurrent arguments. Let&rsquo;s start wit
 <a class="headline-hash" href="#it-is-easier-to-follow"><h3 id="it-is-easier-to-follow">It is easier to follow</a> </h3>
 <p>Below is an example of a linear history. It is called linear because every reference has only one parent.
 Hitting down the road to the past of this alphabet repository, each commit is like a new page of a book. They are incremental and chronological, there are no fork roads on the way back to the root of the project.</p>
-<pre><code>* b0aaccd (master) add letters from U to Z
+<pre tabindex="0"><code>* b0aaccd (master) add letters from U to Z
 * 3bcfdb9 add letters from P to T
 * a6958e2 add letters from K to O
 * 1dc63f0 capitalize all letters
 * 6f6ed85 add letters from f to j
 * cbf6c73 init alphabet.txt with letters a to e
 </code></pre><p>Now here is an example of a non-linear history.</p>
-<pre><code>* 7c4be78 (master) Merge branch 'add-missing-letters'
+<pre tabindex="0"><code>* 7c4be78 (master) Merge branch &#39;add-missing-letters&#39;
 |\
 * | 1dc63f0 capitalize all letters
 | * c0e53d5 (add-missing-letters) add letters from u to z
@@ -187,7 +196,7 @@ While this information can be useful, it comes at the cost of added complexity i
 In order to review each individual step, we need to walk through two different and complementary routes. Our novel is now more of a role playbook that needs to be re-played to get a full appreciation of it. This becomes even more complex, when mixing up more branches.</p>
 <p>But things get confusing when the graph is flattened, with commits printed in one dimension, sorted chronologically.
 This is how the history is represented on Github, Gitlab or Bitbucket in the <code>/commits</code> view.</p>
-<pre><code>7c4be78 (master) Merge branch 'add-missing-letters'
+<pre tabindex="0"><code>7c4be78 (master) Merge branch &#39;add-missing-letters&#39;
 1dc63f0 capitalize all letters
 c0e53d5 (add-missing-letters) add letters from u to z
 11f0ed9 add letters from p to t
@@ -195,7 +204,7 @@ d84cbe6 add letters from k to o
 6f6ed85 add letters from f to j
 cbf6c73 init alphabet.txt with letters a to e
 </code></pre><p>From <code>cbf6c73 init alphabet.txt with letters a to e</code> to <code>c0e53d5 (add-missing-letters) add letters from u to z</code> everything is all right, group of letters by group of letters, <code>alphabet.txt</code> was consecutively patched and eventually ended up looking like :</p>
-<pre><code>a
+<pre tabindex="0"><code>a
 b
 c
 d
@@ -221,7 +230,7 @@ x
 y
 z
 </code></pre><p>Now printing the output of the next commit <code>git show 1dc63f0</code>.</p>
-<pre><code>commit 1dc63f0a3995e54d379955d515de7b47b4a95d8c
+<pre tabindex="0"><code>commit 1dc63f0a3995e54d379955d515de7b47b4a95d8c
 Author: &lt;someone@gmail.com&gt;
 Date:   Thu Apr 2 15:13:04 2020 +0200
 
@@ -256,12 +265,12 @@ index 92dfa21..719a59f 100644
 </code></pre><p>Without the graph representation, it is not easy to understand why letters k to z seem to have suddenly disappeared from <code>alphabet.txt</code>, without git to be aware.</p>
 <p>Now inspecting the next and last commit <code>7c4be78 Merge branch 'add-missing-letters'</code>, we see this.
 Again, nothing that we can quickly understand from this only perspective.</p>
-<pre><code>commit 7c4be78005f8d926698d5eb4452755d6d2b518c1
+<pre tabindex="0"><code>commit 7c4be78005f8d926698d5eb4452755d6d2b518c1
 Merge: e04623b c3d970e
 Author: &lt;someone@gmail.com&gt;
 Date:   Thu Apr 2 15:13:04 2020 +0200
 
-    Merge branch 'add-missing-letters'
+    Merge branch &#39;add-missing-letters&#39;
 
     # Conflicts:
     #       alphabet.txt
@@ -327,7 +336,7 @@ index 719a59f,0edb856..8451816
 <p>This is a very common argument in favor of a linear history, but I hardly found a satisfying explanation.
 If never used <a href="https://git-scm.com/docs/git-bisect">bisect</a> before, and don&rsquo;t especially plan for using it any time soon, maybe this is not such a strong argument.
 Building on my previous example, here is altered version where I strategically introduced an errored commit.</p>
-<pre><code>* 7c4be78 (master) Merge branch 'add-missing-letters'
+<pre tabindex="0"><code>* 7c4be78 (master) Merge branch &#39;add-missing-letters&#39;
 |\
 * | 45b257c oops... accidentally delete letter E   &lt;--------------- here
 | * c0e53d5 (add-missing-letters) add letters from u to z
@@ -339,7 +348,7 @@ Building on my previous example, here is altered version where I strategically i
 * cbf6c73 init alphabet.txt with letters a to e
 </code></pre><p>Here is the detail of the indicted commit. Arguably if every bug was that self-explaining we wouldn&rsquo;t have much trouble tracking them!
 Anyway let&rsquo;s try and catch the one, using bisect.</p>
-<pre><code>commit 45b257c9b1e6a4b8a4d67957add3d5c5176a00e8
+<pre tabindex="0"><code>commit 45b257c9b1e6a4b8a4d67957add3d5c5176a00e8
 Author: &lt;troll@gmail.com&gt;
 Date:   Thu Apr 2 16:09:20 2020 +0200
 
@@ -359,14 +368,14 @@ index 719a59f..a812140 100644
  H
 (END)
 </code></pre><p>The most recent commit that we know to be good in master is <code>1dc63f0 capitalize all letters</code>. We will use it as the base, and use <code>grep</code> to check if the letter E is part of <code>alphabet.txt</code>, here is how.</p>
-<pre><code>&gt; git bisect start master 1dc63f0 &amp;&amp; git bisect run sh -c &quot;cat alphabet.txt | grep 'E' -q&quot;
+<pre tabindex="0"><code>&gt; git bisect start master 1dc63f0 &amp;&amp; git bisect run sh -c &#34;cat alphabet.txt | grep &#39;E&#39; -q&#34;
 
 Bisecting: 2 revisions left to test after this (roughly 1 step)
 [11f0ed9614a2225ed21d00c6392ca1aa20a4bea7] add letters from p to t
-running sh -c cat alphabet.txt | grep 'E' -q
+running sh -c cat alphabet.txt | grep &#39;E&#39; -q
 Bisecting: 0 revisions left to test after this (roughly 0 steps)
 [d84cbe6e2e7f659b90a7ad04b0c4059948a4cf4d] add letters from k to o
-running sh -c cat alphabet.txt | grep 'E' -q
+running sh -c cat alphabet.txt | grep &#39;E&#39; -q
 d84cbe6e2e7f659b90a7ad04b0c4059948a4cf4d is the first bad commit
 commit d84cbe6e2e7f659b90a7ad04b0c4059948a4cf4d
 Author: &lt;someone@gmail.com&gt;
@@ -377,7 +386,7 @@ Date:   Thu Apr 2 16:09:20 2020 +0200
 :100644 100644 92dfa216416a1ac944633ab674568f8bae139d95 f8c295c135e5d24d913c7b1c720e2e0deeaeb052 M	alphabet.txt
 bisect run success
 </code></pre><p>Bisect didn&rsquo;t find the right commit, so what happened? Let&rsquo;s focus on the portion of the graph that git considered, leaving the rest.</p>
-<pre><code>* 7c4be78 (master) Merge branch 'add-missing-letters'
+<pre tabindex="0"><code>* 7c4be78 (master) Merge branch &#39;add-missing-letters&#39;
 |\
 * | 45b257c oops... accidentally delete letter E
 | * c0e53d5 (add-missing-letters) add letters from u to z
@@ -391,7 +400,7 @@ bisect run success
 As it did, git is telling us that it is <em>the first bad commit</em>.</p>
 <p>Funny thing is, if branch <code>add-missing-letters</code> originated from commit <code>1dc63f0 capitalize all letters</code>, then <code>E</code> would have been there. Git would then have determined that all commits in the branch were good ones, and would have moved on to the second parent of <code>7c4be78 (master) Merge branch 'add-missing-letters'</code>, eventually finding the actual source of the bug.</p>
 <p>This is very hazardous, and we would not have encountered this issue with a linear history for example looking like :</p>
-<pre><code>* c0e53d5 (master) add letters from U to Z
+<pre tabindex="0"><code>* c0e53d5 (master) add letters from U to Z
 * 11f0ed9 add letters from P to T
 * d84cbe6 add letters from K to O
 * 45b257c oops... accidentally delete letter E
@@ -402,7 +411,7 @@ As it did, git is telling us that it is <em>the first bad commit</em>.</p>
 <a class="headline-hash" href="#easy-git-revert"><h3 id="easy-git-revert">Easy git revert</a> </h3>
 <p>This is the last recurrent argument for keeping a linear history.
 Let&rsquo;s rewind to an earlier example.</p>
-<pre><code>* 7c4be78 (master) Merge branch 'add-missing-letters'
+<pre tabindex="0"><code>* 7c4be78 (master) Merge branch &#39;add-missing-letters&#39;
 |\
 * | 1dc63f0 capitalize all letters
 | * c0e53d5 (add-missing-letters) add letters from u to z
@@ -419,7 +428,7 @@ Let&rsquo;s rewind to an earlier example.</p>
 <li>Branch <code>add-missing-letters</code> was merged into <code>master</code>. Changes from <code>master</code> were taken into account, and the work adapted so that now the alphabet is complete with capital letters only.</li>
 </ul>
 <p>Now let&rsquo;s say that for some reason, we want to roll back letters u to z. Using revert with commit <code>c0e53d5 (add-missing-letters) add letters from u to z</code> produces the following conflict.</p>
-<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+<pre tabindex="0"><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
 A
 B
 C
@@ -469,7 +478,7 @@ t
 &gt;&gt;&gt;&gt;&gt;&gt;&gt; parent of c0e53d5... add letters from u to z
 </code></pre><p>This is not particularly helpful, resolving the conflict is actually more work than manually removing the letters in a new commit.
 In the case of the linear version of this history, the revert applies seamlessly.</p>
-<pre><code>* 31a1b1a (master) Revert &quot;add letters from U to Z&quot;
+<pre tabindex="0"><code>* 31a1b1a (master) Revert &#34;add letters from U to Z&#34;
 * b0aaccd add letters from U to Z
 * 3bcfdb9 add letters from P to T
 * a6958e2 add letters from K to O
@@ -481,7 +490,7 @@ This could mitigate the argument. Still, building on the previous examples, we w
 <a class="headline-hash" href="#cons"><h2 id="cons">Cons</a> </h2>
 <a class="headline-hash" href="#incremental-build-efforts-are-lost"><h3 id="incremental-build-efforts-are-lost">Incremental build efforts are lost</a> </h3>
 <p>Keeping a linear history means that developers will need to rebase their work branches before merging. When applying a patch on a more recent base, chances are that some portions of the work will be invalidated by the latest changes.</p>
-<pre><code>* f19b505 (master) rename alphabet.txt to latin-alphabet.txt
+<pre tabindex="0"><code>* f19b505 (master) rename alphabet.txt to latin-alphabet.txt
 | * c0e53d5 (add-missing-letters) add letters from u to z
 * | 1dc63f0 capitalize all letters
 | * 11f0ed9 add letters from p to t
@@ -496,7 +505,7 @@ I want to make this quick digression because I feel like the confusion is often 
 If you find it relevant, it is perfectly fine to keep commits separated in the branch when merging.</p>
 <p>Furthermore, it is possible to use merge commits and still require branches to be rebased on the target.
 The term of semi-linear history is used to describe such logs.</p>
-<pre><code>* 7c4be78 (HEAD -&gt; master) Merge branch 'add-missing-letters'
+<pre tabindex="0"><code>* 7c4be78 (HEAD -&gt; master) Merge branch &#39;add-missing-letters&#39;
 |\
 | * c0e53d5 (add-missing-letters) add letters from U to Z
 | * 11f0ed9 add letters from P to T
@@ -541,7 +550,7 @@ Rebasing a commit means creating a new one (with a different parent), so if the 
     
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -664,7 +673,7 @@ Rebasing a commit means creating a new one (with a different parent), so if the 
 		<p><a href="https://gohugo.io" target="_blank" rel="noopener">Built with Hugo</a></p>
 	</div>
 
-	<script src="https://www.aubm.net/js/main.min.fa5c2b23e07b5d9bfad267a52b4b24fdb053e6fb7524993383594926a3ac270c.js" integrity="sha256-+lwrI+B7XZv60melK0sk/bBT5vt1JJkzg1lJJqOsJww="></script>
+	<script src="https://www.aubm.net/js/main.min.a7205ef73b078c8daed6fe1b0826e8ba229ffabbb69d299d9446cf41f2c7d8aa.js" integrity="sha256-pyBe9zsHjI2u1v4bCCbouiKf+ru2nSmdlEbPQfLH2Ko="></script>
 </footer>
     </body>
 </html>

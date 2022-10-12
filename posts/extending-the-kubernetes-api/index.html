@@ -19,7 +19,7 @@
     
     
     
-    <link rel="stylesheet" href="https://www.aubm.net/css/main.min.8f3b6d19aef7a886373487d2afbf55093974f3c1e0533b9fee38785f468c080b.css"/>
+    <link rel="stylesheet" href="https://www.aubm.net/css/main.min.1af005ca9a2a2440826c195800222e2131308677997cd8bc8e2c787f898197f3.css"/>
 
     
     
@@ -40,8 +40,7 @@ if (!doNotTrack) {
 	
 	ga('send', 'pageview');
 }
-</script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8883802230197004" crossorigin="anonymous"></script>
+</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8883802230197004" crossorigin="anonymous"></script>
 </head>
     <body>
         
@@ -52,6 +51,13 @@ if (!doNotTrack) {
     </div>
     <div class="job-title">
     	<i>Just a random programmer who occasionally shares insights and opinions</i>
+    </div>
+    <div class="languages">
+        
+        <div><a class="color-link" href="https://www.aubm.net/">English</a></div>
+        
+        <div><a class="color-link" href="https://www.aubm.net/fr/">Français</a></div>
+        
     </div>
 </header>
   <div class="nav-menu">
@@ -145,11 +151,14 @@ if (!doNotTrack) {
 	<p><a href="https://github.com/kimcc/hugo-theme-noteworthy" target="_blank" rel="noopener">Noteworthy theme</a></p>
 	<p><a href="https://gohugo.io" target="_blank" rel="noopener">Built with Hugo</a></p>
 
-	<script src="https://www.aubm.net/js/main.min.fa5c2b23e07b5d9bfad267a52b4b24fdb053e6fb7524993383594926a3ac270c.js" integrity="sha256-+lwrI+B7XZv60melK0sk/bBT5vt1JJkzg1lJJqOsJww="></script>
+	<script src="https://www.aubm.net/js/main.min.a7205ef73b078c8daed6fe1b0826e8ba229ffabbb69d299d9446cf41f2c7d8aa.js" integrity="sha256-pyBe9zsHjI2u1v4bCCbouiKf+ru2nSmdlEbPQfLH2Ko="></script>
 </footer>
 </nav>
         <div id="content" class="content-container">
         
+
+
+
 <h1 class="post-title">Extending the Kubernetes API</h1>
     
     <time>May 9, 2020</time>
@@ -169,76 +178,76 @@ App Engine (<a href="https://cloud.google.com/appengine/docs/standard">standard<
 At some point, I started working on a project where multi-cloud was a critical aspect of the design. Deployments had to be reproducible on various cloud environments, and for that, App Engine was not so great either.
 So I turned myself on Kubernetes, and from there the code path to production obviously became a bit more complicated.</p>
 <p>I think configuration files speak for themselves. While deploying a Go application to App Engine literally takes only an <code>app.yaml</code> file with:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">runtime</span>: go112
-<span style="color:#66d9ef">service</span>: my-app
-
-<span style="color:#66d9ef">handlers</span>:
-- <span style="color:#66d9ef">url</span>: /.*
-  <span style="color:#66d9ef">script</span>: auto
-
-<span style="color:#66d9ef">env_variables</span>:
-  <span style="color:#66d9ef">SOME_VAR</span>: <span style="color:#e6db74">&#39;some value&#39;</span>
-</code></pre></div><p>In order to deploy to Kubernetes, one has to build a container image, publish that image to a container registry and from there, create yaml manifests for a deployment, service and ingress. At the very minimum it will look something like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
-<span style="color:#66d9ef">apiVersion</span>: apps/v1
-<span style="color:#66d9ef">kind</span>: Deployment
-<span style="color:#66d9ef">metadata</span>:
-  <span style="color:#66d9ef">creationTimestamp</span>: <span style="color:#66d9ef">null</span>
-  <span style="color:#66d9ef">labels</span>:
-    <span style="color:#66d9ef">app</span>: my-app
-  <span style="color:#66d9ef">name</span>: my-app
-<span style="color:#66d9ef">spec</span>:
-  <span style="color:#66d9ef">replicas</span>: <span style="color:#ae81ff">1</span>
-  <span style="color:#66d9ef">selector</span>:
-    <span style="color:#66d9ef">matchLabels</span>:
-      <span style="color:#66d9ef">app</span>: my-app
-  <span style="color:#66d9ef">strategy</span>: {}
-  <span style="color:#66d9ef">template</span>:
-    <span style="color:#66d9ef">metadata</span>:
-      <span style="color:#66d9ef">creationTimestamp</span>: <span style="color:#66d9ef">null</span>
-      <span style="color:#66d9ef">labels</span>:
-        <span style="color:#66d9ef">app</span>: my-app
-    <span style="color:#66d9ef">spec</span>:
-      <span style="color:#66d9ef">containers</span>:
-      - <span style="color:#66d9ef">image</span>: my-app
-        <span style="color:#66d9ef">name</span>: gcr.io/my-project/my-app:v1
-        <span style="color:#66d9ef">env</span>:
-        - <span style="color:#66d9ef">name</span>: SOME_VAR
-          <span style="color:#66d9ef">vlaue</span>: <span style="color:#e6db74">&#39;some value&#39;</span>
-        <span style="color:#66d9ef">resources</span>: {}
-<span style="color:#66d9ef">status</span>: {}
----
-<span style="color:#66d9ef">apiVersion</span>: v1
-<span style="color:#66d9ef">kind</span>: Service
-<span style="color:#66d9ef">metadata</span>:
-  <span style="color:#66d9ef">creationTimestamp</span>: <span style="color:#66d9ef">null</span>
-  <span style="color:#66d9ef">labels</span>:
-    <span style="color:#66d9ef">app</span>: my-app
-  <span style="color:#66d9ef">name</span>: my-app
-<span style="color:#66d9ef">spec</span>:
-  <span style="color:#66d9ef">ports</span>:
-  - <span style="color:#66d9ef">port</span>: <span style="color:#ae81ff">8080</span>
-    <span style="color:#66d9ef">protocol</span>: TCP
-    <span style="color:#66d9ef">targetPort</span>: <span style="color:#ae81ff">8080</span>
-  <span style="color:#66d9ef">selector</span>:
-    <span style="color:#66d9ef">app</span>: my-app
-  <span style="color:#66d9ef">type</span>: NodePort
-<span style="color:#66d9ef">status</span>:
-  <span style="color:#66d9ef">loadBalancer</span>: {}
----
-<span style="color:#66d9ef">apiVersion</span>: networking.k8s.io/v1beta1
-<span style="color:#66d9ef">kind</span>: Ingress
-<span style="color:#66d9ef">metadata</span>:
-  <span style="color:#66d9ef">name</span>: my-app
-<span style="color:#66d9ef">spec</span>:
-  <span style="color:#66d9ef">rules</span>:
-  - <span style="color:#66d9ef">http</span>:
-      <span style="color:#66d9ef">paths</span>:
-      - <span style="color:#66d9ef">path</span>: /
-        <span style="color:#66d9ef">backend</span>:
-          <span style="color:#66d9ef">serviceName</span>: my-app
-          <span style="color:#66d9ef">servicePort</span>: <span style="color:#ae81ff">8080</span>
-</code></pre></div><p>The learning curve is higher, and yet you have a lot of additional configuration to make in order to match the feature set that App Engine offers out of the box.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">runtime</span>: <span style="color:#ae81ff">go112</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">service</span>: <span style="color:#ae81ff">my-app</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">handlers</span>:
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">url</span>: <span style="color:#ae81ff">/.*</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">script</span>: <span style="color:#ae81ff">auto</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">env_variables</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">SOME_VAR</span>: <span style="color:#e6db74">&#39;some value&#39;</span>
+</span></span></code></pre></div><p>In order to deploy to Kubernetes, one has to build a container image, publish that image to a container registry and from there, create yaml manifests for a deployment, service and ingress. At the very minimum it will look something like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Deployment</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">creationTimestamp</span>: <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">my-app</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">my-app</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">matchLabels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">app</span>: <span style="color:#ae81ff">my-app</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">strategy</span>: {}
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">creationTimestamp</span>: <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">my-app</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">image</span>: <span style="color:#ae81ff">my-app</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">name</span>: <span style="color:#ae81ff">gcr.io/my-project/my-app:v1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">SOME_VAR</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">vlaue</span>: <span style="color:#e6db74">&#39;some value&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">resources</span>: {}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">status</span>: {}
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">creationTimestamp</span>: <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">my-app</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">my-app</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">port</span>: <span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">TCP</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">my-app</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">type</span>: <span style="color:#ae81ff">NodePort</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">status</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">loadBalancer</span>: {}
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">networking.k8s.io/v1beta1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Ingress</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">my-app</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">rules</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">http</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">paths</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">backend</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">serviceName</span>: <span style="color:#ae81ff">my-app</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">servicePort</span>: <span style="color:#ae81ff">8080</span>
+</span></span></code></pre></div><p>The learning curve is higher, and yet you have a lot of additional configuration to make in order to match the feature set that App Engine offers out of the box.
 To get there, one must look at ways to automatically scale the application, tune the pod lifecycle using readiness and liveness probes, figure out some way to implement canary deployments, among other things.</p>
 <p>I was pretty proud of myself when I finally felt comfortable with Kubernetes built-ins.
 I wanted to use Kubernetes for everything, constantly writing more and more yaml files.
@@ -260,45 +269,45 @@ I was curious to see how I could leverage the extension points of Kubernetes, in
 <p>The watcher program is called a <strong>controller</strong> and it makes use of custom resources defined in <strong>custom resource definitions</strong> or <strong>CRDs</strong>.</p>
 <a class="headline-hash" href="#defining-custom-resources"><h2 id="defining-custom-resources">Defining custom resources</a> </h2>
 <p>Here is an example of what I chose to call an <code>Application</code>, which I believe is a very original and clever name.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">apiVersion</span>: k8s-app-runner.aubm.net/v1
-<span style="color:#66d9ef">kind</span>: Application
-<span style="color:#66d9ef">metadata</span>:
-  <span style="color:#66d9ef">name</span>: my-app
-<span style="color:#66d9ef">spec</span>:
-  <span style="color:#66d9ef">runtime</span>: <span style="color:#e6db74">&#39;node114&#39;</span>
-  <span style="color:#66d9ef">port</span>: <span style="color:#ae81ff">8080</span>
-  <span style="color:#66d9ef">entrypoint</span>: <span style="color:#e6db74">&#39;app.js&#39;</span>
-  <span style="color:#66d9ef">minReplicas</span>: <span style="color:#ae81ff">1</span>
-  <span style="color:#66d9ef">maxReplicas</span>: <span style="color:#ae81ff">10</span>
-  <span style="color:#66d9ef">env</span>:
-  - <span style="color:#66d9ef">name</span>: <span style="color:#e6db74">&#39;SOME_VAR&#39;</span>
-    <span style="color:#66d9ef">value</span>: <span style="color:#e6db74">&#39;some value&#39;</span>
-  <span style="color:#66d9ef">source</span>:
-    <span style="color:#66d9ef">git</span>:
-      <span style="color:#66d9ef">gitRepositoryUrl</span>: <span style="color:#e6db74">&#39;https://github.com/aubm/k8s-app-runner.git&#39;</span>
-      <span style="color:#66d9ef">root</span>: <span style="color:#e6db74">&#39;sample-apps/hello-node&#39;</span>
-</code></pre></div><p>Now this definitely looks more like something I could be happy with, without having to lie to myself in the mirror every morning.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">k8s-app-runner.aubm.net/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Application</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">my-app</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">runtime</span>: <span style="color:#e6db74">&#39;node114&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">port</span>: <span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#e6db74">&#39;app.js&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">minReplicas</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">maxReplicas</span>: <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#39;SOME_VAR&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#39;some value&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">source</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">git</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">gitRepositoryUrl</span>: <span style="color:#e6db74">&#39;https://github.com/aubm/k8s-app-runner.git&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">root</span>: <span style="color:#e6db74">&#39;sample-apps/hello-node&#39;</span>
+</span></span></code></pre></div><p>Now this definitely looks more like something I could be happy with, without having to lie to myself in the mirror every morning.</p>
 <p>Unfortunately if you were to copy this yaml and try to kubectl apply it on your cluster, it would not work. And that&rsquo;s because your cluster doesn&rsquo;t know about version <code>v1</code> of the <code>Application</code> kind in a so called <code>k8s-app-runner.aubm.net</code> group.
 You can make sure of that by running <code>kubectl api-resources</code>.</p>
 <p>In order to create applications in your cluster, you&rsquo;ll first need to tell your cluster about this new type of resource.
 This is what CRDs are for. You can read a lot about the concept of custom resources <a href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/">in the documentation</a> and get more details about how to create CRDs <a href="https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/">here</a>, but in essence, this is what it looks like.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">apiVersion</span>: apiextensions.k8s.io/v1
-<span style="color:#66d9ef">kind</span>: CustomResourceDefinition
-<span style="color:#66d9ef">metadata</span>:
-  <span style="color:#66d9ef">creationTimestamp</span>: <span style="color:#66d9ef">null</span>
-  <span style="color:#66d9ef">name</span>: applications.k8s-app-runner.aubm.net
-<span style="color:#66d9ef">spec</span>:
-  <span style="color:#66d9ef">group</span>: k8s-app-runner.aubm.net
-  <span style="color:#66d9ef">names</span>:
-    <span style="color:#66d9ef">kind</span>: Application
-    <span style="color:#66d9ef">plural</span>: applications
-    <span style="color:#66d9ef">singular</span>: application
-  <span style="color:#66d9ef">scope</span>: Namespaced
-  <span style="color:#66d9ef">versions</span>:
-  - <span style="color:#66d9ef">name</span>: v1
-    <span style="color:#66d9ef">schema</span>:
-      <span style="color:#66d9ef">openAPIV3Schema</span>: {...}
-</code></pre></div><p>As you can see a CRD is just another kind of resource in the Kubernetes API, which exists in the group <code>apiextensions.k8s.io</code>. As any other resource, it has a name and a specification.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apiextensions.k8s.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">CustomResourceDefinition</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">creationTimestamp</span>: <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">applications.k8s-app-runner.aubm.net</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">group</span>: <span style="color:#ae81ff">k8s-app-runner.aubm.net</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">names</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Application</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">plural</span>: <span style="color:#ae81ff">applications</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">singular</span>: <span style="color:#ae81ff">application</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">scope</span>: <span style="color:#ae81ff">Namespaced</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">versions</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">schema</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">openAPIV3Schema</span>: {<span style="color:#ae81ff">...}</span>
+</span></span></code></pre></div><p>As you can see a CRD is just another kind of resource in the Kubernetes API, which exists in the group <code>apiextensions.k8s.io</code>. As any other resource, it has a name and a specification.
 The beauty of this is that the API can be extended dynamically at runtime, without having to recompile or even restart the API server, you just kubectl apply a CRD file and you are good to create custom resources.</p>
 <p>The example is a truncated version of the <code>Application</code> definition as we can see by looking at the <code>.spec.names</code> section. The value of <code>.spec.scope</code> indicates that the resources are namespaced, just like pods and deployments for example, and unlike kinds like <code>StorageClass</code> or <code>CustomResourceDefinition</code> themselves.</p>
 <p>Obviously the biggest part of the CRD, which happens to be the portion of the yaml file that I eluded in the example, is the specification of the resource itself. You can see in <code>.spec.versions[*].schema</code> that it is given as an <a href="https://swagger.io/specification/">OpenAPI v3 specification</a>, which is a standard for describing rest API resources.
@@ -306,7 +315,7 @@ Using this format, we can specify the properties of an application, their type, 
 <p>Once applied in the cluster, custom resources interact nicely with standard kubectl commands.
 For example use <code>kubectl explain applications.spec</code> to navigate through the specification and its sub properties.
 Or use <code>kubectl get applications</code>, even with advanced formatting options like <code>kubectl get applications -o custom-columns=NAME:.metadata.name</code>, which outputs:</p>
-<pre><code>NAME
+<pre tabindex="0"><code>NAME
 my-app
 </code></pre><a class="headline-hash" href="#implementing-the-controller"><h2 id="implementing-the-controller">Implementing the controller</a> </h2>
 <blockquote>
@@ -330,35 +339,35 @@ Kubernetes ships a bunch of controllers for standard resources like the replicat
 We&rsquo;ll go into more details about the implementation of that function later.</p>
 <p>Then <code>NewControllerManagedBy</code> is used to create a controller and attach it to the manager. The controlled kind is configured using the <code>For</code> method. Here a new controller is created for applications. Finally, a <code>Reconcilier</code> is provided to <code>Complete</code> the initialization of the controller. The reconcilier is responsible for implementing the business logic.</p>
 <p>Finally the manager is started. The controller starts watching for changes on the controlled resources.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> (
-	<span style="color:#a6e22e">ctrl</span> <span style="color:#e6db74">&#34;sigs.k8s.io/controller-runtime&#34;</span>
-	<span style="color:#e6db74">&#34;k8s-app-runner.aubm.net/api&#34;</span>
-	<span style="color:#e6db74">&#34;k8s-app-runner.aubm.net/controllers&#34;</span>
-)
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-	<span style="color:#a6e22e">mgr</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">NewManager</span>(<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">GetConfigOrDie</span>(), <span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">Options</span>{})
-
-	<span style="color:#a6e22e">api</span>.<span style="color:#a6e22e">AddToScheme</span>(<span style="color:#a6e22e">mgr</span>.<span style="color:#a6e22e">GetScheme</span>())
-
-	<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">NewControllerManagedBy</span>(<span style="color:#a6e22e">mgr</span>).
-		<span style="color:#a6e22e">For</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">api</span>.<span style="color:#a6e22e">Application</span>{}).
-		<span style="color:#a6e22e">Complete</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">controllers</span>.<span style="color:#a6e22e">ApplicationReconciler</span>{})
-
-	<span style="color:#a6e22e">mgr</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">SetupSignalHandler</span>())
-}
-</code></pre></div><a class="headline-hash" href="#the-reconciliation-loop"><h3 id="the-reconciliation-loop">The reconciliation loop</a> </h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ctrl</span> <span style="color:#e6db74">&#34;sigs.k8s.io/controller-runtime&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;k8s-app-runner.aubm.net/api&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;k8s-app-runner.aubm.net/controllers&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">mgr</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">NewManager</span>(<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">GetConfigOrDie</span>(), <span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">Options</span>{})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">api</span>.<span style="color:#a6e22e">AddToScheme</span>(<span style="color:#a6e22e">mgr</span>.<span style="color:#a6e22e">GetScheme</span>())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">NewControllerManagedBy</span>(<span style="color:#a6e22e">mgr</span>).
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">For</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">api</span>.<span style="color:#a6e22e">Application</span>{}).
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Complete</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">controllers</span>.<span style="color:#a6e22e">ApplicationReconciler</span>{})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">mgr</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">SetupSignalHandler</span>())
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><a class="headline-hash" href="#the-reconciliation-loop"><h3 id="the-reconciliation-loop">The reconciliation loop</a> </h3>
 <p>The type <code>applicationReconciler</code> implements the <code>Reconcilier</code> interface, which is pretty straightforward, it only has one method which is defined as follow.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;sigs.k8s.io/controller-runtime/pkg/reconcile&#34;</span>
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">r</span> <span style="color:#a6e22e">ApplicationReconcilier</span>) <span style="color:#a6e22e">Reconcile</span>(<span style="color:#a6e22e">request</span> <span style="color:#a6e22e">reconcile</span>.<span style="color:#a6e22e">Request</span>) (<span style="color:#a6e22e">reconcile</span>.<span style="color:#a6e22e">Result</span>, <span style="color:#66d9ef">error</span>) {
-	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;received reconcile request for %s&#34;</span>, <span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">NamespacedName</span>)
-
-	<span style="color:#75715e">// do things here
-</span><span style="color:#75715e"></span>
-	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">reconcile</span>.<span style="color:#a6e22e">Result</span>{}, <span style="color:#66d9ef">nil</span>
-}
-</code></pre></div><p>Each time a creation/update/deletion happens on an application, the controller executes this method. The reconcilier takes the appropriate actions to bring the system state closer than the desired state which is declared in the application specification.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;sigs.k8s.io/controller-runtime/pkg/reconcile&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">r</span> <span style="color:#a6e22e">ApplicationReconcilier</span>) <span style="color:#a6e22e">Reconcile</span>(<span style="color:#a6e22e">request</span> <span style="color:#a6e22e">reconcile</span>.<span style="color:#a6e22e">Request</span>) (<span style="color:#a6e22e">reconcile</span>.<span style="color:#a6e22e">Result</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;received reconcile request for %s&#34;</span>, <span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">NamespacedName</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// do things here
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">reconcile</span>.<span style="color:#a6e22e">Result</span>{}, <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Each time a creation/update/deletion happens on an application, the controller executes this method. The reconcilier takes the appropriate actions to bring the system state closer than the desired state which is declared in the application specification.</p>
 <p>What is done here mainly consists in:</p>
 <ul>
 <li>creating a deployment object, using a shared volume and init containers for downloading the app sources and its dependencies</li>
@@ -370,66 +379,66 @@ We&rsquo;ll go into more details about the implementation of that function later
 <p>If for some reason the method returns an error, the controller will invoke the method again, until it eventually successfully reconciles the resource. Whether or not the method succeeds, it is possible to control if and when to call the reconcilier back by setting custom values in <code>reconcile.Result.Requeue</code> (<em>boolean</em>) or <code>reconcile.Result.RequeueAfter</code> (<em>standard time.Duration</em>). No matter what, the reconcilier will be invoked again for any new events on the controlled resources. This whole process is called the reconciliation loop.</p>
 <a class="headline-hash" href="#more-details-about-the-application-type"><h3 id="more-details-about-the-application-type">More details about the Application type</a> </h3>
 <p>Below is the Go definition of the <code>Application</code> type. It is used to decode/encode all the fields of a Kubernetes application. As you see, types from <code>metav1</code> are used to avoid some boilerplate code for common fields like <code>apiVersion</code>, <code>kind</code>, <code>metadata.name</code>, etc&hellip;</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> <span style="color:#a6e22e">metav1</span> <span style="color:#e6db74">&#34;k8s.io/apimachinery/pkg/apis/meta/v1&#34;</span>
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Application</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">metav1</span>.<span style="color:#a6e22e">TypeMeta</span>   <span style="color:#e6db74">`json:&#34;,inline&#34;`</span>
-	<span style="color:#a6e22e">metav1</span>.<span style="color:#a6e22e">ObjectMeta</span> <span style="color:#e6db74">`json:&#34;metadata,omitempty&#34;`</span>
-
-	<span style="color:#a6e22e">Spec</span>   <span style="color:#a6e22e">ApplicationSpec</span>   <span style="color:#e6db74">`json:&#34;spec,omitempty&#34;`</span>
-	<span style="color:#a6e22e">Status</span> <span style="color:#a6e22e">ApplicationStatus</span> <span style="color:#e6db74">`json:&#34;status,omitempty&#34;`</span>
-}
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ApplicationSpec</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">Port</span>        <span style="color:#66d9ef">int32</span>  <span style="color:#e6db74">`json:&#34;port&#34;`</span>
-	<span style="color:#a6e22e">Runtime</span>     <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;runtime&#34;`</span>
-	<span style="color:#a6e22e">MinReplicas</span> <span style="color:#66d9ef">int32</span>  <span style="color:#e6db74">`json:&#34;minReplicas&#34;`</span>
-	<span style="color:#a6e22e">MaxReplicas</span> <span style="color:#66d9ef">int32</span>  <span style="color:#e6db74">`json:&#34;maxReplicas&#34;`</span>
-	<span style="color:#a6e22e">Env</span>         []<span style="color:#a6e22e">Env</span>  <span style="color:#e6db74">`json:&#34;env&#34;`</span>
-	<span style="color:#a6e22e">Entrypoint</span>  <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;entrypoint&#34;`</span>
-	<span style="color:#a6e22e">Source</span>      <span style="color:#66d9ef">struct</span> {
-		<span style="color:#a6e22e">Git</span> <span style="color:#66d9ef">struct</span> {
-			<span style="color:#a6e22e">GitRepositoryURL</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;gitRepositoryUrl&#34;`</span>
-			<span style="color:#a6e22e">Revision</span>         <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;revision&#34;`</span>
-			<span style="color:#a6e22e">Root</span>             <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;root,omitempty&#34;`</span>
-		} <span style="color:#e6db74">`json:&#34;git&#34;`</span>
-	} <span style="color:#e6db74">`json:&#34;source&#34;`</span>
-}
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Env</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">Name</span>  <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;name&#34;`</span>
-	<span style="color:#a6e22e">Value</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;value&#34;`</span>
-}
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ApplicationStatus</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">NodePort</span>          []<span style="color:#66d9ef">int32</span> <span style="color:#e6db74">`json:&#34;nodePort,omitempty&#34;`</span>
-	<span style="color:#a6e22e">AvailableReplicas</span> <span style="color:#66d9ef">int32</span>   <span style="color:#e6db74">`json:&#34;availableReplicas&#34;`</span>
-	<span style="color:#a6e22e">Replicas</span>          <span style="color:#66d9ef">int32</span>   <span style="color:#e6db74">`json:&#34;replicas&#34;`</span>
-}
-</code></pre></div><p>There is nothing much more to say about the type itself. But how does the controller associate it to the kind <code>Application</code> of group <code>k8s-app-runner.aubm.net/v1</code>?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#a6e22e">metav1</span> <span style="color:#e6db74">&#34;k8s.io/apimachinery/pkg/apis/meta/v1&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Application</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">metav1</span>.<span style="color:#a6e22e">TypeMeta</span>   <span style="color:#e6db74">`json:&#34;,inline&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">metav1</span>.<span style="color:#a6e22e">ObjectMeta</span> <span style="color:#e6db74">`json:&#34;metadata,omitempty&#34;`</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Spec</span>   <span style="color:#a6e22e">ApplicationSpec</span>   <span style="color:#e6db74">`json:&#34;spec,omitempty&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Status</span> <span style="color:#a6e22e">ApplicationStatus</span> <span style="color:#e6db74">`json:&#34;status,omitempty&#34;`</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ApplicationSpec</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Port</span>        <span style="color:#66d9ef">int32</span>  <span style="color:#e6db74">`json:&#34;port&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Runtime</span>     <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;runtime&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">MinReplicas</span> <span style="color:#66d9ef">int32</span>  <span style="color:#e6db74">`json:&#34;minReplicas&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">MaxReplicas</span> <span style="color:#66d9ef">int32</span>  <span style="color:#e6db74">`json:&#34;maxReplicas&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Env</span>         []<span style="color:#a6e22e">Env</span>  <span style="color:#e6db74">`json:&#34;env&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Entrypoint</span>  <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;entrypoint&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Source</span>      <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Git</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">GitRepositoryURL</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;gitRepositoryUrl&#34;`</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">Revision</span>         <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;revision&#34;`</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">Root</span>             <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;root,omitempty&#34;`</span>
+</span></span><span style="display:flex;"><span>		} <span style="color:#e6db74">`json:&#34;git&#34;`</span>
+</span></span><span style="display:flex;"><span>	} <span style="color:#e6db74">`json:&#34;source&#34;`</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Env</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Name</span>  <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;name&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Value</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;value&#34;`</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ApplicationStatus</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">NodePort</span>          []<span style="color:#66d9ef">int32</span> <span style="color:#e6db74">`json:&#34;nodePort,omitempty&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">AvailableReplicas</span> <span style="color:#66d9ef">int32</span>   <span style="color:#e6db74">`json:&#34;availableReplicas&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Replicas</span>          <span style="color:#66d9ef">int32</span>   <span style="color:#e6db74">`json:&#34;replicas&#34;`</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>There is nothing much more to say about the type itself. But how does the controller associate it to the kind <code>Application</code> of group <code>k8s-app-runner.aubm.net/v1</code>?</p>
 <p>We know that the manager makes use of scheme to know what object kinds are available, and what Go types they are associated to.
 Remember this instruction from the main function <code>api.AddToScheme(mgr.GetScheme())</code>? Now we look at what it does.</p>
 <p>As we can see from the code below, <code>AddToScheme</code> is actually a reference to <code>SchemeBuilder.AddToScheme</code> where <code>SchemeBuilder</code>, as the name suggests, well &hellip; builds schemes.
 However we are not creating a new scheme here, instead (as mentioned earlier) <code>AddToScheme</code> will add the items of an yet-to-be-created scheme in an existing one.
 We see the group name and version provided in the <code>GroupVersion</code> property, but what about the <code>Application</code> kind?</p>
 <p>For this, we have to look at the init function, where the <code>SchemeBuilder.Register</code> method is called with an instance of <code>*Application</code>. Under the hood, <code>SchemeBuilder</code> <a href="https://github.com/kubernetes/apimachinery/blob/v0.18.2/pkg/runtime/scheme.go#L168-L182">uses reflection to map the type of the argument to the kind name</a> (which is automatically determined from the name of the Go type, that is &ldquo;Application&rdquo;).</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> (
-	<span style="color:#e6db74">&#34;k8s.io/apimachinery/pkg/runtime/schema&#34;</span>
-	<span style="color:#e6db74">&#34;sigs.k8s.io/controller-runtime/pkg/scheme&#34;</span>
-)
-
-<span style="color:#66d9ef">var</span> (
-	<span style="color:#a6e22e">SchemeBuilder</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">scheme</span>.<span style="color:#a6e22e">Builder</span>{<span style="color:#a6e22e">GroupVersion</span>: <span style="color:#a6e22e">schema</span>.<span style="color:#a6e22e">GroupVersion</span>{
-		<span style="color:#a6e22e">Group</span>:   <span style="color:#e6db74">&#34;k8s-app-runner.aubm.net&#34;</span>,
-		<span style="color:#a6e22e">Version</span>: <span style="color:#e6db74">&#34;v1&#34;</span>,
-	}}
-	<span style="color:#a6e22e">AddToScheme</span> = <span style="color:#a6e22e">SchemeBuilder</span>.<span style="color:#a6e22e">AddToScheme</span>
-)
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
-	<span style="color:#a6e22e">SchemeBuilder</span>.<span style="color:#a6e22e">Register</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Application</span>{})
-}
-</code></pre></div><blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;k8s.io/apimachinery/pkg/runtime/schema&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;sigs.k8s.io/controller-runtime/pkg/scheme&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">SchemeBuilder</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">scheme</span>.<span style="color:#a6e22e">Builder</span>{<span style="color:#a6e22e">GroupVersion</span>: <span style="color:#a6e22e">schema</span>.<span style="color:#a6e22e">GroupVersion</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Group</span>:   <span style="color:#e6db74">&#34;k8s-app-runner.aubm.net&#34;</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Version</span>: <span style="color:#e6db74">&#34;v1&#34;</span>,
+</span></span><span style="display:flex;"><span>	}}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">AddToScheme</span> = <span style="color:#a6e22e">SchemeBuilder</span>.<span style="color:#a6e22e">AddToScheme</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">SchemeBuilder</span>.<span style="color:#a6e22e">Register</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Application</span>{})
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><blockquote>
 <p>If we look closer at <code>SchemeBuilder.Register</code>, we see that it only accepts objects of type interface <code>k8s.io/apimachinery/pkg/runtime.Object</code>. Two methods must be implemented, the first <code>GetObjectKind() schema.ObjectKind</code> is done for free by embedding the <code>metav1.TypeMeta</code> into the <code>Application</code> type, the second <code>DeepCopyObject() Object</code> is relatively boring, we&rsquo;ll see later how we can leverage code generation to avoid implementing this ourselves.</p>
 </blockquote>
 <a class="headline-hash" href="#validating-admission-webhooks"><h3 id="validating-admission-webhooks">Validating admission webhooks</a> </h3>
@@ -440,50 +449,50 @@ A validating webhook is an HTTP callback which is called by the Kubernetes API s
 <p>Building on the earlier bootstrap example, below is what needs to add in order to automatically register webhook endpoints for applications.
 The <code>NewWebhookManagedBy</code> method returns a webhook builder. It has a <code>For</code> method, which takes a <code>k8s.io/apimachinery/pkg/runtime.Object</code> interface. Its <a href="https://github.com/kubernetes-sigs/controller-runtime/blob/v0.6.0/pkg/builder/webhook.go#L50">documentation</a> states that <em>if the given object implements the admission.Validator interface, a ValidatingWebhook will be wired for this type</em>.
 What <em>wired</em> means here, is that an actual HTTP server will be started and will listen on port 9443 (which is explicitly specified in <code>NewManager</code> options). The path is <a href="https://github.com/kubernetes-sigs/controller-runtime/blob/v0.6.0/pkg/builder/webhook.go#L164-L167">automatically determined based on group, version and kind</a> of the object type.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> (
-	<span style="color:#75715e">// [...]
-</span><span style="color:#75715e"></span>	<span style="color:#e6db74">&#34;k8s-app-runner.aubm.net/api&#34;</span>
-	<span style="color:#a6e22e">ctrl</span> <span style="color:#e6db74">&#34;sigs.k8s.io/controller-runtime&#34;</span>
-)
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-	<span style="color:#a6e22e">mrg</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">NewManager</span>(<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">GetConfigOrDie</span>(), <span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">Options</span>{<span style="color:#a6e22e">Port</span>: <span style="color:#ae81ff">9443</span>})
-
-	<span style="color:#75715e">// [...]
-</span><span style="color:#75715e"></span>
-	<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">NewWebhookManagedBy</span>(<span style="color:#a6e22e">mgr</span>).
-		<span style="color:#a6e22e">For</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">api</span>.<span style="color:#a6e22e">Application</span>{}).
-		<span style="color:#a6e22e">Complete</span>()
-
-	<span style="color:#a6e22e">mgr</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">SetupSignalHandler</span>()
-}
-</code></pre></div><p>The <code>admission.Validator</code> interface is pretty simple, three methods: <code>ValidateCreate</code>, <code>ValidateUpdate</code> and <code>ValidateDelete</code>, must be implemented and return an error if the configuration is invalid. Here is how it is done for applications.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Application</span>) <span style="color:#a6e22e">ValidateCreate</span>() <span style="color:#66d9ef">error</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">validate</span>() }
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Application</span>) <span style="color:#a6e22e">ValidateUpdate</span>(<span style="color:#a6e22e">old</span> <span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">Object</span>) <span style="color:#66d9ef">error</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">validate</span>() }
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Application</span>) <span style="color:#a6e22e">ValidateDelete</span>() <span style="color:#66d9ef">error</span> { <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span> }
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Application</span>) <span style="color:#a6e22e">validate</span>() <span style="color:#66d9ef">error</span> {
-	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">Spec</span>.<span style="color:#a6e22e">MinReplicas</span> &gt; <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">Spec</span>.<span style="color:#a6e22e">MaxReplicas</span> {
-		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;minReplicas can not be greater than maxReplicas, minReplicas=%v maxReplicas=%v&#34;</span>,
-			<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">Spec</span>.<span style="color:#a6e22e">MinReplicas</span>, <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">Spec</span>.<span style="color:#a6e22e">MaxReplicas</span>)
-	}
-	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
-}
-</code></pre></div><p>Now deploying an errored application specification, using <code>kubectl apply</code>, will produce an error like the one below (more on deploying webhooks later).</p>
-<pre><code>Error from server (minReplicas can not be greater than maxReplicas, minReplicas=10 maxReplicas=3): error when creating &quot;my-app.yaml&quot;: admission webhook &quot;vapplication.kb.io&quot; denied the request: minReplicas can not be greater than maxReplicas, minReplicas=10 maxReplicas=3
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// [...]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#e6db74">&#34;k8s-app-runner.aubm.net/api&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ctrl</span> <span style="color:#e6db74">&#34;sigs.k8s.io/controller-runtime&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">mrg</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">NewManager</span>(<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">GetConfigOrDie</span>(), <span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">Options</span>{<span style="color:#a6e22e">Port</span>: <span style="color:#ae81ff">9443</span>})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// [...]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">NewWebhookManagedBy</span>(<span style="color:#a6e22e">mgr</span>).
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">For</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">api</span>.<span style="color:#a6e22e">Application</span>{}).
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Complete</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">mgr</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">SetupSignalHandler</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The <code>admission.Validator</code> interface is pretty simple, three methods: <code>ValidateCreate</code>, <code>ValidateUpdate</code> and <code>ValidateDelete</code>, must be implemented and return an error if the configuration is invalid. Here is how it is done for applications.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Application</span>) <span style="color:#a6e22e">ValidateCreate</span>() <span style="color:#66d9ef">error</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">validate</span>() }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Application</span>) <span style="color:#a6e22e">ValidateUpdate</span>(<span style="color:#a6e22e">old</span> <span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">Object</span>) <span style="color:#66d9ef">error</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">validate</span>() }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Application</span>) <span style="color:#a6e22e">ValidateDelete</span>() <span style="color:#66d9ef">error</span> { <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span> }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Application</span>) <span style="color:#a6e22e">validate</span>() <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">Spec</span>.<span style="color:#a6e22e">MinReplicas</span> &gt; <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">Spec</span>.<span style="color:#a6e22e">MaxReplicas</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;minReplicas can not be greater than maxReplicas, minReplicas=%v maxReplicas=%v&#34;</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">Spec</span>.<span style="color:#a6e22e">MinReplicas</span>, <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">Spec</span>.<span style="color:#a6e22e">MaxReplicas</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Now deploying an errored application specification, using <code>kubectl apply</code>, will produce an error like the one below (more on deploying webhooks later).</p>
+<pre tabindex="0"><code>Error from server (minReplicas can not be greater than maxReplicas, minReplicas=10 maxReplicas=3): error when creating &#34;my-app.yaml&#34;: admission webhook &#34;vapplication.kb.io&#34; denied the request: minReplicas can not be greater than maxReplicas, minReplicas=10 maxReplicas=3
 </code></pre><a class="headline-hash" href="#mutating-admission-webhooks"><h3 id="mutating-admission-webhooks">Mutating admission webhooks</a> </h3>
 <p>Mutating admission webhooks are a second type of webhooks.
 They are executed before validation, and are used to patch the resource.
 They are typically used to specify default values on created/updated resources.</p>
 <p>The implementation is pretty similar to validating webhooks.
 From the previous example, there is nothing more to add in the main function. Back in the <a href="https://github.com/kubernetes-sigs/controller-runtime/blob/v0.6.0/pkg/builder/webhook.go#L49">documentation for <code>For</code></a>, <em>if the given object implements the admission.Defaulter interface, a MutatingWebhook will be wired for this type</em>. Below is how I implemented the interface so that a new annotation is automatically added to every created/updated application.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Application</span>) <span style="color:#a6e22e">Default</span>() {
-	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">ObjectMeta</span>.<span style="color:#a6e22e">Annotations</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
-		<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">ObjectMeta</span>.<span style="color:#a6e22e">Annotations</span> = <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>{}
-	}
-	<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">ObjectMeta</span>.<span style="color:#a6e22e">Annotations</span>[<span style="color:#e6db74">&#34;from-application-mutator-with-love&#34;</span>] = <span style="color:#e6db74">&#34;Hello there&#34;</span>
-}
-</code></pre></div><a class="headline-hash" href="#admission-webhooks-for-core-objects"><h3 id="admission-webhooks-for-core-objects">Admission webhooks for core objects</a> </h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Application</span>) <span style="color:#a6e22e">Default</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">ObjectMeta</span>.<span style="color:#a6e22e">Annotations</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">ObjectMeta</span>.<span style="color:#a6e22e">Annotations</span> = <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>{}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">ObjectMeta</span>.<span style="color:#a6e22e">Annotations</span>[<span style="color:#e6db74">&#34;from-application-mutator-with-love&#34;</span>] = <span style="color:#e6db74">&#34;Hello there&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><a class="headline-hash" href="#admission-webhooks-for-core-objects"><h3 id="admission-webhooks-for-core-objects">Admission webhooks for core objects</a> </h3>
 <p>In the previous examples, I used <code>mgr.NewWebhookManagedBy</code> to register new webhooks in a very convenient way.
 This works fine for custom resources, but because you can&rsquo;t add methods to external Go types, you can&rsquo;t use it for creating webhooks on built-in resources.
 If I wanted to do the same thing for pods, then I&rsquo;d need to register a webhook &ldquo;the hard way&rdquo;. Let&rsquo;s see how to do that by reviewing the below example.</p>
@@ -492,80 +501,80 @@ Registering a webhook takes a path (which has to be set manually), and a standar
 It is possible to implement the handler directly, (the <a href="https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#webhook-request-and-response">documentation</a> provides all the details about the API contract), but here I preferred using <code>sigs.k8s.io/controller-runtime/pkg/webhook.Admission</code> which implements <code>http.Handler</code>, while delegating the core logic to the <code>Handle</code> method of <code>applicationValidator</code> struct, which is easier to implement.</p>
 <p>The rest of it consists in decoding the request object, modifying it and creating a json patch, which is a <code>[]byte</code>.
 Hopefully the helper function <code>admission.PatchResponseFromRaw</code> can help with that.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> (
-	<span style="color:#75715e">// [...]
-</span><span style="color:#75715e"></span>
-	<span style="color:#e6db74">&#34;context&#34;</span>
-	<span style="color:#e6db74">&#34;encoding/json&#34;</span>
-
-	<span style="color:#a6e22e">corev1</span> <span style="color:#e6db74">&#34;k8s.io/api/core/v1&#34;</span>
-	<span style="color:#a6e22e">ctrl</span> <span style="color:#e6db74">&#34;sigs.k8s.io/controller-runtime&#34;</span>
-	<span style="color:#e6db74">&#34;sigs.k8s.io/controller-runtime/pkg/webhook&#34;</span>
-	<span style="color:#e6db74">&#34;sigs.k8s.io/controller-runtime/pkg/webhook/admission&#34;</span>
-)
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-	<span style="color:#a6e22e">mgr</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">NewManager</span>(<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">GetConfigOrDie</span>(), <span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">Options</span>{<span style="color:#a6e22e">Port</span>: <span style="color:#ae81ff">9443</span>})
-	
-	<span style="color:#75715e">// [...]
-</span><span style="color:#75715e"></span>
-	<span style="color:#a6e22e">hookServer</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">mgr</span>.<span style="color:#a6e22e">GetWebhookServer</span>()
-	<span style="color:#a6e22e">hookServer</span>.<span style="color:#a6e22e">Register</span>(<span style="color:#e6db74">&#34;/mutate-pod&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">webhook</span>.<span style="color:#a6e22e">Admission</span>{<span style="color:#a6e22e">Handler</span>: <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">podMutator</span>{}})
-
-	<span style="color:#a6e22e">mgr</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">SetupSignalHandler</span>())
-}
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">podMutator</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">decoder</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">admission</span>.<span style="color:#a6e22e">Decoder</span>
-}
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">podMutator</span>) <span style="color:#a6e22e">Handle</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">req</span> <span style="color:#a6e22e">admission</span>.<span style="color:#a6e22e">Request</span>) <span style="color:#a6e22e">admission</span>.<span style="color:#a6e22e">Response</span> {
-	<span style="color:#a6e22e">pod</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">corev1</span>.<span style="color:#a6e22e">Pod</span>{}
-	<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">decoder</span>.<span style="color:#a6e22e">Decode</span>(<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">pod</span>)
-
-	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">pod</span>.<span style="color:#a6e22e">Annotations</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
-		<span style="color:#a6e22e">pod</span>.<span style="color:#a6e22e">Annotations</span> = <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>{}
-	}
-	<span style="color:#a6e22e">pod</span>.<span style="color:#a6e22e">Annotations</span>[<span style="color:#e6db74">&#34;from-pod-mutator-with-love&#34;</span>] = <span style="color:#e6db74">&#34;Hello there&#34;</span>
-
-	<span style="color:#a6e22e">marshaledPod</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Marshal</span>(<span style="color:#a6e22e">pod</span>)
-	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">admission</span>.<span style="color:#a6e22e">PatchResponseFromRaw</span>(<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Object</span>.<span style="color:#a6e22e">Raw</span>, <span style="color:#a6e22e">marshaledPod</span>)
-}
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">podMutator</span>) <span style="color:#a6e22e">InjectDecoder</span>(<span style="color:#a6e22e">d</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">admission</span>.<span style="color:#a6e22e">Decoder</span>) <span style="color:#66d9ef">error</span> {
-	<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">decoder</span> = <span style="color:#a6e22e">d</span>
-	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
-}
-</code></pre></div><blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// [...]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;context&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;encoding/json&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">corev1</span> <span style="color:#e6db74">&#34;k8s.io/api/core/v1&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ctrl</span> <span style="color:#e6db74">&#34;sigs.k8s.io/controller-runtime&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;sigs.k8s.io/controller-runtime/pkg/webhook&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;sigs.k8s.io/controller-runtime/pkg/webhook/admission&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">mgr</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">NewManager</span>(<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">GetConfigOrDie</span>(), <span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">Options</span>{<span style="color:#a6e22e">Port</span>: <span style="color:#ae81ff">9443</span>})
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// [...]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">hookServer</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">mgr</span>.<span style="color:#a6e22e">GetWebhookServer</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">hookServer</span>.<span style="color:#a6e22e">Register</span>(<span style="color:#e6db74">&#34;/mutate-pod&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">webhook</span>.<span style="color:#a6e22e">Admission</span>{<span style="color:#a6e22e">Handler</span>: <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">podMutator</span>{}})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">mgr</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#a6e22e">ctrl</span>.<span style="color:#a6e22e">SetupSignalHandler</span>())
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">podMutator</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">decoder</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">admission</span>.<span style="color:#a6e22e">Decoder</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">podMutator</span>) <span style="color:#a6e22e">Handle</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">req</span> <span style="color:#a6e22e">admission</span>.<span style="color:#a6e22e">Request</span>) <span style="color:#a6e22e">admission</span>.<span style="color:#a6e22e">Response</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">pod</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">corev1</span>.<span style="color:#a6e22e">Pod</span>{}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">decoder</span>.<span style="color:#a6e22e">Decode</span>(<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">pod</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">pod</span>.<span style="color:#a6e22e">Annotations</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">pod</span>.<span style="color:#a6e22e">Annotations</span> = <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>{}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">pod</span>.<span style="color:#a6e22e">Annotations</span>[<span style="color:#e6db74">&#34;from-pod-mutator-with-love&#34;</span>] = <span style="color:#e6db74">&#34;Hello there&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">marshaledPod</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Marshal</span>(<span style="color:#a6e22e">pod</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">admission</span>.<span style="color:#a6e22e">PatchResponseFromRaw</span>(<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Object</span>.<span style="color:#a6e22e">Raw</span>, <span style="color:#a6e22e">marshaledPod</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">podMutator</span>) <span style="color:#a6e22e">InjectDecoder</span>(<span style="color:#a6e22e">d</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">admission</span>.<span style="color:#a6e22e">Decoder</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">decoder</span> = <span style="color:#a6e22e">d</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><blockquote>
 <p>Implementating <code>InjectDecoder(d *admission.Decoder) error</code> is optional. If it is implemented, an <code>*admission.Decoder</code> will be injected automatically. It provides helper method to decode Kubernetes-like API objects.</p>
 </blockquote>
 <blockquote>
 <p>Fun fact: in its current implementation, Istio uses a similar approach in order to automatically <a href="https://github.com/istio/istio/blob/master/pkg/kube/inject/webhook.go">inject the <code>istio-proxy</code> sidecar container</a> into pods. It doesn&rsquo;t use <code>sigs.k8s.io/controller-runtime</code> though, but <code>k8s.io/apimachinery/pkg/runtime</code>, which is used under the hood by <code>sigs.k8s.io/controller-runtime</code>.</p>
 </blockquote>
 <p>Finally, manually registering a validating webhook is quite similar to a mutating webhook. Instead the <code>admission.Response</code> doesn&rsquo;t contain a json patch, but information about whether or not the resource is ok to be created/updated.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> (
-	<span style="color:#75715e">// [...]
-</span><span style="color:#75715e"></span>	<span style="color:#e6db74">&#34;sigs.k8s.io/controller-runtime/pkg/webhook&#34;</span>
-	<span style="color:#e6db74">&#34;sigs.k8s.io/controller-runtime/pkg/webhook/admission&#34;</span>
-)
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-	<span style="color:#75715e">// [...]
-</span><span style="color:#75715e"></span>
-	<span style="color:#a6e22e">hookServer</span>.<span style="color:#a6e22e">Register</span>(<span style="color:#e6db74">&#34;/validate-pod&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">webhook</span>.<span style="color:#a6e22e">Admission</span>{<span style="color:#a6e22e">Handler</span>: <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">podValidator</span>{}})
-
-	<span style="color:#75715e">// [...]
-</span><span style="color:#75715e"></span>}
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">podValidator</span> <span style="color:#66d9ef">struct</span> {}
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">v</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">podValidator</span>) <span style="color:#a6e22e">Handle</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">req</span> <span style="color:#a6e22e">admission</span>.<span style="color:#a6e22e">Request</span>) <span style="color:#a6e22e">admission</span>.<span style="color:#a6e22e">Response</span> {
-	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">getRandomInt</span>() <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> {
-		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">admission</span>.<span style="color:#a6e22e">Errored</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusBadRequest</span>, <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;bad karma&#34;</span>))
-	}
-	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">admission</span>.<span style="color:#a6e22e">Allowed</span>(<span style="color:#e6db74">&#34;&#34;</span>)
-}
-</code></pre></div><p>Go further by consulting the <a href="https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#write-an-admission-webhook-server">documentation</a>. It provides useful information and more examples for writing an admission webhook server.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// [...]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#e6db74">&#34;sigs.k8s.io/controller-runtime/pkg/webhook&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;sigs.k8s.io/controller-runtime/pkg/webhook/admission&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// [...]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">hookServer</span>.<span style="color:#a6e22e">Register</span>(<span style="color:#e6db74">&#34;/validate-pod&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">webhook</span>.<span style="color:#a6e22e">Admission</span>{<span style="color:#a6e22e">Handler</span>: <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">podValidator</span>{}})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// [...]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">podValidator</span> <span style="color:#66d9ef">struct</span> {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">v</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">podValidator</span>) <span style="color:#a6e22e">Handle</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">req</span> <span style="color:#a6e22e">admission</span>.<span style="color:#a6e22e">Request</span>) <span style="color:#a6e22e">admission</span>.<span style="color:#a6e22e">Response</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">getRandomInt</span>() <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">admission</span>.<span style="color:#a6e22e">Errored</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusBadRequest</span>, <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;bad karma&#34;</span>))
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">admission</span>.<span style="color:#a6e22e">Allowed</span>(<span style="color:#e6db74">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Go further by consulting the <a href="https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#write-an-admission-webhook-server">documentation</a>. It provides useful information and more examples for writing an admission webhook server.</p>
 <a class="headline-hash" href="#deploying-the-controller"><h2 id="deploying-the-controller">Deploying the controller</a> </h2>
 <p>At this point, we know more about how to build a controller and run it on a local machine.
 But in real life, a controller runs as a pod in the cluster.
@@ -583,18 +592,18 @@ For the deployment to support that, a SSL certificate (<code>tls.crt</code>) and
 <p>This is the default path. It can be changed by setting <code>CertDir</code> in the manager options.</p>
 </blockquote>
 <p>Convenient solutions exist like <a href="https://cert-manager.io/docs/installation/kubernetes/">Cert Manager</a> for provisioning SSL certificates. Here I&rsquo;m just using openssl to manually generate a certificate authority (CA) key pair, and use it to sign a certificate request for the controller. More on managing TLS certificates in a Kubernetes cluster <a href="https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/">here</a>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Generate a key for the CA, outputs ca.key</span>
-openssl genrsa -out ca.key <span style="color:#ae81ff">2048</span>
-<span style="color:#75715e"># Generate a certificate for the CA using ca.key, outputs in ca.crt</span>
-openssl req -x509 -new -nodes -key ca.key -subj <span style="color:#e6db74">&#34;/CN=my-ca&#34;</span> -days <span style="color:#ae81ff">10000</span> -out ca.crt
-
-<span style="color:#75715e"># Generate a key for the controller, outputs tls.key</span>
-openssl genrsa -out tls.key <span style="color:#ae81ff">2048</span>
-<span style="color:#75715e"># Generate a certificate signing request (CSR) for the controller, outputs tls.csr</span>
-openssl req -new -key tls.key -subj <span style="color:#e6db74">&#34;/CN=k8s-app-runner-webhook-service.k8s-app-runner-system.svc&#34;</span> -out tls.csr
-<span style="color:#75715e"># Sign tls.csr using the CA key, outputs tls.crt</span>
-openssl x509 -req -in tls.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out tls.crt -days <span style="color:#ae81ff">10000</span>
-</code></pre></div><blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Generate a key for the CA, outputs ca.key</span>
+</span></span><span style="display:flex;"><span>openssl genrsa -out ca.key <span style="color:#ae81ff">2048</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Generate a certificate for the CA using ca.key, outputs in ca.crt</span>
+</span></span><span style="display:flex;"><span>openssl req -x509 -new -nodes -key ca.key -subj <span style="color:#e6db74">&#34;/CN=my-ca&#34;</span> -days <span style="color:#ae81ff">10000</span> -out ca.crt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Generate a key for the controller, outputs tls.key</span>
+</span></span><span style="display:flex;"><span>openssl genrsa -out tls.key <span style="color:#ae81ff">2048</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Generate a certificate signing request (CSR) for the controller, outputs tls.csr</span>
+</span></span><span style="display:flex;"><span>openssl req -new -key tls.key -subj <span style="color:#e6db74">&#34;/CN=k8s-app-runner-webhook-service.k8s-app-runner-system.svc&#34;</span> -out tls.csr
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Sign tls.csr using the CA key, outputs tls.crt</span>
+</span></span><span style="display:flex;"><span>openssl x509 -req -in tls.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out tls.crt -days <span style="color:#ae81ff">10000</span>
+</span></span></code></pre></div><blockquote>
 <p>When generating the CSR for the controller, it is important that the CN (common name) associated to the certificate matches the url that the Kubernetes API server will call, that is <code>&lt;serviceName&gt;.&lt;serviceNamespace&gt;.&lt;svc&gt;</code>. See the note in <a href="https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#configure-admission-webhooks-on-the-fly">https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#configure-admission-webhooks-on-the-fly</a></p>
 </blockquote>
 <p>Once this is done, you can create a <a href="https://kubernetes.io/docs/concepts/configuration/secret/">TLS secret</a> and mount it in the controller deployment.</p>
@@ -606,9 +615,9 @@ Kubernetes let us configure this on the fly by creating <code>MutatingWebhookCon
 <li><code>webhooks[*].clientConfig.service.port</code> is where you configure the port of the service configured in front of the controller deployment. By default, the API server uses port 443, which is the one I configured ealier.</li>
 <li><code>webhooks[*].clientConfig.caBundle</code> is where you configure the CA certificate used to sign the controller CSR. It must be a base64 encoding of the certificate in pem format. Based on the previous commands, you can get it by running the below commands.</li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">openssl x509 -in ca.crt -out ca.crt.pem
-cat ca.crt.pem | base64
-</code></pre></div><blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>openssl x509 -in ca.crt -out ca.crt.pem
+</span></span><span style="display:flex;"><span>cat ca.crt.pem | base64
+</span></span></code></pre></div><blockquote>
 <p>One more thing, if you&rsquo;ve taken a look at the complete manifests, you may have noticed <a href="https://github.com/aubm/k8s-app-runner/blob/master/bare-controller-runtime/config/target/manifests.yaml#L194-L199">this extra configuration</a>. This is done to prevent the pod mutating webhook from intercepting its own creation, which would result in a deadlock. More on that <a href="https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#avoiding-deadlocks-in-self-hosted-webhooks">here</a>.</p>
 </blockquote>
 <a class="headline-hash" href="#rbac-configuration"><h3 id="rbac-configuration">RBAC configuration</a> </h3>
@@ -620,23 +629,23 @@ When running in the cluster, the controller must be granted the appropriate perm
 Writing the CRD, the RBAC configuration and the webhooks configuration is indeed really time consuming, especially given the fact that you have to keep them in sync with the actual code. Besides, if you remember the backstory, the whole point of this was to write less yaml!</p>
 <p>Fortunately, you don&rsquo;t have to do this all by hand, instead you can use code generation. <a href="https://github.com/kubernetes-sigs/controller-tools">This Github repository here</a> hosts a tool called <strong>controller-gen</strong>. It uses comment markers to extract information from the code, and automatically generate yaml files, or even some boilerplate code.</p>
 <p>You can install controller-gen by running the below command. Also make sure to add <code>&quot;$(go env GOPATH)/bin&quot;</code> to your system <code>PATH</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">GO111MODULE<span style="color:#f92672">=</span>on go get -v sigs.k8s.io/controller-tools/cmd/controller-gen
-controller-gen --version
-</code></pre></div><a class="headline-hash" href="#the-runtimeobject-interface"><h3 id="the-runtimeobject-interface">The runtime.Object interface</a> </h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>GO111MODULE<span style="color:#f92672">=</span>on go get -v sigs.k8s.io/controller-tools/cmd/controller-gen
+</span></span><span style="display:flex;"><span>controller-gen --version
+</span></span></code></pre></div><a class="headline-hash" href="#the-runtimeobject-interface"><h3 id="the-runtimeobject-interface">The runtime.Object interface</a> </h3>
 <p>If you remember earlier, I mentionned a way to generate the <code>DeepCopyObject</code> method, required by the <code>Application</code> type to implement the <code>runtime.Object</code> interface. Here is how to do it using controller-gen.</p>
 <p>In the file where <code>Application</code> is declared, annotate <code>Application</code> with the comment marker <code>// +kubebuilder:object:root=true</code> placed on top of the type declaration. Because of this annotation, controller-gen understands that the type is meant to be used as a <code>runtime.Object</code> and so it will add the <code>DeepCopyObject</code> method to it. Because of the way controller-gen implements the method, additional methods also must be added on non-scalar <code>Application</code> properties and their sub-properties. To make that happen, each type declaration can be annotation with a <code>// +kubebuilder:object:generate=true</code> comment marker, alternatively a single one can be placed at package level, as in the example below.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// +kubebuilder:object:generate=true
-</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">api</span>
-
-<span style="color:#75715e">// [...]
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">// +kubebuilder:object:root=true
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Application</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#75715e">// [...]
-</span><span style="color:#75715e"></span>}
-
-<span style="color:#75715e">// [...]
-</span></code></pre></div><p>Now run <code>controller-gen object paths=&quot;.&quot;</code> and let controller-gen generate the boilerplate code for you.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// +kubebuilder:object:generate=true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">api</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// [...]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// +kubebuilder:object:root=true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Application</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// [...]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// [...]
+</span></span></span></code></pre></div><p>Now run <code>controller-gen object paths=&quot;.&quot;</code> and let controller-gen generate the boilerplate code for you.</p>
 <blockquote>
 <p>One can <a href="https://blog.golang.org/generate">use <code>go generate</code></a> or a tool like <a href="https://www.gnu.org/software/make/manual/make.html">make</a> in order to integrate it more naturally in the build process.</p>
 </blockquote>
@@ -645,22 +654,22 @@ controller-gen --version
 <a class="headline-hash" href="#generate-crds"><h3 id="generate-crds">Generate CRDs</a> </h3>
 <p>CRDs can be generated by controller-gen. But first, some minor adjustments need to be made in the <code>Application</code> type declaration.
 Because CRDs generation with controller-gen <a href="https://github.com/kubernetes-sigs/controller-tools/blob/v0.3.0/pkg/crd/schema.go#L322-L324">doesn&rsquo;t support nested fields with anonymous type</a>, <code>Application</code> needs to be broken down as follow:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ApplicationSpec</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#75715e">// [...]
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Source</span>      <span style="color:#a6e22e">ApplicationSource</span> <span style="color:#e6db74">`json:&#34;source&#34;`</span>
-}
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ApplicationSource</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">Git</span> <span style="color:#a6e22e">ApplicationSourceGit</span> <span style="color:#e6db74">`json:&#34;git&#34;`</span>
-}
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ApplicationSourceGit</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">GitRepositoryURL</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;gitRepositoryUrl&#34;`</span>
-	<span style="color:#a6e22e">Revision</span>         <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;revision&#34;`</span>
-	<span style="color:#a6e22e">Root</span>             <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;root,omitempty&#34;`</span>
-}
-</code></pre></div><p>Then comment markers must be added at package level in order to specify the group and version.</p>
-<pre><code>// +groupName=k8s-app-runner.aubm.net
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ApplicationSpec</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// [...]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Source</span>      <span style="color:#a6e22e">ApplicationSource</span> <span style="color:#e6db74">`json:&#34;source&#34;`</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ApplicationSource</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Git</span> <span style="color:#a6e22e">ApplicationSourceGit</span> <span style="color:#e6db74">`json:&#34;git&#34;`</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ApplicationSourceGit</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">GitRepositoryURL</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;gitRepositoryUrl&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Revision</span>         <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;revision&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Root</span>             <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;root,omitempty&#34;`</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Then comment markers must be added at package level in order to specify the group and version.</p>
+<pre tabindex="0"><code>// +groupName=k8s-app-runner.aubm.net
 // +versionName=v1
 package api
 </code></pre><blockquote>
@@ -676,20 +685,20 @@ Get more options (like CRDs version, or output path) by checking <code>controlle
 <a class="headline-hash" href="#generate-rbac"><h3 id="generate-rbac">Generate RBAC</a> </h3>
 <p>Generating RBAC works the same way, documentation for markers is available <a href="https://book.kubebuilder.io/reference/markers/rbac.html">here</a>. Generally a good idea is to place them next to the controller code, that needs the permissions. The example below will add permissions to get, list, watch, update, patch and delete applications, and also get, update and patch an application&rsquo;s status.</p>
 <p>Generate a <code>ClusterRole</code> named <code>manager-role</code> by running <code>controller-gen rbac:roleName=manager-role paths=&quot;./...&quot;</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// +kubebuilder:rbac:groups=k8s-app-runner.aubm.net,resources=applications,verbs=get;list;watch;create;update;patch;delete
-</span><span style="color:#75715e">// +kubebuilder:rbac:groups=k8s-app-runner.aubm.net,resources=applications/status,verbs=get;update;patch
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">r</span> <span style="color:#a6e22e">ApplicationReconcilier</span>) <span style="color:#a6e22e">Reconcile</span>(<span style="color:#a6e22e">request</span> <span style="color:#a6e22e">reconcile</span>.<span style="color:#a6e22e">Request</span>) (<span style="color:#a6e22e">reconcile</span>.<span style="color:#a6e22e">Result</span>, <span style="color:#66d9ef">error</span>) {
-	<span style="color:#75715e">// [...]
-</span><span style="color:#75715e"></span>}
-</code></pre></div><a class="headline-hash" href="#webhooks"><h3 id="webhooks">Webhooks</a> </h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// +kubebuilder:rbac:groups=k8s-app-runner.aubm.net,resources=applications,verbs=get;list;watch;create;update;patch;delete
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// +kubebuilder:rbac:groups=k8s-app-runner.aubm.net,resources=applications/status,verbs=get;update;patch
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">r</span> <span style="color:#a6e22e">ApplicationReconcilier</span>) <span style="color:#a6e22e">Reconcile</span>(<span style="color:#a6e22e">request</span> <span style="color:#a6e22e">reconcile</span>.<span style="color:#a6e22e">Request</span>) (<span style="color:#a6e22e">reconcile</span>.<span style="color:#a6e22e">Result</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// [...]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><a class="headline-hash" href="#webhooks"><h3 id="webhooks">Webhooks</a> </h3>
 <p>Finally, controller-gen has support for generating webhooks definition files. There again, documentation is available <a href="https://book.kubebuilder.io/reference/markers/webhook.html">here</a>. In the example below you can see how to write a marker to generate a <code>MutatingWebhookConfiguration</code> with the command <code>controller-gen webhook paths=&quot;./...&quot;</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// +kubebuilder:webhook:path=/mutate-k8s-app-runner-aubm-net-v1-application,mutating=true,failurePolicy=fail,groups=k8s-app-runner.aubm.net,resources=applications,verbs=create;update,versions=v1,name=mapplication.kb.io
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Application</span>) <span style="color:#a6e22e">Default</span>() {
-	<span style="color:#75715e">// [...]
-</span><span style="color:#75715e"></span>}
-</code></pre></div><a class="headline-hash" href="#kubebuilder"><h2 id="kubebuilder">Kubebuilder</a> </h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// +kubebuilder:webhook:path=/mutate-k8s-app-runner-aubm-net-v1-application,mutating=true,failurePolicy=fail,groups=k8s-app-runner.aubm.net,resources=applications,verbs=create;update,versions=v1,name=mapplication.kb.io
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Application</span>) <span style="color:#a6e22e">Default</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// [...]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><a class="headline-hash" href="#kubebuilder"><h2 id="kubebuilder">Kubebuilder</a> </h2>
 <p>And that&rsquo;s about it! You&rsquo;ve seen everything you need to start creating your own operator.
 Congratulations and thank you for making it through here!</p>
 <p>Before you go, you might want to hear about <a href="https://github.com/kubernetes-sigs/kubebuilder">Kubebuilder</a>.
@@ -714,7 +723,7 @@ Projects like <a href="https://istio.io/">Istio</a> or <a href="https://knative.
     
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -839,7 +848,7 @@ Projects like <a href="https://istio.io/">Istio</a> or <a href="https://knative.
 		<p><a href="https://gohugo.io" target="_blank" rel="noopener">Built with Hugo</a></p>
 	</div>
 
-	<script src="https://www.aubm.net/js/main.min.fa5c2b23e07b5d9bfad267a52b4b24fdb053e6fb7524993383594926a3ac270c.js" integrity="sha256-+lwrI+B7XZv60melK0sk/bBT5vt1JJkzg1lJJqOsJww="></script>
+	<script src="https://www.aubm.net/js/main.min.a7205ef73b078c8daed6fe1b0826e8ba229ffabbb69d299d9446cf41f2c7d8aa.js" integrity="sha256-pyBe9zsHjI2u1v4bCCbouiKf+ru2nSmdlEbPQfLH2Ko="></script>
 </footer>
     </body>
 </html>

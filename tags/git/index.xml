@@ -5,11 +5,7 @@
     <link>https://www.aubm.net/tags/git/</link>
     <description>Recent content in Git on Aubm</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 02 Apr 2020 22:00:00 +0100</lastBuildDate>
-    
-	<atom:link href="https://www.aubm.net/tags/git/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 02 Apr 2020 22:00:00 +0100</lastBuildDate><atom:link href="https://www.aubm.net/tags/git/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>The Case of a Git Linear History</title>
       <link>https://www.aubm.net/posts/the-case-of-a-git-linear-history/</link>

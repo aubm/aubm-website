@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://www.aubm.net/fr/</loc>
     <lastmod>2022-10-09T00:41:07-04:00</lastmod>
@@ -17,16 +16,12 @@
                 hreflang="fr"
                 href="https://www.aubm.net/fr/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/fr/posts/how-my-programming-skills-helped-me-with-my-personal-finances-part-1/</loc>
     <lastmod>2022-10-09T00:41:07-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/fr/tags/inspiration/</loc>
     <lastmod>2022-10-09T00:41:07-04:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -41,9 +36,7 @@
                 hreflang="fr"
                 href="https://www.aubm.net/fr/tags/inspiration/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/fr/tags/politics/</loc>
     <lastmod>2022-10-09T00:41:07-04:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -58,9 +51,7 @@
                 hreflang="fr"
                 href="https://www.aubm.net/fr/tags/politics/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/fr/posts/</loc>
     <lastmod>2022-10-09T00:41:07-04:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -75,9 +66,7 @@
                 hreflang="fr"
                 href="https://www.aubm.net/fr/posts/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.aubm.net/fr/tags/</loc>
     <lastmod>2022-10-09T00:41:07-04:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -92,9 +81,22 @@
                 hreflang="fr"
                 href="https://www.aubm.net/fr/tags/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
+    <loc>https://www.aubm.net/fr/posts/the-saddest-moment-of-the-z-event-2022/</loc>
+    <lastmod>2022-09-15T01:41:03-04:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.aubm.net/posts/the-saddest-moment-of-the-z-event-2022/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://www.aubm.net/fr/posts/the-saddest-moment-of-the-z-event-2022/"
+                />
+  </url><url>
     <loc>https://www.aubm.net/fr/categories/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -109,5 +111,4 @@
                 href="https://www.aubm.net/fr/categories/"
                 />
   </url>
-  
 </urlset>

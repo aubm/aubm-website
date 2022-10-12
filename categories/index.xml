@@ -4,10 +4,6 @@
     <title>Categories on Aubm</title>
     <link>https://www.aubm.net/categories/</link>
     <description>Recent content in Categories on Aubm</description>
-    <generator>Hugo -- gohugo.io</generator>
-    
-	<atom:link href="https://www.aubm.net/categories/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <generator>Hugo -- gohugo.io</generator><atom:link href="https://www.aubm.net/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

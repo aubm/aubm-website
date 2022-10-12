@@ -1,11 +1,9 @@
 ---
-title: "Le Moment le Plus Triste du Z Event 2022 🇫🇷"
+title: "Le Moment le Plus Triste du Z Event 2022"
 date: 2022-09-15T01:41:03-04:00
 draft: false
 tags: [Inspiration, Politics]
 ---
-
-🇬🇧 Read in english [here](https://www.aubm.net/posts/the-saddest-moment-of-the-z-event-2022/) 🇬🇧
 
 C’était quand le président Macron a tweeté à propos de l'événement, voilà pourquoi.
 

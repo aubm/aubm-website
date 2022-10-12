@@ -4,6 +4,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="format-detection" content="telephone=no"/>
 
+    <!-- Additional Header -->
+    {{ with .Params.canonical }}
+    <meta http-equiv="refresh" content="0;url={{ . }}" />
+    <link rel="canonical" href="{{ . }}" />
+    {{ end }}
+
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ "apple-touch-icon.png" | relURL }}">

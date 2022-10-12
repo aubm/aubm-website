@@ -5,4 +5,9 @@
     <div class="job-title">
     	<i>Just a random programmer who occasionally shares insights and opinions</i>
     </div>
+    <div class="languages">
+        {{ range $.Site.Home.AllTranslations }}
+        <div><a class="color-link" href="{{ .Permalink }}">{{ .Language.LanguageName }}</a></div>
+        {{ end }}
+    </div>
 </header>

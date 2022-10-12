@@ -1,4 +1,14 @@
 {{ define "main" }}
+
+{{ if .IsTranslated }}
+<h4>{{ i18n "translations" }}</h4>
+{{ range .Translations }}
+<div>
+    <a class="color-link" href="{{ .Permalink }}">[{{ .Language.LanguageName }}] {{ .Title }}{{ if .IsPage }}{{ end }}</a>
+</div>
+{{ end }}
+{{ end }}
+
 <h1 class="post-title">{{ .Title }}</h1>
     {{ if .Date }}
     <time>{{ .Date.Format "January 2, 2006" }}</time>
@@ -9,7 +19,7 @@
         </p>
     </div>
 
-    {{ if hasPrefix .File "posts/" }}
+    {{ if not .IsNode }}
     {{ template "_internal/disqus.html" . }}
     {{ end }}
 

@@ -21,6 +21,16 @@
     <lastmod>2022-10-09T00:41:07-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.aubm.net/posts/how-my-programming-skills-helped-me-with-my-personal-finances-part-1/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://www.aubm.net/fr/posts/how-my-programming-skills-helped-me-with-my-personal-finances-part-1/"
+                />
   </url><url>
     <loc>https://www.aubm.net/fr/tags/inspiration/</loc>
     <lastmod>2022-10-09T00:41:07-04:00</lastmod>

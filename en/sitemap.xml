@@ -21,6 +21,16 @@
     <lastmod>2022-11-05T19:02:18-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://www.aubm.net/fr/posts/everybody-should-play-dungeons-and-dragons/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.aubm.net/posts/everybody-should-play-dungeons-and-dragons/"
+                />
   </url><url>
     <loc>https://www.aubm.net/tags/inspiration/</loc>
     <lastmod>2022-11-05T19:02:18-04:00</lastmod>

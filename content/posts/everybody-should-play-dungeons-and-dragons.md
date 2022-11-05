@@ -65,6 +65,8 @@ Let's now see how the scene could have unfolded if Bernadette had expressed her 
 <div>- (Leonard) Uh, I could cast Find Traps if that's okay with everyone.</div>
 <div>- (Party) Let’s do this!</div>
 
+<br/>
+
 Looking at the leaderboard: two winners.
 
 For this rule, which I named _Your aircraft, my aircraft_ in reference to a scene from the excellent movie Sully in which the two pilots give each other the controls of the plane by expressing it with this short and elegant sentence, as for the other rules that I will introduce later, fair sharing of the spotlight is a central concern. But a D&D game isn't like a political debate on TV, it's not all about the clock, and equality doesn't always mean equity. In a different situation, Leonard could very well have assured Bernadette that everything is for the best, and that he finds pleasure in seeing her unfold her game plan as much as if he had been at the center of the action himself. It is not always necessary to back off right away.
@@ -81,6 +83,8 @@ Okay, there is “role” in “role-play”, but if role-playing is to be enfor
 <div>- (Bernadette) Leonard, I'm on deck, if at the end of your turn you take your barbarian out of the melee, I can use my fireball scroll to make a nice barbecue of these goblins, without risking burning you in the way!</div>
 <div>- (Leonard) Hmm, my character is currently deafened, so he can't hear you. Besides, I don't think that backing down would be an idea that would spontaneously come to mind. So I'll stay put, sorry.</div>
 
+<br/>
+
 If this sounds legitimate and harmless to you, imagine that it happens at the end of a four-hour game during which Bernadette has not yet had the opportunity to show much initiative, and has failed most of her important dice rolls. Let's add to this drama that she has had this scroll in her bag for real life months and that she was particularly proud to have thought of using it. One can imagine Bernadette's frustration after Leonard's response, who probably did not suspect what was at stake for her and who even thought he was serving the party's best interest, by preserving the fourth wall. The gods of role-play are content, but there's a good chance Bernadette won't show up next week. Let's rewind and apply the rule this time.
 
 <div>- (Bernadette) Leonard, I'm on deck, if at the end of your turn you take your barbarian out of the melee, I can use my fireball scroll to make a nice barbecue of these goblins, without risking burning you in the way!</div>
@@ -88,6 +92,8 @@ If this sounds legitimate and harmless to you, imagine that it happens at the en
 <div>- (DM) If you're willing to roll with it, we'll make it work.</div>
 <div>- (Leonard) I’m fine with it, I disengage and back off 30 feet.</div>
 <div>- (DM) As you prepare to sledgehammer the globins' face, you notice a sudden change of their attitude. They now display an air of panic. Looking more deeply into their eyes, you see the reflection of a brightening source of light. You turn around and see Bernadette's character holding a huge fireball in the center of her hands, ready to unleash the flame in your direction, you rush to get out of reach.</div>
+
+<br/>
 
 It should be noted that if interpreted too literally and systematically, this rule could encourage a player fond of tactical combat to break the momentum of the party by insisting on consulting on the best strategy before each and every single round. It is easy to imagine how this could greatly slow down the pace of the game, until it becomes boring for most of the players. It may be that a little risk and improvisation serve the game better than a perfectly balanced strategy, especially when there does not seem to be that big of a danger ahead. As always when it comes to rules for D&D, the important thing is to understand the intention behind the text, which in this case, aims to avoid the automatic veto on a player, who would come up with a brilliant and fun idea, that we would forbid ourselves to execute in the name of the holy role-play.
 
@@ -127,6 +133,8 @@ Habits die hard and situations eventually look alike. This is so true that to a 
 <div>- (Howard) No worries, we can go together, and I can cast Pass without Trace.</div>
 <div>- (Bernadette) Or, as usual, I turn into a rat, and I sneak into the camp without attracting attention.</div>
 
+<br/>
+
 In this situation, Bernadette's solution will probably be deemed the most effective by all, and if we leave aside the fun of experimenting with an innovative solution, then the group will logically go with it, since they already have seen it working many times in the past. Characters leveling up and unlocking new abilities help mitigate the feeling of repetitiveness. This is the native tool built into RPGs to alleviate the risk of player fatigue. But let's remember we're playing D&D, not Skyrim. Players' creativity and their ability to reinvent is our best lever.
 
 <div>- (Leonard) I'll go around and use my thaumaturgy to provoke a sound to come from the other side of the camp to try and distract the guard.</div>
@@ -135,6 +143,8 @@ In this situation, Bernadette's solution will probably be deemed the most effect
 <div>- (Raj) We still have the polyjuice we found earlier, I could go there, looking as their leader, and demand that they hand over the hostage to me, making up whatever reason for it.</div>
 <div>- (Bernadette) I really like the sound of that, though we are not entirely sure that the polyjuice was brewed with their actual leader's hair.</div>
 <div>- (Penny) The odds are about 9 on 10, but I definitely want to see how that would play out anyway!</div>
+
+<br/>
 
 Whatever the outcome, I bet that will be cooler and more memorable. A solution that works is a good solution, but it doesn’t mean it is the only good solution.
 

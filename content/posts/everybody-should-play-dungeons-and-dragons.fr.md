@@ -75,6 +75,8 @@ Bilan des courses : deux perdants qui se reprochent mutuellement et silencieusem
 <div>- (Léonard) Ah ? Heu, je pourrais lancer Détection des pièges si ça va à tout le monde.</div>
 <div>- (Groupe) Carrément, go !</div>
 
+<br/>
+
 Bilan des courses : deux gagnants.
 
 Pour cette règle que j’ai nommée _Je prends les commandes, vous avez les commandes_ en référence à une scène de l’excellent film _Sully_ dans laquelle les deux pilotes se donnent les commandes de l’avion en l’explicitant avec l’échange de cette formule courte et élégante, comme pour les autres règles que je présenterai juste après, le partage équitable du temps de projecteur est une préoccupation centrale. Mais une partie de D&D n’est pas un débat politique à la télévision, tout n’est pas affaire de chronomètre, et l’égalité n’est pas toujours égale à équité. Dans un contexte différent, Léonard aurait très bien pu assurer à Bernadette que tout est au mieux, et qu’il prend du plaisir à la voir dérouler son plan de match autant que s’il avait lui-même été au centre de l’action. Il n’est pas toujours nécessaire de rétropédaler sur le champ.
@@ -91,14 +93,17 @@ Certes, il y a rôle dans “jeu de rôle”, mais si le role-play doit s’impo
 <div>- (Bernadette) Léonard je joue juste après toi, si à la fin de ton tour tu sors ton barbare de la mêlée, je peux utiliser mon parchemin de boule de feu pour faire une belle brochette de gobelins, sans risquer de te blesser !</div>
 <div>- (Léonard) Hum, mon personnage est actuellement assourdi, il ne peut donc pas t’entendre. Par ailleurs, je ne pense pas que reculer serait une idée qui lui viendrait spontanément à l’esprit. Je vais donc rester là, désolé.</div>
 
+<br/>
+
 Cela ressemble à une situation banale, mais imaginons que cela se présente au terme d’une session de plusieurs heures de jeu au cours desquelles Bernadette n’a pas encore eu l’occasion de faire preuve de beaucoup d’initiative, et a raté la plupart de ses jets de dés importants. Ajoutons pour augmenter le drame, qu’elle a ce parchemin dans son inventaire depuis plusieurs sessions et qu’elle était particulièrement fière d’avoir pensé à l’utiliser. On peut imaginer la frustration de Bernadette après la réponse de Léonard, qui ne mesurait probablement pas l’enjeu pour elle et qui pensait même servir le meilleur intérêt de tout le monde en préservant le quatrième mur. Les dieux du role-play sont satisfaits, mais il y a de bonnes chances pour que Bernadette ne revienne pas la semaine prochaine. Refaisons le film avec la règle.
 
-<div>- (Bernadette) Léonard je joue juste après toi, si à la fin de ton tour tu sors ton barbare de la mêlée, je peux utiliser mon parchemin de boule de feu pour faire une belle brochette de gobelins, sans risquer de te blesser !
-
+<div>- (Bernadette) Léonard je joue juste après toi, si à la fin de ton tour tu sors ton barbare de la mêlée, je peux utiliser mon parchemin de boule de feu pour faire une belle brochette de gobelins, sans risquer de te blesser !</div>
 <div>- (Léonard) Hum, est-ce que mon personnage serait susceptible d’entendre cet ordre dans la mesure où il est assourdi ?</div>
 <div>- (MD) On va trouver une façon de raconter ça si tu es en phase avec l’idée de Bernadette.</div>
 <div>- (Léonard) Aucun souci, je vais me désengager et reculer de 30 pieds.</div>
 <div>- (MD) Au moment où tu prépares à porter un coup de masse, tu remarques que les gobelins qui se tenaient prêts à encaisser changent d’attitude. Ils affichent un air de panique soudaine. En plongeant ton regard dans leurs yeux, tu vois le reflet d’une éblouissante source de lumière. Tu te retournes et tu vois le personnage de Bernadette en train de contenir une énorme boule de feu, prête à partir dans ta direction, tu te précipites pour te mettre hors de portée.</div>
+
+<br/>
 
 On notera que si interprétée de façon trop littérale et systématique, cette règle pourrait encourager une joueuse ou un joueur amoureux de combats tactiques à trop souvent introduire des temps morts servant à élaborer une stratégie complexe au début de chaque round. On imagine facilement comment cette tendance peut fortement ralentir le rythme du jeu, au risque de le rendre ennuyeux pour tout le monde. Il se peut qu’une petite dose de risque et d’improvisation serve mieux le bon déroulement de la partie qu’un point stratégique, en particulier quand le danger n’est pas clairement identifié. Comme toujours lorsqu’il s’agir de règles pour D&D, l’important est d’en saisir l’intention, qui dans ce cas, vise à éviter la censure systématique d’une joueuse ou d’une joueur à qui il viendrait une idée lumineuse que l’on s’interdirait d'exécuter au nom de la préservation du sacro saint role-play.
 
@@ -138,6 +143,8 @@ Les habitudes ont la vie dure et les situations finissent par se ressembler. Si 
 <div>- (Howard) Pas de soucis, on peut y aller ensemble et je te couvre avec mon passage sans traces.</div>
 <div>- (Bernadette) Sinon, on fait comme d’habitude, je me transforme en rat et infiltre le campement sans attirer l’attention.</div>
 
+<br/>
+
 Dans cette situation, la solution de Bernadette sera probablement jugée la plus efficace par tous, et si l’on laisse de côté le plaisir qu’aurait procuré l’expérimentation d’une solution innovante, elle sera raisonnablement retenue par le groupe, dans la mesure où elle a déjà fait ses preuves de nombreuses fois. La montée en niveau des personnages et les nouvelles capacités débloquées vont mitiger ce problème. C’est la réponse privilégiée des RPG pour contrer le risque de lassitude des joueurs. Mais rappelons-nous que nous jouons à D&D, et non à Skyrim. L’inventivité du groupe et sa capacité à se renouveler est notre meilleur levier.
 
 <div>- (Léonard) Je vais faire le tour et utiliser ma thaumaturgie pour provoquer un son inhabituel provenant de l’autre côté du campement pour tenter de détourner son attention.</div>
@@ -146,6 +153,8 @@ Dans cette situation, la solution de Bernadette sera probablement jugée la plus
 <div>- (Raj) On a toujours notre fiole de polynectar qui n’est pas utilisée, je pourrais prendre l’apparence de leur chef et simplement m’annoncer pour exiger qu’ils me remettent l’otage en inventant une raison quelconque.</div>
 <div>- (Bernadette) Oh ! J’aime beaucoup l’idée, mais est-on sûr que le polynectar a été conçu avec des cheveux de leur chef ?</div>
 <div>- (Penny) Il y a 9 chances sur 10, mais dans tous les cas, je meurs d’envie de découvrir ce que ça donnerait !</div>
+
+<br/>
 
 Quelle qu’en soit l’issue, voilà qui annonce une séquence beaucoup plus mémorable et D&D’esque.
 

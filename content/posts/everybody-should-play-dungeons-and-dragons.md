@@ -24,7 +24,7 @@ Perhaps more than any other game, D&D is a deeply social experience.
 
 This implies that the motivation of players to come and play is conditioned by the quality of the relationships and the communication in the group. Trust is at the heart of the experience, players must be able to rely on each other to maintain a climate of safety in which they can fully grow.
 
-As players, we have the ability to tolerate some bugs in different aspects of the game. An inconsistency in the flow of the story, a misreading of a rule, a glitch in Roll20, these are examples of bugs that you have to be able to deal with with a certain lightness. In a way, they are part of the game, they are generally easy to deal with and they rarely ruin the game in the long term. But there is another type of bug that a party of D&D players is exposed to: bugs in the party itself. If we can make little of many aspects of the game, in no case this social dimension is one of them.
+As players, we have the ability to tolerate some bugs in different aspects of the game. An inconsistency in the flow of the story, a misreading of a rule, a glitch in Roll20, these are examples of bugs that you have to be able to deal with, with a certain lightness. In a way, they are part of the game, they are generally easy to deal with, and they rarely ruin the game in the long term. But there is another type of bug that a party of D&D players is exposed to: bugs in the party itself. If we can make little of many aspects of the game, in no case this social dimension is one of them.
 
 Building a group of people willing to invest over the long term to share a common story, willing to regularly devote a significant part of their time to this hobby, is no easy task. It requires energy, engagement from everyone, it is therefore precious, and we need to take extra care of it. An important part of the fun of playing comes from what others are willing to share with us. No sharing, no D&D.
 
@@ -61,9 +61,9 @@ Looking at the leaderboard: two losers who silently blame each other for their o
 
 Let's now see how the scene could have unfolded if Bernadette had expressed her intention to Leonard out loud.
 
-> - (Bernadette) This room stinks of trap, I still have 3 charges of Mirror Image in my magic item that I could use to scan the room, but I feel like I'm taking up all the space. Leonard, any thought?
-> - (Leonard) Uh, I could cast Find Traps if that's okay with everyone.
-> - (Party) Let’s do this!
+<div>- (Bernadette) This room stinks of trap, I still have 3 charges of Mirror Image in my magic item that I could use to scan the room, but I feel like I'm taking up all the space. Leonard, any thought?</div>
+<div>- (Leonard) Uh, I could cast Find Traps if that's okay with everyone.</div>
+<div>- (Party) Let’s do this!</div>
 
 Looking at the leaderboard: two winners.
 
@@ -76,18 +76,18 @@ By extending this thought, I came to reflect on the notion of consent and on the
 
 The fun can come from role-playing, or plot revelations, but it can also come from the perfect unfolding of a finely crafted multistep team plan to defeat an enemy. However, because of how D&D works, it is not always easy to reconcile these different sources of excitement in the resolution of one situation.
 
-Okay, there is “role” in “role-play”, but if role-playing is to be enforced at the expense of the fun of “playing”, then it is not worth taking it too seriously. The idea behind this rule is to remind - if we had to - that the players of the same party can have very different expectations from a game. Without stating this rule, it is easy to let the person most invested in role-playing impose their way of playing on the rest of the party. This can intimidate those who are uncomfortable with this aspect of the game, to the point of ruining their entire experience. We find a similar idea in the first rule that I stated above. The point here is to explicitly legitimize metagaming. Let it be said: metagaming is ok. A session of D&D is just as likely to feel like an improv theater show, as it is to look like a game of Risk, and everything that exists in between. Some in the community may find this opinion completely incompatible with the way they like to play the game. As far as I'm concerned, I do enjoy role-playing, but I'm willing to renounce as much of it as it takes to avoid a situation like this.
+Okay, there is “role” in “role-play”, but if role-playing is to be enforced at the expense of the fun of “playing”, then it is not worth taking it too seriously. The idea behind this rule is to remind - if we had to - that the players of the same party can have very different expectations from a game. Without stating this rule, it is easy to let the person most invested in role-playing impose their way of playing on the rest of the party. This can intimidate those who are uncomfortable with this aspect of the game, to the point of ruining their entire experience. We find a similar idea in the first rule that I stated above. The point here is to explicitly legitimize meta-gaming. Let it be said: meta-gaming is ok. A session of D&D is just as likely to feel like an improv theater show, as it is to look like a game of Risk, and everything that exists in between. Some in the community may find this opinion completely incompatible with the way they like to play the game. As far as I'm concerned, I do enjoy role-playing, but I'm willing to renounce as much of it as it takes to avoid a situation like this.
 
-> - (Bernadette) Leonard, I'm on deck, if at the end of your turn you take your barbarian out of the melee, I can use my fireball scroll to make a nice barbecue of these goblins, without risking burning you in the way!
-> - (Leonard) Hmm, my character is currently deafened, so he can't hear you. Besides, I don't think that backing down would be an idea that would spontaneously come to mind. So I'll stay put, sorry.
+<div>- (Bernadette) Leonard, I'm on deck, if at the end of your turn you take your barbarian out of the melee, I can use my fireball scroll to make a nice barbecue of these goblins, without risking burning you in the way!</div>
+<div>- (Leonard) Hmm, my character is currently deafened, so he can't hear you. Besides, I don't think that backing down would be an idea that would spontaneously come to mind. So I'll stay put, sorry.</div>
 
 If this sounds legitimate and harmless to you, imagine that it happens at the end of a four-hour game during which Bernadette has not yet had the opportunity to show much initiative, and has failed most of her important dice rolls. Let's add to this drama that she has had this scroll in her bag for real life months and that she was particularly proud to have thought of using it. One can imagine Bernadette's frustration after Leonard's response, who probably did not suspect what was at stake for her and who even thought he was serving the party's best interest, by preserving the fourth wall. The gods of role-play are content, but there's a good chance Bernadette won't show up next week. Let's rewind and apply the rule this time.
 
-> - (Bernadette) Leonard, I'm on deck, if at the end of your turn you take your barbarian out of the melee, I can use my fireball scroll to make a nice barbecue of these goblins, without risking burning you in the way!
->- (Leonard) Hmm, since he is deafened, would my character be able to hear this?
->- (DM) If you're willing to roll with it, we'll make it work.
->- (Leonard) I’m fine with it, I disengage and back off 30 feet.
->- (DM) As you prepare to sledgehammer the globins' face, you notice a sudden change of their attitude. They now display an air of panic. Looking more deeply into their eyes, you see the reflection of a brightening source of light. You turn around and see Bernadette's character holding a huge fireball in the center of her hands, ready to unleash the flame in your direction, you rush to get out of reach.
+<div>- (Bernadette) Leonard, I'm on deck, if at the end of your turn you take your barbarian out of the melee, I can use my fireball scroll to make a nice barbecue of these goblins, without risking burning you in the way!</div>
+<div>- (Leonard) Hmm, since he is deafened, would my character be able to hear this?</div>
+<div>- (DM) If you're willing to roll with it, we'll make it work.</div>
+<div>- (Leonard) I’m fine with it, I disengage and back off 30 feet.</div>
+<div>- (DM) As you prepare to sledgehammer the globins' face, you notice a sudden change of their attitude. They now display an air of panic. Looking more deeply into their eyes, you see the reflection of a brightening source of light. You turn around and see Bernadette's character holding a huge fireball in the center of her hands, ready to unleash the flame in your direction, you rush to get out of reach.</div>
 
 It should be noted that if interpreted too literally and systematically, this rule could encourage a player fond of tactical combat to break the momentum of the party by insisting on consulting on the best strategy before each and every single round. It is easy to imagine how this could greatly slow down the pace of the game, until it becomes boring for most of the players. It may be that a little risk and improvisation serve the game better than a perfectly balanced strategy, especially when there does not seem to be that big of a danger ahead. As always when it comes to rules for D&D, the important thing is to understand the intention behind the text, which in this case, aims to avoid the automatic veto on a player, who would come up with a brilliant and fun idea, that we would forbid ourselves to execute in the name of the holy role-play.
 
@@ -100,7 +100,7 @@ With a good level of trust, players can feel safe enough to bring role-play to a
 
 Players can gradually switch from third person to first person, and even end up making actresses and actors out of themselves, whether to emotionally invest in a dramatic moment, or to lighten a particularly intense sequence with humor. You can't force these moments, but when they happen, they are precious, and it is important to encourage them.
 
-However it is important to remember that unless you are on the set of Critical Role, chances are that people around you are not actors. The boundary between what is in-game and out-of-game can blur very quickly, and even when it remains clear, a player could possibly be affected by seeing their character being too often the target of our humor or our emotional surges, even when it seems harmless to us.
+However, it is important to remember that unless you are on the set of Critical Role, chances are that people around you are not actors. The boundary between what is in-game and out-of-game can blur very quickly, and even when it remains clear, a player could possibly be affected by seeing their character being too often the target of our humor or our emotional surges, even when it seems harmless to us.
 
 The idea of this rule is not to define a line not to be crossed, but to make us more aware of the fact that others may not always easily read our intentions, even when they are good. It is useful to take a step back and read the room from time to time.
 
@@ -121,20 +121,20 @@ As we said, players find pleasure in different aspects of the game. This rule ai
 
 Habits die hard and situations eventually look alike. This is so true that to a given situation, the party might end up always responding the same way. If we don’t watch it, soon all D&D sessions look the same, and the theater of the mind where anything memorable and wacky can happen, turns more and more into a lesser Skyrim. Those of you who have played D&D, take a moment to remember some highlights of your past games, the strong moments that brought you the most joy. I'm willing to bet that for a majority of you, we will most often find sequences not resulting from an action of your own character, but rather situations to which decisions of other characters have led, or at least to which they have contributed. Who more than anyone but you can surprise you? The best campaign memories come from when the unexpected happened (regardless of the outcome which either ended in failure or success), not from when the perfectly anticipated happened. It’s easy to forget that, and to focus only on the solutions that we’ve already seen working.
 
-> - (DM) You arrive near a wooden fence made of 10 foot high logs, deeply sunk in the mud. The fence circles an enemy camp from which you only perceive a thin line of fire camp smoke escaping above. You see a guard watching. You stand in the dark at the edge of the forest about 50 feet from the entrance to the camp. The guard has not spotted you yet. What do you do?
-> - (Leonard) I'll go around and use my thaumaturgy to provoke a sound to come from the other side of the camp to try and distract the guard.
-> - (Penny) Wait a second, we don't know anything about this camp yet. For all we know, there are patrols around, it's too risky.
-> - (Howard) No worries, we can go together, and I can cast Pass without Trace.
-> - (Bernadette) Or, as usual, I turn into a rat, and I sneak into the camp without attracting attention.
+<div>- (DM) You arrive near a wooden fence made of 10 foot high logs, deeply sunk in the mud. The fence circles an enemy camp from which you only perceive a thin line of fire camp smoke escaping above. You see a guard watching. You stand in the dark at the edge of the forest about 50 feet from the entrance to the camp. The guard has not spotted you yet. What do you do?</div>
+<div>- (Leonard) I'll go around and use my thaumaturgy to provoke a sound to come from the other side of the camp to try and distract the guard.</div>
+<div>- (Penny) Wait a second, we don't know anything about this camp yet. For all we know, there are patrols around, it's too risky.</div>
+<div>- (Howard) No worries, we can go together, and I can cast Pass without Trace.</div>
+<div>- (Bernadette) Or, as usual, I turn into a rat, and I sneak into the camp without attracting attention.</div>
 
 In this situation, Bernadette's solution will probably be deemed the most effective by all, and if we leave aside the fun of experimenting with an innovative solution, then the group will logically go with it, since they already have seen it working many times in the past. Characters leveling up and unlocking new abilities help mitigate the feeling of repetitiveness. This is the native tool built into RPGs to alleviate the risk of player fatigue. But let's remember we're playing D&D, not Skyrim. Players' creativity and their ability to reinvent is our best lever.
 
-> - (Leonard) I'll go around and use my thaumaturgy to provoke a sound to come from the other side of the camp to try and distract the guard.
-> - (Penny) Wait a second, we don't know anything about this camp yet. For all we know, there are patrols around, it's too risky.
-> - (Howard) No worries, we can go together, and I can cast Pass without Trace.
-> - (Raj) We still have the polyjuice we found earlier, I could go there, looking as their leader, and demand that they hand over the hostage to me, making up whatever reason for it.
-> - (Bernadette) I really like the sound of that, though we are not entirely sure that the polyjuice was brewed with their actual leader's hair.
-> - (Penny) The odds are about 9 on 10, but I definitely want to see how that would play out anyway!
+<div>- (Leonard) I'll go around and use my thaumaturgy to provoke a sound to come from the other side of the camp to try and distract the guard.</div>
+<div>- (Penny) Wait a second, we don't know anything about this camp yet. For all we know, there are patrols around, it's too risky.</div>
+<div>- (Howard) No worries, we can go together, and I can cast Pass without Trace.</div>
+<div>- (Raj) We still have the polyjuice we found earlier, I could go there, looking as their leader, and demand that they hand over the hostage to me, making up whatever reason for it.</div>
+<div>- (Bernadette) I really like the sound of that, though we are not entirely sure that the polyjuice was brewed with their actual leader's hair.</div>
+<div>- (Penny) The odds are about 9 on 10, but I definitely want to see how that would play out anyway!</div>
 
 Whatever the outcome, I bet that will be cooler and more memorable. A solution that works is a good solution, but it doesn’t mean it is the only good solution.
 

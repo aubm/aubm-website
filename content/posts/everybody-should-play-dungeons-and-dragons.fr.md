@@ -23,6 +23,8 @@ Se lancer dans D&D est aujourd’hui plus facile que jamais au vu du foisonnemen
 
 Je me sens beaucoup plus autonome et légitime aujourd’hui dans la préparation des parties, si bien que je ressens moins le besoin de revenir systématiquement à ces contenus, mais il m’arrive de les revisiter pour le plaisir, et d’en chercher de nouveaux, afin d’ajouter de nouvelles perspectives à ma façon de voir le jeu.
 
+![DnD dans Big Bang Theory](/img/big-bang-theory-dnd.jpg)
+
 Plus je forge mon expérience, plus je suis sûr qu’un aspect du jeu en particulier tel qu’il est pratiqué aujourd’hui transcende absolument tous les autres. Je ne parle pas du role-play, de l’exploration ou du combat qui sont traditionnellement présentés comme les trois piliers sur lesquels repose le jeu. Je parle d’un aspect plus fondamental, plus constitutif encore de l’expérience, le seul qui en réalité a une importance telle que le jeu ne peut exister si on le retire. Si vrai que chacun en a à la fois conscience et tend à oublier à quel point il est important de le soigner. La seule raison qui fait que je le prends autant au sérieux, et qui me donne à croire que tout le monde devrait jouer à Donjons et Dragons.
 
 

@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.aubm.net/fr/</loc>
-    <lastmod>2022-11-05T19:02:18-04:00</lastmod>
+    <lastmod>2023-01-02T18:29:46-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -18,7 +18,7 @@
                 />
   </url><url>
     <loc>https://www.aubm.net/fr/tags/inspiration/</loc>
-    <lastmod>2022-11-05T19:02:18-04:00</lastmod>
+    <lastmod>2023-01-02T18:29:46-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -32,8 +32,28 @@
                 href="https://www.aubm.net/fr/tags/inspiration/"
                 />
   </url><url>
+    <loc>https://www.aubm.net/fr/posts/my-vacation-at-the-most-magical-place-on-earth/</loc>
+    <lastmod>2023-01-02T18:29:46-04:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://www.aubm.net/fr/tags/politics/</loc>
+    <lastmod>2023-01-02T18:29:46-04:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.aubm.net/tags/politics/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://www.aubm.net/fr/tags/politics/"
+                />
+  </url><url>
     <loc>https://www.aubm.net/fr/posts/</loc>
-    <lastmod>2022-11-05T19:02:18-04:00</lastmod>
+    <lastmod>2023-01-02T18:29:46-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -48,7 +68,7 @@
                 />
   </url><url>
     <loc>https://www.aubm.net/fr/tags/</loc>
-    <lastmod>2022-11-05T19:02:18-04:00</lastmod>
+    <lastmod>2023-01-02T18:29:46-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -90,21 +110,6 @@
                 rel="alternate"
                 hreflang="fr"
                 href="https://www.aubm.net/fr/posts/how-my-programming-skills-helped-me-with-my-personal-finances-part-1/"
-                />
-  </url><url>
-    <loc>https://www.aubm.net/fr/tags/politics/</loc>
-    <lastmod>2022-10-09T00:41:07-04:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://www.aubm.net/tags/politics/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://www.aubm.net/fr/tags/politics/"
                 />
   </url><url>
     <loc>https://www.aubm.net/fr/posts/the-saddest-moment-of-the-z-event-2022/</loc>

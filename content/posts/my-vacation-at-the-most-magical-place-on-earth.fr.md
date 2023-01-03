@@ -198,7 +198,7 @@ Le père retient sa fille, lui dit de le laisser passer l'employé, qui porte de
 Puis il lui tend la serviette usagée qu’il venait de ramasser.
 
 Peut-être que c’est ce mec qui a raison.<br>
-Peut-être que le pessimisme, c’est juste un alibi pour être con.<br>
+Peut-être que le pessimisme, c’est juste un alibi pour être un con.<br>
 Peut-être qu'il ne faut pas trop regretter quand la politique contrôlait le système médiatique.<br>
 Peut-être qu’il faut plus écouter les gens qui font des discours toxiques.<br>
 Peut-être qu’il faut moins de guignols démagogiques, et plus d’esprit critique.<br>

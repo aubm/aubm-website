@@ -168,19 +168,19 @@ _"Apparently you need to be poor to get there first, that is so unfair"_.
 Je me dis qu’elle a sûrement mal dormi, qu’elle ne s’est pas levé du bon pied.
 Et elle doit être malade aussi, elle vide ses poumons dans ses paumes, elle n’arrête pas de tousser.
 Sa file avance, elle met la pression à son groupe, elle se met en mode gendarme.
-Elle colle le gars de devant et fait glisser ses mains le long des rambardes.
+Elle colle le gars de devant, avance en faisant glisser ses mains le long des rambardes.
 Une fois partie, je vois une pancarte anti Covid placée juste derrière.
 Je me dis que ça doit être l’idée qu’elle se fait des gestes barrières.
 
 On arrive à la fin du séjour, c’est le dernier jour et il est bientôt minuit.
 Ce serait dommage de partir sans voir le feu d’artifice de Minnie.
 La place est déjà bien animée, mais j’arrive à me faufiler, je trouve une place pas si mal pour m’installer.
-Premier tir de fusée, et finalement je crois que je vais plutôt regarder les fesses de bébé.
+Premier tir de fusée, et finalement je crois que je vais plutôt matter les fesses de bébé.
 Je parle du fiston posé sur les épaules de papa juste devant moi.
 En même temps, c'est ma faute, je me suis décalé pour le laisser passer, je ne pensais pas qu’il resterait là.
 Pas de problème, je peux voir les lumières sur l’iPad de maman.
 Elle est juste à côté et filme avec le flash en dansant.
-Quant aux sons et à la musique, j’ai de la chance de les entendre apparemment.
+Quant aux sons et à la musique, j’ai déjà de la chance de les entendre apparemment.
 En même temps, je suis qui pour leur dire d’être plus arrangeants ?
 
 Des fois je me demande si plein d’êtres humains tout seuls, ça fait une société.

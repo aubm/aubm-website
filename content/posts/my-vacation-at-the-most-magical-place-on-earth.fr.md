@@ -194,7 +194,7 @@ En quittant l’hôtel, je marche derrière un mec en peignoir qui se dirige ver
 Il tient sa fille par la main, son sac à dos sur les épaules avec Mickey dessiné.
 Sa fille marche sans faire exprès sur une serviette abandonnée sur le sol que quelqu’un a laissé traîner.
 Arrivée à la piscine, sa fille se précipite au portail et bloque le chemin d’un employé.
-Le père retient sa fille, lui dit de le laisser passer l'employé, qui porte des oreilles de Mickey.
+Le père retient sa fille, lui dit de laisser passer l'employé, qui porte des oreilles de Mickey.
 Puis il lui tend la serviette usagée qu’il venait de ramasser.
 
 J'arrive à leur niveau, je passe juste à côté.

@@ -3,6 +3,7 @@ title: "Mes vacances dans l'endroit le plus magique du monde"
 date: 2023-01-02T18:29:46-04:00
 draft: false
 tags: [Inspiration, Politics]
+featured_image: "img/mickey-parade.jpeg"
 ---
 
 J’ai passé les fêtes de fin d’année dans l’endroit le plus magique du monde.

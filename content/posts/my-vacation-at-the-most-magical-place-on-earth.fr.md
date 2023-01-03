@@ -199,7 +199,7 @@ Puis il lui tend la serviette usagée qu’il venait de ramasser.
 
 J'arrive à leur niveau, je passe juste à côté.
 L'employé me sourit, me souhaite de passer _"a nice day"_.
-Assis dans le bus, je suis en route pour l'aéroport, et je me demande s'il ne l'avait pas ramassée, est-ce que j'aurais fait l'effort.
+Assis dans le bus, je suis en route pour l'aéroport, et je me demande s'il ne l'avait pas ramassée, est-ce que j'aurais moi-même fait l'effort.
 
 Peut-être que c’est ce mec qui a raison.<br>
 Peut-être que le pessimisme, c’est juste un alibi pour être un con.<br>

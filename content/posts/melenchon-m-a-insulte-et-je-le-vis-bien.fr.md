@@ -6,7 +6,7 @@ tags: [Inspiration, Politics]
 featured_image: "img/melenchon.jpeg"
 ---
 
-Ce midi, j’ai déjeuné avec Jean-Luc Mélenchon. Cela m’arrive assez régulièrement d’ailleurs quand je travaille de la maison. J’ai fait réchauffer mon assiette de la veille au micro-ondes. Lui n’avait rien prévu, à part un discours. Il était là pour ça évidemment, après tout, on n’attend pas Jean-Luc pour tenir la louche. J’allume la télé, je lance Youtube, je défile dans mes abonnements, et le voilà prêt à me hurler dessus, tandis que je souffle tranquillement sur ma cuillère.
+Ce midi, j’ai déjeuné avec Jean-Luc Mélenchon. Cela m’arrive assez régulièrement d’ailleurs quand je travaille de la maison. J’ai fait réchauffer mon plat de la veille au micro-ondes. Lui n’avait rien prévu, à part un discours. Il était là pour ça évidemment, après tout, on n’attend pas Jean-Luc pour tenir la louche. J’allume la télé, je lance Youtube, je défile dans mes abonnements, et le voilà prêt à me hurler dessus, tandis que je souffle tranquillement sur ma cuillère.
 
 Retraites : nous pouvons les battre une nouvelle fois !
 

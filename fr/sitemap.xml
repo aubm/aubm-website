@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.aubm.net/fr/</loc>
-    <lastmod>2023-01-02T18:29:46-04:00</lastmod>
+    <lastmod>2023-01-18T01:11:03-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -18,7 +18,7 @@
                 />
   </url><url>
     <loc>https://www.aubm.net/fr/tags/inspiration/</loc>
-    <lastmod>2023-01-02T18:29:46-04:00</lastmod>
+    <lastmod>2023-01-18T01:11:03-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -32,13 +32,13 @@
                 href="https://www.aubm.net/fr/tags/inspiration/"
                 />
   </url><url>
-    <loc>https://www.aubm.net/fr/posts/my-vacation-at-the-most-magical-place-on-earth/</loc>
-    <lastmod>2023-01-02T18:29:46-04:00</lastmod>
+    <loc>https://www.aubm.net/fr/posts/melenchon-m-a-insulte-et-je-le-vis-bien/</loc>
+    <lastmod>2023-01-18T01:11:03-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://www.aubm.net/fr/tags/politics/</loc>
-    <lastmod>2023-01-02T18:29:46-04:00</lastmod>
+    <lastmod>2023-01-18T01:11:03-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -53,7 +53,7 @@
                 />
   </url><url>
     <loc>https://www.aubm.net/fr/posts/</loc>
-    <lastmod>2023-01-02T18:29:46-04:00</lastmod>
+    <lastmod>2023-01-18T01:11:03-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -68,7 +68,7 @@
                 />
   </url><url>
     <loc>https://www.aubm.net/fr/tags/</loc>
-    <lastmod>2023-01-02T18:29:46-04:00</lastmod>
+    <lastmod>2023-01-18T01:11:03-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -81,6 +81,11 @@
                 hreflang="fr"
                 href="https://www.aubm.net/fr/tags/"
                 />
+  </url><url>
+    <loc>https://www.aubm.net/fr/posts/my-vacation-at-the-most-magical-place-on-earth/</loc>
+    <lastmod>2023-01-02T18:29:46-04:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url><url>
     <loc>https://www.aubm.net/fr/posts/everybody-should-play-dungeons-and-dragons/</loc>
     <lastmod>2022-11-05T19:02:18-04:00</lastmod>

@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.aubm.net/fr/</loc>
-    <lastmod>2023-01-21T15:59:45-04:00</lastmod>
+    <lastmod>2023-02-15T09:40:36+01:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -15,6 +15,56 @@
                 rel="alternate"
                 hreflang="fr"
                 href="https://www.aubm.net/fr/"
+                />
+  </url><url>
+    <loc>https://www.aubm.net/fr/posts/je-vivrai-dans-le-pays-avec-l-etat-le-moins-obese/</loc>
+    <lastmod>2023-02-15T09:40:36+01:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://www.aubm.net/fr/tags/politics/</loc>
+    <lastmod>2023-02-15T09:40:36+01:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.aubm.net/tags/politics/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://www.aubm.net/fr/tags/politics/"
+                />
+  </url><url>
+    <loc>https://www.aubm.net/fr/posts/</loc>
+    <lastmod>2023-02-15T09:40:36+01:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.aubm.net/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://www.aubm.net/fr/posts/"
+                />
+  </url><url>
+    <loc>https://www.aubm.net/fr/tags/</loc>
+    <lastmod>2023-02-15T09:40:36+01:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.aubm.net/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://www.aubm.net/fr/tags/"
                 />
   </url><url>
     <loc>https://www.aubm.net/fr/tags/inspiration/</loc>
@@ -36,51 +86,6 @@
     <lastmod>2023-01-21T15:59:45-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url><url>
-    <loc>https://www.aubm.net/fr/tags/politics/</loc>
-    <lastmod>2023-01-21T15:59:45-04:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://www.aubm.net/tags/politics/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://www.aubm.net/fr/tags/politics/"
-                />
-  </url><url>
-    <loc>https://www.aubm.net/fr/posts/</loc>
-    <lastmod>2023-01-21T15:59:45-04:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://www.aubm.net/posts/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://www.aubm.net/fr/posts/"
-                />
-  </url><url>
-    <loc>https://www.aubm.net/fr/tags/</loc>
-    <lastmod>2023-01-21T15:59:45-04:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://www.aubm.net/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://www.aubm.net/fr/tags/"
-                />
   </url><url>
     <loc>https://www.aubm.net/fr/posts/melenchon-m-a-insulte-et-je-le-vis-bien/</loc>
     <lastmod>2023-01-18T01:11:03-04:00</lastmod>

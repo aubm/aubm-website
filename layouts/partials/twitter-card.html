@@ -4,4 +4,5 @@
 <meta name="twitter:description" content="{{ .Page.Summary }}">
 {{ if .Params.featured_image }}
 <meta name="twitter:image" content="{{ .Site.BaseURL }}{{ .Params.featured_image }}">
+<meta property="og:image" content="{{ .Site.BaseURL }}{{ .Params.featured_image }}" />
 {{ end }}

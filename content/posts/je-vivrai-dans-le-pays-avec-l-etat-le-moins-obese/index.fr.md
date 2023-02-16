@@ -338,4 +338,4 @@ Pensez ce que vous voulez des comptables, mais j’ai découvert plus que ce que
 
 J’en ai besoin, car à la fin, il se peut que je choisisse le pays avec l’État le moins obèse.
 
-<img src="/img/gargantua.jpeg" alt="Illustration du roman Gargantua de François Rabelais" style="max-width: 800px;">
+<img src="/img/gargantua.jpeg" alt="Illustration du roman Gargantua de François Rabelais" style="max-width: 800px !important;">

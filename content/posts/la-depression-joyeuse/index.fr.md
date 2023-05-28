@@ -4,6 +4,7 @@ date: 2023-05-28T19:26:13-04:00
 draft: false
 tags: [Politics]
 featured_image: "img/city-in-ruin.png"
+summary: "Aurélien Barrau, un des principaux représentants de la décroissance économique, s'exprime au parlement Européen dans le cadre de la conférence Beyond Growth. Et il fallait que j’en parle."
 ---
 
 <figure class="blockquote-header">

@@ -10,7 +10,9 @@ Ce midi, j’ai déjeuné avec Jean-Luc Mélenchon. Cela m’arrive assez régul
 
 Retraites : nous pouvons les battre une nouvelle fois !
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ilyVPK8HhH8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<div style="position:relative;padding-top:56.25%;">
+<iframe style="position:absolute;top:0;left:0;width:100%;height:100%;" src="https://www.youtube.com/embed/ilyVPK8HhH8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
 
 Et pourquoi pas, allons-y. Trente minutes, c’est à peu près le temps de ma pause. C’est plus de temps qu’il n’en faut pour avaler mon bol de soupe et un Pépito. Au début, il part un peu dans tous les sens, pas toujours simple de voir où il veut en venir, mais le show se laisse écouter. Le champ lexical marxiste est attendu (j’ai arrêté de compter au dixième _bataille_ ou encore _lutte_ en me disant que cela pourrait faire un jeu d’alcool à la fois vite onéreux et dangereux).
 

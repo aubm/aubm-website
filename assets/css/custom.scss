@@ -10,6 +10,12 @@ img {
 @mixin media($for-tablet-up) {
     @media only screen and (min-width: $for-tablet-up) {
         @content;
+		.content-container {
+			width: 800px;
+			padding-left: 310px;
+			margin-left: auto;
+			margin-right: auto;
+		}
     }
 }
 
@@ -20,10 +26,6 @@ h1, h2, h3, h4, h5, h6, h7, h8, h9 {
 			text-decoration: underline;
 		}
 	}
-}
-
-#content {
-    max-width: 100% !important;
 }
 
 .languages {

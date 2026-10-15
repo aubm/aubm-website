@@ -1,0 +1,458 @@
+{
+  "nature": [
+    {
+      "id": "mountain-folds",
+      "src": "/images/photos/mountain-folds.webp",
+      "width": 1920,
+      "height": 1440,
+      "thumbnail": "/images/photos/mountain-folds-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 720,
+      "title": {
+        "en": "Mountain folds",
+        "fr": "Les plis de la montagne"
+      },
+      "alt": {
+        "en": "Rugged mountain ridges above a broad grassy valley under a pale sky.",
+        "fr": "Des crêtes rocheuses dominent une vaste vallée herbeuse sous un ciel pâle."
+      }
+    },
+    {
+      "id": "forest-light",
+      "src": "/images/photos/forest-light.webp",
+      "width": 1440,
+      "height": 1920,
+      "thumbnail": "/images/photos/forest-light-small.webp",
+      "thumbnailWidth": 720,
+      "thumbnailHeight": 960,
+      "title": {
+        "en": "Forest light",
+        "fr": "La lumière des sous-bois"
+      },
+      "alt": {
+        "en": "A quiet trail between tall conifers, ferns, and mossy roots.",
+        "fr": "Un sentier entre de grands conifères, des fougères et des racines couvertes de mousse."
+      }
+    },
+    {
+      "id": "snowy-reflections",
+      "src": "/images/photos/snowy-reflections.webp",
+      "width": 1920,
+      "height": 1440,
+      "thumbnail": "/images/photos/snowy-reflections-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 720,
+      "title": {
+        "en": "Snowy reflections",
+        "fr": "Reflets de neige"
+      },
+      "alt": {
+        "en": "Snowy peaks and dark forest reflected in a blue mountain lake.",
+        "fr": "Des sommets enneigés et une forêt sombre se reflètent dans un lac de montagne bleu."
+      }
+    },
+    {
+      "id": "quiet-water",
+      "src": "/images/photos/quiet-water.webp",
+      "width": 1920,
+      "height": 1440,
+      "thumbnail": "/images/photos/quiet-water-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 720,
+      "title": {
+        "en": "Quiet water",
+        "fr": "L’eau tranquille"
+      },
+      "alt": {
+        "en": "Autumn trees and a cloudy sky reflected in a still lake.",
+        "fr": "Des arbres aux couleurs d’automne et un ciel nuageux se reflètent dans un lac calme."
+      }
+    },
+    {
+      "id": "winter-ridges",
+      "src": "/images/photos/winter-ridges.webp",
+      "width": 1920,
+      "height": 1440,
+      "thumbnail": "/images/photos/winter-ridges-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 720,
+      "title": {
+        "en": "Winter ridges",
+        "fr": "Les crêtes en hiver"
+      },
+      "alt": {
+        "en": "Snow-covered cliffs and bare trees beneath a bright blue sky.",
+        "fr": "Des falaises enneigées et des arbres nus sous un ciel bleu lumineux."
+      }
+    },
+    {
+      "id": "open-ground",
+      "src": "/images/photos/open-ground.webp",
+      "width": 1882,
+      "height": 1920,
+      "thumbnail": "/images/photos/open-ground-small.webp",
+      "thumbnailWidth": 941,
+      "thumbnailHeight": 960,
+      "title": {
+        "en": "Room to wander",
+        "fr": "De l’espace pour marcher"
+      },
+      "alt": {
+        "en": "Grass and scattered boulders on an open mountain slope.",
+        "fr": "De l’herbe et des rochers sur une pente de montagne dégagée."
+      }
+    },
+    {
+      "id": "dark-summit",
+      "src": "/images/photos/dark-summit.webp",
+      "width": 1920,
+      "height": 1440,
+      "thumbnail": "/images/photos/dark-summit-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 720,
+      "title": {
+        "en": "A darker summit",
+        "fr": "Un sommet sombre"
+      },
+      "alt": {
+        "en": "A dark rocky mountain with patches of snow under billowing white clouds.",
+        "fr": "Une montagne rocheuse sombre, ponctuée de neige, sous de grands nuages blancs."
+      }
+    },
+    {
+      "id": "between-the-trees",
+      "src": "/images/photos/between-the-trees.webp",
+      "width": 1920,
+      "height": 1440,
+      "thumbnail": "/images/photos/between-the-trees-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 720,
+      "title": {
+        "en": "Between the trees",
+        "fr": "Entre les arbres"
+      },
+      "alt": {
+        "en": "Bare branches and evergreens casting shadows across a snowy woodland path.",
+        "fr": "Des arbres nus et des conifères projettent leurs ombres sur un chemin enneigé."
+      }
+    },
+    {
+      "id": "soft-evening",
+      "src": "/images/photos/soft-evening.webp",
+      "width": 1920,
+      "height": 1440,
+      "thumbnail": "/images/photos/soft-evening-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 720,
+      "title": {
+        "en": "The softer hours",
+        "fr": "Les heures douces"
+      },
+      "alt": {
+        "en": "Rocky shores and dark conifers reflected in pale evening water.",
+        "fr": "Des rives rocheuses et des conifères se reflètent dans une eau aux couleurs douces."
+      }
+    },
+    {
+      "id": "above-the-clouds",
+      "src": "/images/photos/above-the-clouds.webp",
+      "width": 1920,
+      "height": 1440,
+      "thumbnail": "/images/photos/above-the-clouds-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 720,
+      "title": {
+        "en": "Above the clouds",
+        "fr": "Au-dessus des nuages"
+      },
+      "alt": {
+        "en": "Low clouds fill a mountain valley below grassy ridges and a wide, cloud-filled sky.",
+        "fr": "Des nuages bas remplissent une vallée entre des crêtes herbeuses, sous un vaste ciel nuageux."
+      }
+    },
+    {
+      "id": "warm-horizons",
+      "src": "/images/photos/warm-horizons.webp",
+      "width": 1920,
+      "height": 1854,
+      "thumbnail": "/images/photos/warm-horizons-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 927,
+      "title": {
+        "en": "Warm horizons",
+        "fr": "Horizons chauds"
+      },
+      "alt": {
+        "en": "Warm reddish hills and winding folds of sand beneath a pale blue sky.",
+        "fr": "Des collines rougeâtres et des replis de sable sous un ciel bleu pâle."
+      }
+    },
+    {
+      "id": "earth-and-sky",
+      "src": "/images/photos/earth-and-sky.webp",
+      "width": 1920,
+      "height": 1440,
+      "thumbnail": "/images/photos/earth-and-sky-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 720,
+      "title": {
+        "en": "Earth and sky",
+        "fr": "La terre et le ciel"
+      },
+      "alt": {
+        "en": "An earthen hillside village, palms, and a stony plain under a clear sky.",
+        "fr": "Un village de terre sur une colline, des palmiers et une plaine de pierres sous un ciel dégagé."
+      }
+    },
+    {
+      "id": "running-water",
+      "src": "/images/photos/running-water.webp",
+      "width": 1920,
+      "height": 1440,
+      "thumbnail": "/images/photos/running-water-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 720,
+      "title": {
+        "en": "A little movement",
+        "fr": "Un peu de mouvement"
+      },
+      "alt": {
+        "en": "Clear river water flowing past stones, snow, and forested banks.",
+        "fr": "Une rivière claire coule entre des pierres, de la neige et des berges boisées."
+      }
+    },
+    {
+      "id": "green-valley",
+      "src": "/images/photos/green-valley.webp",
+      "width": 1920,
+      "height": 1440,
+      "thumbnail": "/images/photos/green-valley-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 720,
+      "title": {
+        "en": "A greener valley",
+        "fr": "Une vallée plus verte"
+      },
+      "alt": {
+        "en": "A deep green mountain valley with rocky slopes, scattered trees, and a small stream.",
+        "fr": "Une vallée de montagne verdoyante, des pentes rocheuses, des arbres et un petit ruisseau."
+      }
+    },
+    {
+      "id": "the-long-way",
+      "src": "/images/photos/the-long-way.webp",
+      "width": 1920,
+      "height": 1440,
+      "thumbnail": "/images/photos/the-long-way-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 720,
+      "title": {
+        "en": "The long way round",
+        "fr": "Le chemin des écoliers"
+      },
+      "alt": {
+        "en": "A small blue lake surrounded by grass, pale boulders, and green mountain slopes.",
+        "fr": "Un petit lac bleu entouré d’herbe, de rochers clairs et de pentes verdoyantes."
+      }
+    },
+    {
+      "id": "winter-blue",
+      "src": "/images/photos/winter-blue.webp",
+      "width": 1920,
+      "height": 1440,
+      "thumbnail": "/images/photos/winter-blue-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 720,
+      "title": {
+        "en": "Winter blue",
+        "fr": "Le bleu de l’hiver"
+      },
+      "alt": {
+        "en": "Blue lake water bordered by snowy banks and bare trees, with a building in the distance.",
+        "fr": "Un lac bleu bordé de neige et d’arbres nus, avec un bâtiment au loin."
+      }
+    },
+    {
+      "id": "shoreline",
+      "src": "/images/photos/shoreline.webp",
+      "width": 1536,
+      "height": 1536,
+      "thumbnail": "/images/photos/shoreline-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 960,
+      "title": {
+        "en": "Along the shore",
+        "fr": "Au bord de l’eau"
+      },
+      "alt": {
+        "en": "Driftwood and rocks along a forested shoreline in warm light.",
+        "fr": "Du bois flotté et des rochers sur une rive boisée dans une lumière chaude."
+      }
+    },
+    {
+      "id": "stone-path",
+      "src": "/images/photos/stone-path.webp",
+      "width": 1440,
+      "height": 1920,
+      "thumbnail": "/images/photos/stone-path-small.webp",
+      "thumbnailWidth": 720,
+      "thumbnailHeight": 960,
+      "title": {
+        "en": "One stone at a time",
+        "fr": "Une pierre après l’autre"
+      },
+      "alt": {
+        "en": "A stone path follows a blue lake between large boulders and a wooded slope.",
+        "fr": "Un chemin de pierres longe un lac bleu entre de gros rochers et une pente boisée."
+      }
+    },
+    {
+      "id": "autumn-colours",
+      "src": "/images/photos/autumn-colours.webp",
+      "width": 1920,
+      "height": 1440,
+      "thumbnail": "/images/photos/autumn-colours-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 720,
+      "title": {
+        "en": "A change of palette",
+        "fr": "Changer de palette"
+      },
+      "alt": {
+        "en": "Golden and orange foliage stretching across wooded hills beneath low clouds.",
+        "fr": "Des feuillages dorés et orangés couvrent des collines sous un ciel bas."
+      }
+    },
+    {
+      "id": "high-horizons",
+      "src": "/images/photos/high-horizons.webp",
+      "width": 1920,
+      "height": 1440,
+      "thumbnail": "/images/photos/high-horizons-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 720,
+      "title": {
+        "en": "Higher horizons",
+        "fr": "Plus haut, plus loin"
+      },
+      "alt": {
+        "en": "A panorama of snowy mountain ridges and deep valleys beneath wispy clouds.",
+        "fr": "Un panorama de crêtes enneigées et de vallées profondes sous des nuages effilés."
+      }
+    },
+    {
+      "id": "little-pools",
+      "src": "/images/photos/little-pools.webp",
+      "width": 1920,
+      "height": 1440,
+      "thumbnail": "/images/photos/little-pools-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 720,
+      "title": {
+        "en": "Little pools of sky",
+        "fr": "Des morceaux de ciel"
+      },
+      "alt": {
+        "en": "Small pools reflecting the sky among grassy hummocks and pale mountain rocks.",
+        "fr": "De petites mares reflètent le ciel entre des touffes d’herbe et des rochers clairs."
+      }
+    },
+    {
+      "id": "streamside",
+      "src": "/images/photos/streamside.webp",
+      "width": 1920,
+      "height": 1440,
+      "thumbnail": "/images/photos/streamside-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 720,
+      "title": {
+        "en": "Beside the stream",
+        "fr": "Au bord du ruisseau"
+      },
+      "alt": {
+        "en": "Hikers beside a clear stream in a grassy clearing below a forested mountain slope.",
+        "fr": "Des randonneurs au bord d’un ruisseau clair dans une prairie au pied d’une montagne boisée."
+      }
+    },
+    {
+      "id": "frozen-water",
+      "src": "/images/photos/frozen-water.webp",
+      "width": 1920,
+      "height": 1440,
+      "thumbnail": "/images/photos/frozen-water-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 720,
+      "title": {
+        "en": "When water rests",
+        "fr": "Quand l’eau se repose"
+      },
+      "alt": {
+        "en": "A frozen lake and a small dam below steep, snow-covered mountain walls.",
+        "fr": "Un lac gelé et un petit barrage au pied de parois de montagne abruptes et enneigées."
+      }
+    },
+    {
+      "id": "stillness",
+      "src": "/images/photos/stillness.webp",
+      "width": 1920,
+      "height": 1440,
+      "thumbnail": "/images/photos/stillness-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 720,
+      "title": {
+        "en": "Stillness",
+        "fr": "L’immobile"
+      },
+      "alt": {
+        "en": "Dark rocks and shrubs beside calm blue water and forested slopes.",
+        "fr": "Des rochers sombres et des arbustes au bord d’une eau bleue et calme."
+      }
+    },
+    {
+      "id": "wide-open",
+      "src": "/images/photos/wide-open.webp",
+      "width": 1920,
+      "height": 1440,
+      "thumbnail": "/images/photos/wide-open-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 720,
+      "title": {
+        "en": "Wide open",
+        "fr": "Le grand air"
+      },
+      "alt": {
+        "en": "An open moor, a distant lake, and dark hills beneath shifting clouds.",
+        "fr": "Une lande ouverte, un lac au loin et des collines sombres sous un ciel changeant."
+      }
+    },
+    {
+      "id": "winter-clearing",
+      "src": "/images/photos/winter-clearing.webp",
+      "width": 1920,
+      "height": 1440,
+      "thumbnail": "/images/photos/winter-clearing-small.webp",
+      "thumbnailWidth": 960,
+      "thumbnailHeight": 720,
+      "title": {
+        "en": "A winter pause",
+        "fr": "Une pause en hiver"
+      },
+      "alt": {
+        "en": "A snowy woodland clearing with a wooden hut and a picnic table.",
+        "fr": "Une clairière enneigée avec une cabane en bois et une table de pique-nique."
+      }
+    }
+  ],
+  "music": {
+    "rosette": {
+      "src": "/images/photos/guitar-rosette.webp",
+      "width": 700,
+      "height": 483
+    }
+  },
+  "portrait": {
+    "src": "/images/photos/profile.webp",
+    "width": 960,
+    "height": 960
+  }
+}

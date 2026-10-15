@@ -1,53 +1,53 @@
-# Workflow to build and deploy site to Github Pages using Hugo
+name: Build and publish
 
-# Name of Workflow
-name: publish
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+permissions:
+  contents: read
+
+concurrency:
+  group: website-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  # This workflow contains a single job called "publish"
-  publish:
-    # The type of runner that the job will run on
+  build:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    env:
+      ASTRO_TELEMETRY_DISABLED: 1
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run build
+      - run: npm test
+      - uses: actions/upload-artifact@v4
+        with:
+          name: website
+          path: dist
 
-    # Step 1 - Checks-out your repository under $GITHUB_WORKSPACE
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-          submodules: true  # Fetch Hugo themes
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
-
-    # Step 2 - Sets up the latest version of Hugo
-    - name: Setup Hugo
-      uses: peaceiris/actions-hugo@v2
-      with:
-          hugo-version: '0.104.3'
-
-    # Step 3 - Clean and don't fail
-    - name: Clean public directory
-      run: rm -rf public
-
-    # Step 4 - Builds the site using the latest version of Hugo
-    # Also specifies the theme we want to use
-    - name: Build
-      run: hugo
-
-    # Step 5 - Create name file
-    - name: Create cname file
-      run: echo 'www.aubm.net' > public/CNAME
-
-    # Step 6 - Push our generated site to our gh-pages branch
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      with:
+  publish:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: website
+          path: dist
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          publish_dir: dist
+          cname: www.aubm.net

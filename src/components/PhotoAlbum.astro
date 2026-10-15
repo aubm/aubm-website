@@ -1,0 +1,75 @@
+---
+import Icon from './Icon.astro';
+import photos from '../data/photos.json';
+import { paths, type Language } from '../lib/i18n';
+interface Props { language: Language; }
+const { language } = Astro.props;
+const fr = language === 'fr';
+const first = photos.nature[0];
+---
+<section class="album-intro">
+  <div><a class="text-link album-back" href={`${paths.about[language]}#nature`}>← {fr ? 'Retour aux chemins de traverse' : 'Back to the outdoors'}</a><p class="eyebrow">{fr ? 'UN PEU PLUS LOIN DU CLAVIER' : 'A LITTLE FURTHER FROM THE KEYBOARD'}</p><h1>{fr ? <>Les chemins<br />de <em>traverse.</em></> : <>Taking the<br /><em>scenic route.</em></>}</h1><p>{fr ? 'Des crêtes de montagne, des sous-bois, de l’eau calme, des horizons ouverts. Quelques instants de marche et de voyage, pour le plaisir de regarder un peu plus longtemps.' : 'Mountain ridges, woodland paths, quiet water, and open horizons. A few moments from walks and travels, for the pleasure of looking a little longer.'}</p></div>
+  <div class="album-mark" aria-hidden="true"><span class="album-mark-flower">✳</span><span>{fr ? <>prendre<br />son temps.</> : <>take<br />your time.</>}</span></div>
+</section>
+<section class="album-collection" data-photo-album aria-label={fr ? 'Album de photographies de nature' : 'Nature photo album'}>
+  <div class="album-toolbar"><span class="eyebrow">{photos.nature.length} {fr ? 'INSTANTS DEHORS' : 'MOMENTS OUTSIDE'}</span><span>{fr ? 'Ouvrir une image pour s’y attarder.' : 'Open a frame and stay a while.'}</span></div>
+  <div class="photo-grid">
+    {photos.nature.map((photo, index) => <figure class="photo-item"><a class="gallery-link" href={photo.src} data-photo data-caption={photo.title[language]} aria-label={`${fr ? 'Agrandir' : 'Enlarge'} : ${photo.title[language]}`}><img src={photo.thumbnail} srcset={`${photo.thumbnail} ${photo.thumbnailWidth}w, ${photo.src} ${photo.width}w`} sizes="(max-width: 700px) calc(100vw - 44px), (max-width: 1000px) calc((100vw - 80px) / 2), calc((100vw - 176px) / 3)" width={photo.width} height={photo.height} alt={photo.alt[language]} loading={index < 3 ? 'eager' : 'lazy'} decoding="async" /><span class="photo-enlarge" aria-hidden="true">+</span></a><figcaption><span class="photo-number">{String(index + 1).padStart(2, '0')}</span><span>{photo.title[language]}</span></figcaption></figure>)}
+  </div>
+  <dialog class="photo-lightbox" data-lightbox aria-label={fr ? 'Visionneuse de photographies' : 'Photo viewer'}>
+    <div class="lightbox-header"><span class="lightbox-counter" data-photo-counter aria-live="polite">1 / {photos.nature.length}</span><button class="lightbox-close" type="button" data-photo-close aria-label={fr ? 'Fermer la photographie' : 'Close photo'}>×</button></div>
+    <img class="lightbox-image" data-photo-image src={first.src} alt={first.alt[language]} width={first.width} height={first.height} loading="lazy" />
+    <div class="lightbox-footer"><button type="button" class="lightbox-nav" data-photo-prev aria-label={fr ? 'Photographie précédente' : 'Previous photo'}>←</button><p data-photo-caption>{first.title[language]}</p><button type="button" class="lightbox-nav" data-photo-next aria-label={fr ? 'Photographie suivante' : 'Next photo'}>→</button></div>
+  </dialog>
+</section>
+<section class="album-outro"><Icon name="sun" /><p>{fr ? 'Pas besoin de tout raconter pour garder un souvenir.' : 'Not every moment needs a whole story.'}</p><a class="text-link" href={paths.about[language]}>{fr ? 'Au-delà des photos' : 'Beyond the photos'}<Icon name="arrow" /></a></section>
+<script>
+  for (const album of document.querySelectorAll<HTMLElement>('[data-photo-album]')) {
+    const links = [...album.querySelectorAll<HTMLAnchorElement>('[data-photo]')];
+    const dialog = album.querySelector<HTMLDialogElement>('[data-lightbox]');
+    const image = album.querySelector<HTMLImageElement>('[data-photo-image]');
+    const caption = album.querySelector<HTMLElement>('[data-photo-caption]');
+    const counter = album.querySelector<HTMLElement>('[data-photo-counter]');
+    if (!dialog || !image || !caption || !counter || typeof dialog.showModal !== 'function') continue;
+    let current = 0;
+    let returnFocus: HTMLAnchorElement | undefined;
+    let previousOverflow = '';
+    const show = (index: number) => {
+      current = (index + links.length) % links.length;
+      const link = links[current];
+      const thumbnail = link.querySelector('img')!;
+      image.src = link.href;
+      image.alt = thumbnail.alt;
+      image.width = thumbnail.width;
+      image.height = thumbnail.height;
+      image.loading = 'eager';
+      caption.textContent = link.dataset.caption || '';
+      counter.textContent = `${current + 1} / ${links.length}`;
+    };
+    links.forEach((link, index) => link.addEventListener('click', (event) => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      returnFocus = link;
+      show(index);
+      previousOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      dialog.showModal();
+    }));
+    album.querySelector('[data-photo-close]')?.addEventListener('click', () => dialog.close());
+    album.querySelector('[data-photo-prev]')?.addEventListener('click', () => show(current - 1));
+    album.querySelector('[data-photo-next]')?.addEventListener('click', () => show(current + 1));
+    dialog.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight') { event.preventDefault(); show(current + 1); }
+      if (event.key === 'ArrowLeft') { event.preventDefault(); show(current - 1); }
+    });
+    dialog.addEventListener('click', (event) => {
+      if (event.target !== dialog) return;
+      const box = dialog.getBoundingClientRect();
+      if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) dialog.close();
+    });
+    dialog.addEventListener('close', () => {
+      document.body.style.overflow = previousOverflow;
+      returnFocus?.focus({ preventScroll: true });
+    });
+  }
+</script>

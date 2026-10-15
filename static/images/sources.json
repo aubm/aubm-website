@@ -1,0 +1,18 @@
+{
+  "piggy.png": {
+    "source": "https://getpiggy.app/assets/img/piggy-logo-v2-hero.png",
+    "context": "Existing Piggy product logo"
+  },
+  "podcast.jpg": {
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/25/bf/ab/25bfabb3-f019-49e7-09e5-f719b60539b1/mza_9315628123657021483.jpg/600x600bb.jpg",
+    "context": "Existing Revues de Code artwork, verified through the Apple Podcasts lookup API for show 1783421651"
+  },
+  "buy-or-rent.png": {
+    "source": "https://buy-or-rent.getpiggy.app/",
+    "captured": "2026-10-14",
+    "context": "Screenshot of the actual public calculator with its default example inputs; no personal financial data was entered."
+  },
+  "photos/": {
+    "context": "The supplied portrait, all supplied nature photographs, and a crop from the supplied black-and-white guitar photograph. Only web derivatives rebuilt from pixels are published; original filenames, camera metadata and source files are excluded."
+  }
+}

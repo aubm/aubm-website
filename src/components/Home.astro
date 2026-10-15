@@ -1,0 +1,64 @@
+---
+import Icon from './Icon.astro';
+import WritingCard from './WritingCard.astro';
+import Hobbies from './Hobbies.astro';
+import photos from '../data/photos.json';
+import BuyOrRent from './BuyOrRent.astro';
+import { featuredIds } from '../data/editorial';
+import { featuredMediumIds, mediumArticles } from '../data/medium';
+import { catalog } from '../lib/posts';
+import { isMediumArticle, writingCatalog, writingUrl } from '../lib/writing';
+import { labels, paths, social, formatDate, type Language } from '../lib/i18n';
+interface Props { language: Language; }
+const { language } = Astro.props;
+const fr = language === 'fr';
+const t = labels[language];
+const articles = catalog(language);
+const featured = featuredIds.map((id) => articles.find((post) => post.id === id)!);
+const featuredMedium = featuredMediumIds.map((id) => mediumArticles.find((post) => post.id === id)!);
+const recent = writingCatalog(language).slice(0, 3);
+---
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow"><span class="status-dot"></span>{fr ? 'DÉVELOPPEUR. CRÉATEUR. HUMAIN CURIEUX.' : 'ENGINEER. MAKER. CURIOUS HUMAN.'}</div>
+    <h1>{fr ? <>Du code, des idées<br />et le goût de<br /><em>l’aventure.</em></> : <>Code, ideas,<br />and a sense of<br /><em>adventure.</em></>}</h1>
+    <p class="hero-description">{fr ? <>Je suis <strong>Aurélien</strong>, développeur chez Docker et créateur de Piggy. J’écris sur la technologie, l’argent et le monde qui nous entoure.</> : <>I’m <strong>Aurélien</strong>, a software engineer at Docker and the creator of Piggy. I write about technology, money, and the world around us.</>}</p>
+    <div class="hero-buttons"><a class="button button-dark" href={paths.projects[language]}>{t.explore}<Icon name="external" /></a><a class="button button-text" href={paths.contact[language]}>{t.talk}<Icon name="arrow" /></a></div>
+    <div class="hero-social"><a href={social.github}>GitHub ↗</a><span aria-hidden="true">/</span><a href={social.linkedin}>LinkedIn ↗</a></div>
+  </div>
+  <div class="hero-collage">
+    <div class="collage-grid" aria-hidden="true"></div>
+    <div class="collage-orbit" aria-hidden="true"></div>
+    <span class="code-stamp" aria-hidden="true"><Icon name="code" /></span>
+    <figure class="portrait-card"><div class="portrait-frame"><img src={photos.portrait.src} alt={fr ? 'Portrait d’Aurélien Baumann' : 'Portrait of Aurélien Baumann'} width={photos.portrait.width} height={photos.portrait.height} fetchpriority="high" /></div><figcaption><span>Aurélien Baumann</span><span aria-hidden="true">↗</span></figcaption></figure>
+    <div class="curiosity-sticker" aria-hidden="true"><Icon name="sun" /><span>{fr ? <>Toujours<br />curieux.</> : <>Stay<br />curious.</>}</span></div>
+    <div class="dice-stamp" aria-hidden="true"><Icon name="dice" /></div>
+    <p class="collage-note">{fr ? 'Loin du clavier, la curiosité continue.' : 'There’s a whole world beyond the keyboard.'}<span aria-hidden="true">⤴</span></p>
+  </div>
+</section>
+<div class="interests-strip" aria-label={fr ? 'Centres d’intérêt' : 'Interests'}><span>{fr ? 'CONSTRUIRE' : 'BUILD'}</span><span class="strip-flower" aria-hidden="true">✳</span><span>{fr ? 'QUESTIONNER' : 'QUESTION'}</span><span class="strip-flower" aria-hidden="true">✳</span><span>{fr ? 'APPRENDRE' : 'LEARN'}</span><span class="strip-flower" aria-hidden="true">✳</span><span>{fr ? 'JOUER' : 'PLAY'}</span><span class="strip-flower" aria-hidden="true">✳</span><span>{fr ? 'RECOMMENCER' : 'REPEAT'}</span></div>
+<section class="section projects-section" aria-labelledby="projects-title">
+  <div class="section-heading"><div><p class="eyebrow">01 / {fr ? 'FAIRE DES CHOSES' : 'MAKING THINGS'}</p><h2 id="projects-title">{fr ? <>Des idées qui prennent <em>vie.</em></> : <>Ideas out in the <em>world.</em></>}</h2></div><a class="text-link" href={paths.projects[language]}>{fr ? 'Tous les projets' : 'All projects'}<Icon name="arrow" /></a></div>
+  <div class="project-grid">
+    <article class="project-card piggy-card">
+      <div class="project-visual piggy-visual"><span class="visual-label">{fr ? 'UN PROJET PERSONNEL' : 'A PERSONAL PROJECT'}</span><img src="/images/piggy.png" alt={fr ? 'Le cochon vert du logo Piggy' : 'Piggy’s green pig logo'} width="600" height="600" loading="lazy" /><span class="piggy-wordmark">piggy</span><div class="piggy-decoration" aria-hidden="true">↗</div></div>
+      <div class="project-copy"><div class="project-category">{fr ? 'LOGICIEL · FINANCES PERSONNELLES' : 'SOFTWARE · PERSONAL FINANCE'}</div><h3><a class="card-main-link" href={paths.piggy[language]}>{fr ? 'Un peu plus clair, côté finances.' : 'A little clarity for your money.'}</a></h3><p>{fr ? 'De Google Sheets à une meilleure vue sur les budgets, la trésorerie et les investissements. Un outil né de mes propres questions.' : 'From Google Sheets to a clearer view of budgets, cash forecasts, and investments. A useful tool born from my own questions.'}</p><a class="text-link" href={paths.piggy[language]}>{fr ? 'Découvrir Piggy' : 'Meet Piggy'}<Icon name="external" /></a></div>
+    </article>
+    <article class="project-card podcast-card">
+      <div class="project-visual podcast-visual"><span class="visual-label">{fr ? 'UN LIVRE. DES QUESTIONS.' : 'ONE BOOK. MANY QUESTIONS.'}</span><div class="record-disc" aria-hidden="true"></div><img src="/images/podcast.jpg" alt={fr ? 'Pochette du podcast Revues de Code' : 'Revues de Code podcast cover'} width="600" height="600" loading="lazy" /><span class="audio-label"><span class="audio-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span> AUDIO EN FRANÇAIS</span></div>
+      <div class="project-copy"><div class="project-category">{fr ? 'PODCAST · LIVRES & TECHNOLOGIE' : 'PODCAST · BOOKS & TECHNOLOGY'}</div><h3><a class="card-main-link" href={paths.podcast[language]}>Revues de Code</a></h3><p>{fr ? 'Des livres de technologie et les questions qu’ils soulèvent sur l’innovation, le travail et la société. Avec ma propre lecture entre les lignes.' : 'Technology books and the questions they raise about innovation, work, and society. With a little personal reading between the lines.'}</p><a class="text-link" href={paths.podcast[language]}>{fr ? 'Découvrir le podcast' : 'Explore the podcast'}<Icon name="external" /></a></div>
+    </article>
+  </div>
+  <BuyOrRent language={language} compact />
+</section>
+<section class="section writing-section" aria-labelledby="writing-title">
+  <div class="section-heading"><div><p class="eyebrow">02 / {fr ? 'RÉFLÉCHIR À VOIX HAUTE' : 'THINKING OUT LOUD'}</p><h2 id="writing-title">{fr ? <>Des idées à <em>partager.</em></> : <>A few things on <em>my mind.</em></>}</h2></div><a class="text-link" href={paths.writing[language]}>{t.allWriting}<Icon name="arrow" /></a></div>
+  <div class="writing-grid">{featured.map((post) => <WritingCard post={post} language={language} />)}</div>
+  <div class="medium-selection" aria-labelledby="medium-title"><div class="medium-selection-heading"><h3 id="medium-title">{fr ? 'Également sur Medium.' : 'Also on Medium.'}</h3><a class="text-link" href={social.medium}>{fr ? 'Mon profil Medium' : 'My Medium profile'}<Icon name="external" /></a></div><div class="writing-grid">{featuredMedium.map((post) => <WritingCard post={post} language={language} />)}</div></div>
+  <div class="archive-list"><p class="eyebrow">{fr ? 'DERNIÈRES PUBLICATIONS' : 'RECENT WRITING'}</p>{recent.map((post) => <a href={writingUrl(post, language)}><time datetime={post.date}>{formatDate(post.date, language)}</time><span lang={post.language}>{post.title}{isMediumArticle(post) && <small class="recent-source">Medium ↗</small>}</span><span class="language-label">{post.language.toUpperCase()}</span><Icon name="external" /></a>)}</div>
+</section>
+<section class="section beyond-section" aria-labelledby="beyond-title">
+  <div class="section-heading"><div><p class="eyebrow">03 / {fr ? 'LE RESTE DU MONDE' : 'THE REST OF THE WORLD'}</p><h2 id="beyond-title">{fr ? <>Loin du <em>clavier.</em></> : <>Beyond the <em>keyboard.</em></>}</h2></div><p class="section-aside">{fr ? 'Tout n’a pas besoin d’être productif. Certaines choses méritent simplement d’être vécues.' : 'Not everything needs to be productive. Some things are just worth doing.'}</p></div>
+  <Hobbies language={language} />
+</section>
+<section class="conversation-banner"><div><p class="eyebrow">{fr ? 'UNE BONNE CONVERSATION COMMENCE QUELQUE PART.' : 'GOOD CONVERSATIONS START SOMEWHERE.'}</p><h2>{fr ? <>Quelque chose vous<br />a rendu <em>curieux ?</em></> : <>Something here<br />spark your <em>curiosity?</em></>}</h2><p>{fr ? 'Un outil utile, un bon livre ou une idée de jeu de rôle. Discutons, en français comme en anglais.' : 'A useful tool, a good book, or a role-playing idea. I’m always up for a thoughtful conversation.'}</p><a class="button button-cream" href={paths.contact[language]}>{t.talk}<Icon name="external" /></a></div><div class="conversation-flower" aria-hidden="true">✳</div></section>

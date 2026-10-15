@@ -1,0 +1,16 @@
+---
+import Icon from './Icon.astro';
+import { posts, renderBody, type Post } from '../lib/posts';
+import { paths, labels, formatDate, type Language } from '../lib/i18n';
+interface Props { post: Post; language: Language; summary?: boolean; }
+const { post, language, summary = false } = Astro.props;
+const fr = language === 'fr';
+const t = labels[language];
+const originalLanguages = posts.filter((item) => item.id === post.id).map((item) => item.language.toUpperCase());
+---
+<div class="article-wrap">
+  <a class="text-link article-back" href={paths.writing[language]}><span aria-hidden="true">←</span>{t.back}</a>
+  <header class="article-header"><p class="eyebrow">{t[post.topic]} <span aria-hidden="true">/</span> {summary ? t.summary : t.original}</p><h1 lang={post.language}>{post.title}</h1><div class="article-meta"><span>Aurélien Baumann</span><span aria-hidden="true">·</span><time datetime={post.date}>{formatDate(post.date, language)}</time>{!summary && <><span aria-hidden="true">·</span><span>{post.minutes} {t.minutes}</span></>}<span class="language-label">{originalLanguages.join(' / ')}</span></div></header>
+  {summary ? <section class="summary-panel"><p class="translation-notice"><strong>{fr ? 'Résumé généré par IA — ce n’est pas le texte original.' : 'AI-generated summary — this is not the original article.'}</strong></p><p>{post.summary[language]}</p><p>{fr ? 'L’article original est disponible en anglais. Son texte et sa date de publication sont conservés.' : 'The original article is available in French. Its text and publication date are preserved.'}</p><a class="button button-dark" href={post.url} lang={post.language}>{fr ? 'Lire l’original en anglais' : 'Read the French original'}<Icon name="arrow" /></a></section> : <div class="prose article-prose" set:html={renderBody(post.body)} />}
+  <footer class="article-footer"><div class="article-tags">{post.tags.map((tag) => <a href={`${fr ? '/fr' : ''}/tags/${tag.toLowerCase()}/`}>#{tag}</a>)}</div><div class="article-discuss"><h2>{fr ? 'Une idée à partager ?' : 'A thought to share?'}</h2><p>{fr ? 'On n’a pas besoin d’être d’accord pour en discuter.' : 'We don’t have to agree to have a good conversation.'}</p><a class="text-link" href={paths.contact[language]}>{t.talk}<Icon name="arrow" /></a></div></footer>
+</div>

@@ -1,199 +1,20 @@
-<!DOCTYPE html>
-
-<html lang="en">
-    <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="format-detection" content="telephone=no"/>
-
-    
-    
-
-    <title>The Case of a Git Linear History | Aubm</title>
-    
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#FF3DB4">
-    <meta name="theme-color" content="#ffffff">
-
-    
-    
-    
-    <link rel="stylesheet" href="https://www.aubm.net/css/main.min.51560277fd87ee569ba9c58a47900e019630a9292f0546a26496c935712b6c69.css"/>
-
-    
-    
-    
-
-    
-    
-
-    
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-38043974-6', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8883802230197004" crossorigin="anonymous"></script>
-
-    <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@kendo5731">
-<meta name="twitter:title" content="The Case of a Git Linear History">
-<meta name="twitter:description" content="I recently left a team where I was the lead developer for about three years. I was regularly asked about why I wanted to keep the history of the git repository linear. Most of the time (but not always), the question came from fellow developers having a hard time rebasing a work branch.
-As a matter of fact, the question was also asked multiple times on StackOverflow, especially as What are advantages of keeping linear history in git or Git workflow and rebase vs merge questions.">
-
-
-</head>
-    <body>
-        
-<nav>
-  <header>
-    <div class="site-title">
-        <a href="/">Aubm</a>
-    </div>
-    <div class="job-title">
-    	<i>Just a random programmer who occasionally shares insights and opinions</i>
-    </div>
-    <div class="languages">
-        
-        <div><a class="color-link" href="https://www.aubm.net/">English</a></div>
-        
-        <div><a class="color-link" href="https://www.aubm.net/fr/">Français</a></div>
-        
-    </div>
-</header>
-  <div class="nav-menu">
-  
-  <a class="color-link nav-link" href="https://www.aubm.net/index.xml" target="_blank" rel="noopener" type="application/rss+xml">RSS</a>
-</div>
-<footer class="footer">
-	<div class="social-icons">
-        
-    <a class="social-icon" href="mailto:aur.baumann@gmail.com" target="_blank" rel="noopener" title="Email">
-        <svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" fill="#ABABAB" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
-            <path d="M25.2794292,5.59128519 L14,16.8707144 L2.72057081,5.59128519 C3.06733103,5.30237414 3.51336915,5.12857603 4,5.12857603 L24,5.12857603 C24.4866308,5.12857603 24.932669,5.30237414 25.2794292,5.59128519 Z M25.9956978,6.99633695 C25.998551,7.04004843 26,7.08414302 26,7.12857603 L26,20.871424 C26,21.0798433 25.9681197,21.2808166 25.9089697,21.4697335 L18.7156355,14.2763993 L25.9956978,6.99633695 Z M24.9498374,22.6319215 C24.6672737,22.7846939 24.3437653,22.871424 24,22.871424 L4,22.871424 C3.5268522,22.871424 3.09207889,22.7071233 2.74962118,22.432463 L10.0950247,15.0870594 L13.9848068,18.9768415 L14.1878486,18.7737996 L14.2030419,18.7889929 L17.6549753,15.3370594 L24.9498374,22.6319215 Z M2.00810114,21.0526627 C2.00273908,20.9929669 2,20.9325153 2,20.871424 L2,7.12857603 C2,7.08414302 2.00144896,7.04004843 2.00430222,6.99633695 L9.03436454,14.0263993 L2.00810114,21.0526627 Z"></path>
-        </svg>
-    </a>
-    
-
-    
-
-    
-    <a class="social-icon" href="https://twitter.com/kendo5731" target="_blank" rel="noopener" title="Twitter">
-        <svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" fill="#ABABAB" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
-            <path d="M8.991284,24.971612 C19.180436,24.971612 24.752372,16.530224 24.752372,9.210524 C24.752372,8.970656 24.747512,8.731868 24.736496,8.494376 C25.818008,7.712564 26.758256,6.737 27.5,5.62622 C26.507372,6.067076 25.439252,6.364292 24.318752,6.498212 C25.462472,5.812628 26.340512,4.727444 26.754584,3.434036 C25.684088,4.068536 24.499004,4.53002 23.23724,4.778528 C22.226468,3.701876 20.786828,3.028388 19.193828,3.028388 C16.134404,3.028388 13.653536,5.509256 13.653536,8.567492 C13.653536,9.0023 13.702244,9.424904 13.797176,9.830552 C9.19346,9.599108 5.11106,7.39472 2.3792,4.04294 C1.903028,4.861364 1.629032,5.812628 1.629032,6.827072 C1.629032,8.74904 2.606972,10.445612 4.094024,11.438132 C3.185528,11.41016 2.331788,11.160464 1.585184,10.745096 C1.583888,10.768208 1.583888,10.791428 1.583888,10.815728 C1.583888,13.49888 3.493652,15.738584 6.028088,16.246508 C5.562932,16.373084 5.07326,16.44134 4.56782,16.44134 C4.210988,16.44134 3.863876,16.406024 3.526484,16.34144 C4.231724,18.542264 6.276596,20.143796 8.701412,20.18894 C6.805148,21.674696 4.416836,22.56008 1.821488,22.56008 C1.374476,22.56008 0.93362,22.534592 0.5,22.4834 C2.951708,24.054476 5.862524,24.971612 8.991284,24.971612"></path>
-        </svg>
-    </a>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <a class="social-icon" href="https://www.linkedin.com/in/aurelienbaumann/" target="_blank" rel="noopener" title="LinkedIn">
-        <svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" fill="#ABABAB" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
-            <path d="M2,3.654102 C2,2.69908141 2.79442509,1.92397846 3.77383592,1.92397846 L24.2261641,1.92397846 C25.2058917,1.92397846 26,2.69908141 26,3.654102 L26,24.3462148 C26,25.3015521 25.2058917,26.0760215 24.2261641,26.0760215 L3.77383592,26.0760215 C2.79442509,26.0760215 2,25.3015521 2,24.3465315 L2,3.65378524 L2,3.654102 Z M9.27526132,22.1415901 L9.27526132,11.2356668 L5.65030092,11.2356668 L5.65030092,22.1415901 L9.27557808,22.1415901 L9.27526132,22.1415901 Z M7.46341463,9.74691162 C8.72727273,9.74691162 9.51409566,8.90940767 9.51409566,7.86284447 C9.49033893,6.79252455 8.72727273,5.97846056 7.48748812,5.97846056 C6.24675325,5.97846056 5.43649034,6.79252455 5.43649034,7.86284447 C5.43649034,8.90940767 6.22299652,9.74691162 7.4396579,9.74691162 L7.46309788,9.74691162 L7.46341463,9.74691162 Z M11.2815965,22.1415901 L14.9062401,22.1415901 L14.9062401,16.0519481 C14.9062401,15.7263225 14.9299968,15.4000634 15.0256573,15.1675641 C15.2876148,14.5159962 15.8840672,13.8416218 16.8856509,13.8416218 C18.1970225,13.8416218 18.7218879,14.8416218 18.7218879,16.3078872 L18.7218879,22.1415901 L22.3465315,22.1415901 L22.3465315,15.8885017 C22.3465315,12.5388027 20.5584416,10.9800443 18.1735825,10.9800443 C16.2182452,10.9800443 15.3595185,12.072854 14.8824834,12.8172315 L14.9065569,12.8172315 L14.9065569,11.2359835 L11.2819132,11.2359835 C11.3291099,12.2591067 11.2815965,22.1419069 11.2815965,22.1419069 L11.2815965,22.1415901 Z"></path>
-        </svg>
-    </a>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-    
-    <a class="social-icon" href="https://github.com/aubm" target="_blank" rel="noopener" title="GitHub">
-        <svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" fill="#ABABAB" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
-            <path d="M13.9988029,1.32087331 C6.82105037,1.32087331 1,7.14112562 1,14.3212723 C1,20.0649109 4.72454649,24.9370678 9.89038951,26.6560892 C10.5408085,26.7757983 10.7778323,26.374374 10.7778323,26.0296121 C10.7778323,25.7215609 10.7666595,24.9035493 10.760275,23.8189856 C7.14426471,24.6042767 6.38131925,22.0760223 6.38131925,22.0760223 C5.78995672,20.5740732 4.93762853,20.1742451 4.93762853,20.1742451 C3.75729765,19.3682044 5.02701126,19.3841656 5.02701126,19.3841656 C6.33183953,19.4759425 7.01817121,20.7241085 7.01817121,20.7241085 C8.17775254,22.7104801 10.0611744,22.1366749 10.8017741,21.8038838 C10.919887,20.9643246 11.2558703,20.3913175 11.6269683,20.066507 C8.74038491,19.7385043 5.70536235,18.6228163 5.70536235,13.6413251 C5.70536235,12.2223743 6.21213051,11.0611968 7.04370914,10.1530044 C6.90963504,9.82420367 6.46351945,8.50181809 7.17139875,6.71256734 C7.17139875,6.71256734 8.26234691,6.36301702 10.7459099,8.04532771 C11.78259,7.75642995 12.8950858,7.61277914 14.000399,7.60719272 C15.1049142,7.61277914 16.2166119,7.75642995 17.2548881,8.04532771 C19.736855,6.36301702 20.8262071,6.71256734 20.8262071,6.71256734 C21.5356825,8.50181809 21.0895669,9.82420367 20.9562909,10.1530044 C21.7894656,11.0611968 22.2922435,12.2223743 22.2922435,13.6413251 C22.2922435,18.6355852 19.2524325,19.734514 16.3570705,20.0561322 C16.8231376,20.4575564 17.2389269,21.2508282 17.2389269,22.4638795 C17.2389269,24.2012564 17.2229657,25.603448 17.2229657,26.0296121 C17.2229657,26.3775663 17.4575954,26.7821827 18.116793,26.6552912 C23.2786458,24.9322794 27,20.0633148 27,14.3212723 C27,7.14112562 21.1789496,1.32087331 13.9988029,1.32087331"></path>
-        </svg>
-    </a>
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-</div>
-
-
-
-
-	<p><a href="/disclaimer">Disclaimer</a></p>
-	<p><a href="https://github.com/kimcc/hugo-theme-noteworthy" target="_blank" rel="noopener">Noteworthy theme</a></p>
-	<p><a href="https://gohugo.io" target="_blank" rel="noopener">Built with Hugo</a></p>
-
-	<script src="https://www.aubm.net/js/main.min.a7205ef73b078c8daed6fe1b0826e8ba229ffabbb69d299d9446cf41f2c7d8aa.js" integrity="sha256-pyBe9zsHjI2u1v4bCCbouiKf+ru2nSmdlEbPQfLH2Ko="></script>
-</footer>
-</nav>
-        <div id="content" class="content-container">
-        
-
-
-
-<h1 class="post-title">The Case of a Git Linear History</h1>
-    
-    <time>April 2, 2020</time>
-    
-    <div>
-        <p>
-        <p><img src="/img/loki-timekeepers.jpeg" alt="Loki Timekeepers"></p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><meta name="theme-color" content="#fff8ef"><title>The Case of a Git Linear History — Aurélien Baumann</title><meta name="description" content="Why the shape of a Git history can make a difference to everyday development."><link rel="canonical" href="https://www.aubm.net/posts/the-case-of-a-git-linear-history/"><link rel="alternate" hreflang="en" href="https://www.aubm.net/posts/the-case-of-a-git-linear-history/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="alternate" type="application/rss+xml" title="Aubm — English" href="/index.xml"><meta property="og:type" content="website"><meta property="og:site_name" content="Aurélien Baumann"><meta property="og:title" content="The Case of a Git Linear History — Aurélien Baumann"><meta property="og:description" content="Why the shape of a Git history can make a difference to everyday development."><meta property="og:url" content="https://www.aubm.net/posts/the-case-of-a-git-linear-history/"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://www.aubm.net/images/social-card.png"><meta name="twitter:card" content="summary_large_image"><link rel="stylesheet" href="/_astro/Base.Bqt0EGnt.css"></head><body><a class="skip-link" href="#main">Skip to content</a><div class="site-shell"><header class="site-header"><a class="wordmark" href="/" aria-label="Aurélien Baumann — Home">aubm<span class="wordmark-dot">.</span><span class="wordmark-name">Aurélien Baumann</span></a><nav class="main-nav" aria-label="Main navigation"><a href="/writing/" aria-current="page">Writing</a><a href="/projects/">Projects</a><a href="/podcast/">Podcast</a><a href="/about/">About</a></nav><div class="header-actions"><a class="language-switch" href="/fr/articles/original/the-case-of-a-git-linear-history/" lang="fr" hreflang="fr" aria-label="Passer en français">Français<span aria-hidden="true">↗</span></a><a class="header-contact" href="/contact/">Let’s talk<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"></path></svg></a></div></header><main id="main"><div class="article-wrap"><a class="text-link article-back" href="/writing/"><span aria-hidden="true">←</span>Back to writing</a><header class="article-header"><p class="eyebrow">Software &amp; technology <span aria-hidden="true">/</span> Original article</p><h1 lang="en">The Case of a Git Linear History</h1><div class="article-meta"><span>Aurélien Baumann</span><span aria-hidden="true">·</span><time datetime="2020-04-02T22:00:00+01:00">2 April 2020</time><span aria-hidden="true">·</span><span>13 min read</span><span class="language-label">EN</span></div></header><div class="prose article-prose"><p><img src="/img/loki-timekeepers.jpeg" alt="Loki Timekeepers"></p>
 <p>I recently left a team where I was the lead developer for about three years.
 I was regularly asked about why I wanted to keep the history of the git repository linear. Most of the time (but not always), the question came from fellow developers having a hard time rebasing a work branch.</p>
-<p>As a matter of fact, the question was also asked multiple times on StackOverflow, especially as <a href="https://stackoverflow.com/questions/20348629/what-are-advantages-of-keeping-linear-history-in-git">What are advantages of keeping linear history in git</a> or <a href="https://stackoverflow.com/questions/457927/git-workflow-and-rebase-vs-merge-questions">Git workflow and rebase vs merge questions</a>.</p>
+<p>As a matter of fact, the question was also asked multiple times on StackOverflow, especially as <a href="https://stackoverflow.com/questions/20348629/what-are-advantages-of-keeping-linear-history-in-git" target="_blank" rel="noopener noreferrer">What are advantages of keeping linear history in git</a> or <a href="https://stackoverflow.com/questions/457927/git-workflow-and-rebase-vs-merge-questions" target="_blank" rel="noopener noreferrer">Git workflow and rebase vs merge questions</a>.</p>
 <p>When reading the responses and their associated comments, it appears that the opinion is somewhat divided. Searching the web for <em>git linear history</em> or <em>git merge vs rebase</em>, I found many blog posts promoting or demoting linear history. From what I could see, despite the number of available resources, the listed pros and cons arguments are quite redundant, however not always well detailed.
-This blog post will dig into the most recurrent arguments. Let&rsquo;s start with the pros.</p>
-<a class="headline-hash" href="#pros"><h2 id="pros">Pros</a> </h2>
-<a class="headline-hash" href="#it-is-easier-to-follow"><h3 id="it-is-easier-to-follow">It is easier to follow</a> </h3>
+This blog post will dig into the most recurrent arguments. Let&#39;s start with the pros.</p>
+<h2 id="pros">Pros</h2>
+<h3 id="it-is-easier-to-follow">It is easier to follow</h3>
 <p>Below is an example of a linear history. It is called linear because every reference has only one parent.
 Hitting down the road to the past of this alphabet repository, each commit is like a new page of a book. They are incremental and chronological, there are no fork roads on the way back to the root of the project.</p>
-<pre tabindex="0"><code>* b0aaccd (master) add letters from U to Z
+<pre tabindex="0"><code class="hljs language-text">* b0aaccd (master) add letters from U to Z
 * 3bcfdb9 add letters from P to T
 * a6958e2 add letters from K to O
 * 1dc63f0 capitalize all letters
 * 6f6ed85 add letters from f to j
-* cbf6c73 init alphabet.txt with letters a to e
-</code></pre><p>Now here is an example of a non-linear history.</p>
-<pre tabindex="0"><code>* 7c4be78 (master) Merge branch &#39;add-missing-letters&#39;
+* cbf6c73 init alphabet.txt with letters a to e</code></pre><p>Now here is an example of a non-linear history.</p>
+<pre tabindex="0"><code class="hljs language-text">* 7c4be78 (master) Merge branch &#x27;add-missing-letters&#x27;
 |\
 * | 1dc63f0 capitalize all letters
 | * c0e53d5 (add-missing-letters) add letters from u to z
@@ -201,21 +22,19 @@ Hitting down the road to the past of this alphabet repository, each commit is li
 | * d84cbe6 add letters from k to o
 |/
 * 6f6ed85 add letters from f to j
-* cbf6c73 init alphabet.txt with letters a to e
-</code></pre><p>It gives more information about the process of creating the alphabet. Thanks to the graph, we can see that the work on letters k to z was conducted in parallel with another work. We can see when exactly it was integrated.
+* cbf6c73 init alphabet.txt with letters a to e</code></pre><p>It gives more information about the process of creating the alphabet. Thanks to the graph, we can see that the work on letters k to z was conducted in parallel with another work. We can see when exactly it was integrated.
 While this information can be useful, it comes at the cost of added complexity in the history.
 In order to review each individual step, we need to walk through two different and complementary routes. Our novel is now more of a role playbook that needs to be re-played to get a full appreciation of it. This becomes even more complex, when mixing up more branches.</p>
 <p>But things get confusing when the graph is flattened, with commits printed in one dimension, sorted chronologically.
 This is how the history is represented on Github, Gitlab or Bitbucket in the <code>/commits</code> view.</p>
-<pre tabindex="0"><code>7c4be78 (master) Merge branch &#39;add-missing-letters&#39;
+<pre tabindex="0"><code class="hljs language-text">7c4be78 (master) Merge branch &#x27;add-missing-letters&#x27;
 1dc63f0 capitalize all letters
 c0e53d5 (add-missing-letters) add letters from u to z
 11f0ed9 add letters from p to t
 d84cbe6 add letters from k to o
 6f6ed85 add letters from f to j
-cbf6c73 init alphabet.txt with letters a to e
-</code></pre><p>From <code>cbf6c73 init alphabet.txt with letters a to e</code> to <code>c0e53d5 (add-missing-letters) add letters from u to z</code> everything is all right, group of letters by group of letters, <code>alphabet.txt</code> was consecutively patched and eventually ended up looking like :</p>
-<pre tabindex="0"><code>a
+cbf6c73 init alphabet.txt with letters a to e</code></pre><p>From <code>cbf6c73 init alphabet.txt with letters a to e</code> to <code>c0e53d5 (add-missing-letters) add letters from u to z</code> everything is all right, group of letters by group of letters, <code>alphabet.txt</code> was consecutively patched and eventually ended up looking like :</p>
+<pre tabindex="0"><code class="hljs language-text">a
 b
 c
 d
@@ -239,9 +58,8 @@ v
 w
 x
 y
-z
-</code></pre><p>Now printing the output of the next commit <code>git show 1dc63f0</code>.</p>
-<pre tabindex="0"><code>commit 1dc63f0a3995e54d379955d515de7b47b4a95d8c
+z</code></pre><p>Now printing the output of the next commit <code>git show 1dc63f0</code>.</p>
+<pre tabindex="0"><code class="hljs language-text">commit 1dc63f0a3995e54d379955d515de7b47b4a95d8c
 Author: &lt;someone@gmail.com&gt;
 Date:   Thu Apr 2 15:13:04 2020 +0200
 
@@ -272,16 +90,15 @@ index 92dfa21..719a59f 100644
 +H
 +I
 +J
-(END)
-</code></pre><p>Without the graph representation, it is not easy to understand why letters k to z seem to have suddenly disappeared from <code>alphabet.txt</code>, without git to be aware.</p>
-<p>Now inspecting the next and last commit <code>7c4be78 Merge branch 'add-missing-letters'</code>, we see this.
+(END)</code></pre><p>Without the graph representation, it is not easy to understand why letters k to z seem to have suddenly disappeared from <code>alphabet.txt</code>, without git to be aware.</p>
+<p>Now inspecting the next and last commit <code>7c4be78 Merge branch &#39;add-missing-letters&#39;</code>, we see this.
 Again, nothing that we can quickly understand from this only perspective.</p>
-<pre tabindex="0"><code>commit 7c4be78005f8d926698d5eb4452755d6d2b518c1
+<pre tabindex="0"><code class="hljs language-text">commit 7c4be78005f8d926698d5eb4452755d6d2b518c1
 Merge: e04623b c3d970e
 Author: &lt;someone@gmail.com&gt;
 Date:   Thu Apr 2 15:13:04 2020 +0200
 
-    Merge branch &#39;add-missing-letters&#39;
+    Merge branch &#x27;add-missing-letters&#x27;
 
     # Conflicts:
     #       alphabet.txt
@@ -342,12 +159,11 @@ index 719a59f,0edb856..8451816
 ++W
 ++X
 ++Y
-++Z
-</code></pre><a class="headline-hash" href="#easy-git-bisect"><h3 id="easy-git-bisect">Easy git bisect</a> </h3>
+++Z</code></pre><h3 id="easy-git-bisect">Easy git bisect</h3>
 <p>This is a very common argument in favor of a linear history, but I hardly found a satisfying explanation.
-If never used <a href="https://git-scm.com/docs/git-bisect">bisect</a> before, and don&rsquo;t especially plan for using it any time soon, maybe this is not such a strong argument.
+If never used <a href="https://git-scm.com/docs/git-bisect" target="_blank" rel="noopener noreferrer">bisect</a> before, and don&#39;t especially plan for using it any time soon, maybe this is not such a strong argument.
 Building on my previous example, here is altered version where I strategically introduced an errored commit.</p>
-<pre tabindex="0"><code>* 7c4be78 (master) Merge branch &#39;add-missing-letters&#39;
+<pre tabindex="0"><code class="hljs language-text">* 7c4be78 (master) Merge branch &#x27;add-missing-letters&#x27;
 |\
 * | 45b257c oops... accidentally delete letter E   &lt;--------------- here
 | * c0e53d5 (add-missing-letters) add letters from u to z
@@ -356,10 +172,9 @@ Building on my previous example, here is altered version where I strategically i
 | * d84cbe6 add letters from k to o
 |/
 * 6f6ed85 add letters from f to j
-* cbf6c73 init alphabet.txt with letters a to e
-</code></pre><p>Here is the detail of the indicted commit. Arguably if every bug was that self-explaining we wouldn&rsquo;t have much trouble tracking them!
-Anyway let&rsquo;s try and catch the one, using bisect.</p>
-<pre tabindex="0"><code>commit 45b257c9b1e6a4b8a4d67957add3d5c5176a00e8
+* cbf6c73 init alphabet.txt with letters a to e</code></pre><p>Here is the detail of the indicted commit. Arguably if every bug was that self-explaining we wouldn&#39;t have much trouble tracking them!
+Anyway let&#39;s try and catch the one, using bisect.</p>
+<pre tabindex="0"><code class="hljs language-text">commit 45b257c9b1e6a4b8a4d67957add3d5c5176a00e8
 Author: &lt;troll@gmail.com&gt;
 Date:   Thu Apr 2 16:09:20 2020 +0200
 
@@ -377,16 +192,15 @@ index 719a59f..a812140 100644
  F
  G
  H
-(END)
-</code></pre><p>The most recent commit that we know to be good in master is <code>1dc63f0 capitalize all letters</code>. We will use it as the base, and use <code>grep</code> to check if the letter E is part of <code>alphabet.txt</code>, here is how.</p>
-<pre tabindex="0"><code>&gt; git bisect start master 1dc63f0 &amp;&amp; git bisect run sh -c &#34;cat alphabet.txt | grep &#39;E&#39; -q&#34;
+(END)</code></pre><p>The most recent commit that we know to be good in master is <code>1dc63f0 capitalize all letters</code>. We will use it as the base, and use <code>grep</code> to check if the letter E is part of <code>alphabet.txt</code>, here is how.</p>
+<pre tabindex="0"><code class="hljs language-text">&gt; git bisect start master 1dc63f0 &amp;&amp; git bisect run sh -c &quot;cat alphabet.txt | grep &#x27;E&#x27; -q&quot;
 
 Bisecting: 2 revisions left to test after this (roughly 1 step)
 [11f0ed9614a2225ed21d00c6392ca1aa20a4bea7] add letters from p to t
-running sh -c cat alphabet.txt | grep &#39;E&#39; -q
+running sh -c cat alphabet.txt | grep &#x27;E&#x27; -q
 Bisecting: 0 revisions left to test after this (roughly 0 steps)
 [d84cbe6e2e7f659b90a7ad04b0c4059948a4cf4d] add letters from k to o
-running sh -c cat alphabet.txt | grep &#39;E&#39; -q
+running sh -c cat alphabet.txt | grep &#x27;E&#x27; -q
 d84cbe6e2e7f659b90a7ad04b0c4059948a4cf4d is the first bad commit
 commit d84cbe6e2e7f659b90a7ad04b0c4059948a4cf4d
 Author: &lt;someone@gmail.com&gt;
@@ -395,34 +209,31 @@ Date:   Thu Apr 2 16:09:20 2020 +0200
     add letters from k to o
 
 :100644 100644 92dfa216416a1ac944633ab674568f8bae139d95 f8c295c135e5d24d913c7b1c720e2e0deeaeb052 M	alphabet.txt
-bisect run success
-</code></pre><p>Bisect didn&rsquo;t find the right commit, so what happened? Let&rsquo;s focus on the portion of the graph that git considered, leaving the rest.</p>
-<pre tabindex="0"><code>* 7c4be78 (master) Merge branch &#39;add-missing-letters&#39;
+bisect run success</code></pre><p>Bisect didn&#39;t find the right commit, so what happened? Let&#39;s focus on the portion of the graph that git considered, leaving the rest.</p>
+<pre tabindex="0"><code class="hljs language-text">* 7c4be78 (master) Merge branch &#x27;add-missing-letters&#x27;
 |\
 * | 45b257c oops... accidentally delete letter E
 | * c0e53d5 (add-missing-letters) add letters from u to z
 * | 1dc63f0 capitalize all letters
 | * 11f0ed9 add letters from p to t
 | * d84cbe6 add letters from k to o
-|/
-</code></pre><p>After sorting the commits chronologically, git tries to determine the commit in the middle of the list. As one of the nodes is a merge commit, git needs to treat both branches separately and it starts with the first parent of <code>7c4be78 (master) Merge branch 'add-missing-letters'</code>, which is the <code>add-missing-letters</code> branch. There are three commits in the branch, so the first break is commit <code>11f0ed9 add letters from p to t</code>.</p>
-<p>Then, the test command is ran and this is where things get wrong. Because branch <code>add-missing-letters</code> doesn&rsquo;t have commit <code>1dc63f0 capitalize all letters</code>, the test command fails (exit with status 1). In this context, the appropriate test command should search for <code>e</code> instead of <code>E</code>. We didn&rsquo;t anticipate that and only considered the history of branch <code>master</code>, because of that, git found a false bad commit.</p>
+|/</code></pre><p>After sorting the commits chronologically, git tries to determine the commit in the middle of the list. As one of the nodes is a merge commit, git needs to treat both branches separately and it starts with the first parent of <code>7c4be78 (master) Merge branch &#39;add-missing-letters&#39;</code>, which is the <code>add-missing-letters</code> branch. There are three commits in the branch, so the first break is commit <code>11f0ed9 add letters from p to t</code>.</p>
+<p>Then, the test command is ran and this is where things get wrong. Because branch <code>add-missing-letters</code> doesn&#39;t have commit <code>1dc63f0 capitalize all letters</code>, the test command fails (exit with status 1). In this context, the appropriate test command should search for <code>e</code> instead of <code>E</code>. We didn&#39;t anticipate that and only considered the history of branch <code>master</code>, because of that, git found a false bad commit.</p>
 <p>Moving on, git will then try to determine if the error already existed in commit <code>d84cbe6 add letters from k to o</code>.
 As it did, git is telling us that it is <em>the first bad commit</em>.</p>
-<p>Funny thing is, if branch <code>add-missing-letters</code> originated from commit <code>1dc63f0 capitalize all letters</code>, then <code>E</code> would have been there. Git would then have determined that all commits in the branch were good ones, and would have moved on to the second parent of <code>7c4be78 (master) Merge branch 'add-missing-letters'</code>, eventually finding the actual source of the bug.</p>
+<p>Funny thing is, if branch <code>add-missing-letters</code> originated from commit <code>1dc63f0 capitalize all letters</code>, then <code>E</code> would have been there. Git would then have determined that all commits in the branch were good ones, and would have moved on to the second parent of <code>7c4be78 (master) Merge branch &#39;add-missing-letters&#39;</code>, eventually finding the actual source of the bug.</p>
 <p>This is very hazardous, and we would not have encountered this issue with a linear history for example looking like :</p>
-<pre tabindex="0"><code>* c0e53d5 (master) add letters from U to Z
+<pre tabindex="0"><code class="hljs language-text">* c0e53d5 (master) add letters from U to Z
 * 11f0ed9 add letters from P to T
 * d84cbe6 add letters from K to O
 * 45b257c oops... accidentally delete letter E
 * 1dc63f0 capitalize all letters
 * 6f6ed85 add letters from f to j
-* cbf6c73 init alphabet.txt with letters a to e
-</code></pre><p>I want to mention <a href="https://blog.quantic.edu/2015/02/03/git-bisect-debugging-with-feature-branches/">this article</a>. It proposes a workaround for this very issue. Though not impossible, it is more tedious and less precise.</p>
-<a class="headline-hash" href="#easy-git-revert"><h3 id="easy-git-revert">Easy git revert</a> </h3>
+* cbf6c73 init alphabet.txt with letters a to e</code></pre><p>I want to mention <a href="https://blog.quantic.edu/2015/02/03/git-bisect-debugging-with-feature-branches/" target="_blank" rel="noopener noreferrer">this article</a>. It proposes a workaround for this very issue. Though not impossible, it is more tedious and less precise.</p>
+<h3 id="easy-git-revert">Easy git revert</h3>
 <p>This is the last recurrent argument for keeping a linear history.
-Let&rsquo;s rewind to an earlier example.</p>
-<pre tabindex="0"><code>* 7c4be78 (master) Merge branch &#39;add-missing-letters&#39;
+Let&#39;s rewind to an earlier example.</p>
+<pre tabindex="0"><code class="hljs language-text">* 7c4be78 (master) Merge branch &#x27;add-missing-letters&#x27;
 |\
 * | 1dc63f0 capitalize all letters
 | * c0e53d5 (add-missing-letters) add letters from u to z
@@ -430,16 +241,15 @@ Let&rsquo;s rewind to an earlier example.</p>
 | * d84cbe6 add letters from k to o
 |/
 * 6f6ed85 add letters from f to j
-* cbf6c73 init alphabet.txt with letters a to e
-</code></pre><p>Here is what happened in this project.</p>
+* cbf6c73 init alphabet.txt with letters a to e</code></pre><p>Here is what happened in this project.</p>
 <ul>
 <li>The repository was initialized, the first two commits <code>cbf6c73</code> and <code>6f6ed85</code> appended letters a to j to <code>alphabet.txt</code>, one letter per line.</li>
 <li>From there, someone created a new branch <code>add-missing-letters</code> for working on adding the rest of the alphabet.</li>
 <li>Meanwhile, <code>1dc63f0</code> changed the case of the existing letters in branch <code>master</code>, <code>alphabet.txt</code> now has A to J.</li>
 <li>Branch <code>add-missing-letters</code> was merged into <code>master</code>. Changes from <code>master</code> were taken into account, and the work adapted so that now the alphabet is complete with capital letters only.</li>
 </ul>
-<p>Now let&rsquo;s say that for some reason, we want to roll back letters u to z. Using revert with commit <code>c0e53d5 (add-missing-letters) add letters from u to z</code> produces the following conflict.</p>
-<pre tabindex="0"><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+<p>Now let&#39;s say that for some reason, we want to roll back letters u to z. Using revert with commit <code>c0e53d5 (add-missing-letters) add letters from u to z</code> produces the following conflict.</p>
+<pre tabindex="0"><code class="hljs language-text">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
 A
 B
 C
@@ -486,37 +296,34 @@ q
 r
 s
 t
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; parent of c0e53d5... add letters from u to z
-</code></pre><p>This is not particularly helpful, resolving the conflict is actually more work than manually removing the letters in a new commit.
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; parent of c0e53d5... add letters from u to z</code></pre><p>This is not particularly helpful, resolving the conflict is actually more work than manually removing the letters in a new commit.
 In the case of the linear version of this history, the revert applies seamlessly.</p>
-<pre tabindex="0"><code>* 31a1b1a (master) Revert &#34;add letters from U to Z&#34;
+<pre tabindex="0"><code class="hljs language-text">* 31a1b1a (master) Revert &quot;add letters from U to Z&quot;
 * b0aaccd add letters from U to Z
 * 3bcfdb9 add letters from P to T
 * a6958e2 add letters from K to O
 * 1dc63f0 capitalize all letters
 * 6f6ed85 add letters from f to j
-* cbf6c73 init alphabet.txt with letters a to e
-</code></pre><p>That being said, git revert is not cheap, and often not realistic for patching a set of files where a lot of modifications happened since the original patch was applied.
+* cbf6c73 init alphabet.txt with letters a to e</code></pre><p>That being said, git revert is not cheap, and often not realistic for patching a set of files where a lot of modifications happened since the original patch was applied.
 This could mitigate the argument. Still, building on the previous examples, we were able to show how a non-linear history can complicate things more.</p>
-<a class="headline-hash" href="#cons"><h2 id="cons">Cons</a> </h2>
-<a class="headline-hash" href="#incremental-build-efforts-are-lost"><h3 id="incremental-build-efforts-are-lost">Incremental build efforts are lost</a> </h3>
+<h2 id="cons">Cons</h2>
+<h3 id="incremental-build-efforts-are-lost">Incremental build efforts are lost</h3>
 <p>Keeping a linear history means that developers will need to rebase their work branches before merging. When applying a patch on a more recent base, chances are that some portions of the work will be invalidated by the latest changes.</p>
-<pre tabindex="0"><code>* f19b505 (master) rename alphabet.txt to latin-alphabet.txt
+<pre tabindex="0"><code class="hljs language-text">* f19b505 (master) rename alphabet.txt to latin-alphabet.txt
 | * c0e53d5 (add-missing-letters) add letters from u to z
 * | 1dc63f0 capitalize all letters
 | * 11f0ed9 add letters from p to t
 | * d84cbe6 add letters from k to o
 |/
 * 6f6ed85 add letters from f to j
-* cbf6c73 init alphabet.txt with letters a to e
-</code></pre><p>The last commit in branch <code>master</code> changed the name of <code>alphabet.txt</code>. When rebasing branch <code>add-missing-letters</code>, changes brought to <code>alphabet.txt</code> will be reapplied on <code>latin-alphabet.txt</code>. <strong>So yes, the process is destructive</strong>, history is rewritten. It is up to you to estimate the value of keeping the indication that <code>add-missing-letters</code> originates from a version of <code>master</code> where the file was not renamed yet. At least now, knowing that this will come at other expenses in terms of readability and some tools ease of use, you can make an informed decision.</p>
-<a class="headline-hash" href="#keeping-a-linear-history-doesnt-necessarily-mean-squashing-everything-around"><h4 id="keeping-a-linear-history-doesnt-necessarily-mean-squashing-everything-around">Keeping a linear history doesn&rsquo;t necessarily mean squashing everything around</a> </h4>
+* cbf6c73 init alphabet.txt with letters a to e</code></pre><p>The last commit in branch <code>master</code> changed the name of <code>alphabet.txt</code>. When rebasing branch <code>add-missing-letters</code>, changes brought to <code>alphabet.txt</code> will be reapplied on <code>latin-alphabet.txt</code>. <strong>So yes, the process is destructive</strong>, history is rewritten. It is up to you to estimate the value of keeping the indication that <code>add-missing-letters</code> originates from a version of <code>master</code> where the file was not renamed yet. At least now, knowing that this will come at other expenses in terms of readability and some tools ease of use, you can make an informed decision.</p>
+<h4 id="keeping-a-linear-history-doesnt-necessarily-mean-squashing-everything-around">Keeping a linear history doesn&#39;t necessarily mean squashing everything around</h4>
 <p>Squashing a topic branch commits before merge is not necessary for keeping the history linear.
 I want to make this quick digression because I feel like the confusion is often made.
 If you find it relevant, it is perfectly fine to keep commits separated in the branch when merging.</p>
 <p>Furthermore, it is possible to use merge commits and still require branches to be rebased on the target.
 The term of semi-linear history is used to describe such logs.</p>
-<pre tabindex="0"><code>* 7c4be78 (HEAD -&gt; master) Merge branch &#39;add-missing-letters&#39;
+<pre tabindex="0"><code class="hljs language-text">* 7c4be78 (HEAD -&gt; master) Merge branch &#x27;add-missing-letters&#x27;
 |\
 | * c0e53d5 (add-missing-letters) add letters from U to Z
 | * 11f0ed9 add letters from P to T
@@ -524,19 +331,18 @@ The term of semi-linear history is used to describe such logs.</p>
 |/
 * 1dc63f0 capitalize all letters
 * 6f6ed85 add letters from f to j
-* cbf6c73 init alphabet.txt with letters a to e
-</code></pre><p>Regarding readability, bisectability and revertability, a semi-linear history has the same advantages than a linear history.</p>
-<a class="headline-hash" href="#rebasing-is-hard-time-consuming-reserved-for-the-elite"><h3 id="rebasing-is-hard-time-consuming-reserved-for-the-elite">Rebasing is hard, time consuming, reserved for the elite</a> </h3>
-<p>In the <em>Git Branching - Rebasing</em> chapter of the <a href="https://git-scm.com/book/en/v2/Git-Branching-Rebasing">git web book</a>, the <em>merge</em> command is mentioned as the <em>easiest way to integrate two branches</em> with divergent history. The method is indeed more direct, requires less commands and manual steps, however it should be recalled that easiest doesn&rsquo;t necessarily mean best or recommended.</p>
+* cbf6c73 init alphabet.txt with letters a to e</code></pre><p>Regarding readability, bisectability and revertability, a semi-linear history has the same advantages than a linear history.</p>
+<h3 id="rebasing-is-hard-time-consuming-reserved-for-the-elite">Rebasing is hard, time consuming, reserved for the elite</h3>
+<p>In the <em>Git Branching - Rebasing</em> chapter of the <a href="https://git-scm.com/book/en/v2/Git-Branching-Rebasing" target="_blank" rel="noopener noreferrer">git web book</a>, the <em>merge</em> command is mentioned as the <em>easiest way to integrate two branches</em> with divergent history. The method is indeed more direct, requires less commands and manual steps, however it should be recalled that easiest doesn&#39;t necessarily mean best or recommended.</p>
 <p>Rebase is a more advanced git command that requires reading some documentation and a bit of practice to master.
 But so is mastering a programming language, understanding a runtime environment or getting used to a new IDE.
 In comparison, learning how to perform a simple rebase operation is a very reasonable investment, especially for someone with basic knowledge in git. So no, it is not reserved for the elite.</p>
 <p>Moreover, major git providers have resources and options that help to maintain a linear or semi-linear history :</p>
 <ul>
-<li><a href="https://docs.gitlab.com/ee/user/project/merge_requests/fast_forward_merge.html">https://docs.gitlab.com/ee/user/project/merge_requests/fast_forward_merge.html</a></li>
-<li><a href="https://docs.gitlab.com/ee/topics/gitlab_flow.html#reducing-merge-commits-in-feature-branches">https://docs.gitlab.com/ee/topics/gitlab_flow.html#reducing-merge-commits-in-feature-branches</a></li>
-<li><a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-request-merges#squash-and-merge-your-pull-request-commits">https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-request-merges#squash-and-merge-your-pull-request-commits</a></li>
-<li><a href="https://confluence.atlassian.com/bitbucketserver/pull-request-merge-strategies-844499235.html">https://confluence.atlassian.com/bitbucketserver/pull-request-merge-strategies-844499235.html</a></li>
+<li><a href="https://docs.gitlab.com/ee/user/project/merge_requests/fast_forward_merge.html" target="_blank" rel="noopener noreferrer">https://docs.gitlab.com/ee/user/project/merge_requests/fast_forward_merge.html</a></li>
+<li><a href="https://docs.gitlab.com/ee/topics/gitlab_flow.html#reducing-merge-commits-in-feature-branches" target="_blank" rel="noopener noreferrer">https://docs.gitlab.com/ee/topics/gitlab_flow.html#reducing-merge-commits-in-feature-branches</a></li>
+<li><a href="https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-request-merges#squash-and-merge-your-pull-request-commits" target="_blank" rel="noopener noreferrer">https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-request-merges#squash-and-merge-your-pull-request-commits</a></li>
+<li><a href="https://confluence.atlassian.com/bitbucketserver/pull-request-merge-strategies-844499235.html" target="_blank" rel="noopener noreferrer">https://confluence.atlassian.com/bitbucketserver/pull-request-merge-strategies-844499235.html</a></li>
 </ul>
 <p>Rebases should not be a problem in themselves, but the operation of resolving conflicts can be tedious.
 Whether or not you chose to rebase a branch on master before it is merged, you will have to deal with the same conflicts.
@@ -546,145 +352,12 @@ When starting using <code>git rebase</code>, I found these situations confusing 
 Rebasing a branch means rebasing individual commits. This is the semi-automatic equivalent of a method consisting in starting a new branch from master, and manually cherry-picking commits, one by one.
 Rebasing a commit means creating a new one (with a different parent), so if the next commit alters the same sources, conflicts will have to be resolved as for any <em>regular</em> conflict originating from a reference that was never an ancestor.</p>
 <p>It can indeed be more time consuming than resolving all conflicts at once. But it is a price to pay if you want to preserve the individual steps of the branch. Branches with few commits or with orthogonal changes between commits help to mitigate or even completely remove this issue.</p>
-<a class="headline-hash" href="#conclusion"><h2 id="conclusion">Conclusion</a> </h2>
+<h2 id="conclusion">Conclusion</h2>
 <p>Because everything is incremental and chronological, it is easy to navigate in the linear history, and it is also easy to use advanced features like bisect and revert. But artificially maintaining a linear history involves constantly rebasing topic branches, which is an advanced git feature that requires a slightly higher mastering of git. In addition, portions of work history are erased in the process.</p>
 <p>If you are wondering whether or not you want to maintain a linear history, you may want to ask yourself what you want your git history to be used for. If your project was a novel, and you want each commit in the master branch to be a new page of the story, then you want a linear history. However if you want your repository to contain the complete and unaltered records of everything that happened in the process of writing the novel, then you will not aim for a linear history.</p>
-<p>Quoting the <em>Git Branching - Rebasing</em> chapter of the <a href="https://git-scm.com/book/en/v2/Git-Branching-Rebasing">git web book</a>:</p>
+<p>Quoting the <em>Git Branching - Rebasing</em> chapter of the <a href="https://git-scm.com/book/en/v2/Git-Branching-Rebasing" target="_blank" rel="noopener noreferrer">git web book</a>:</p>
 <blockquote>
 <p>Now, to the question of whether merging or rebasing is better: hopefully you’ll see that it’s not that simple. Git is a powerful tool, and allows you to do many things to and with your history, but every team and every project is different. Now that you know how both of these things work, it’s up to you to decide which one is best for your particular situation.</p>
 <p>In general the way to get the best of both worlds is to rebase local changes you’ve made but haven’t shared yet before you push them in order to clean up your story, but never rebase anything you’ve pushed somewhere.</p>
 </blockquote>
-
-        </p>
-    </div>
-
-    
-    <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "wwwaubmnet" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-    
-
-    <div class="page-footer">
-        
-        <hr class="footer-divider">
-        
-            <a class="tag" href="/tags/git">#Git</a>
-        
-      
-    </div>
-
-
-        
-        </div>
-        <footer class="footer-mobile">
-	<div class="social-icons">
-        
-    <a class="social-icon" href="mailto:aur.baumann@gmail.com" target="_blank" rel="noopener" title="Email">
-        <svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" fill="#ABABAB" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
-            <path d="M25.2794292,5.59128519 L14,16.8707144 L2.72057081,5.59128519 C3.06733103,5.30237414 3.51336915,5.12857603 4,5.12857603 L24,5.12857603 C24.4866308,5.12857603 24.932669,5.30237414 25.2794292,5.59128519 Z M25.9956978,6.99633695 C25.998551,7.04004843 26,7.08414302 26,7.12857603 L26,20.871424 C26,21.0798433 25.9681197,21.2808166 25.9089697,21.4697335 L18.7156355,14.2763993 L25.9956978,6.99633695 Z M24.9498374,22.6319215 C24.6672737,22.7846939 24.3437653,22.871424 24,22.871424 L4,22.871424 C3.5268522,22.871424 3.09207889,22.7071233 2.74962118,22.432463 L10.0950247,15.0870594 L13.9848068,18.9768415 L14.1878486,18.7737996 L14.2030419,18.7889929 L17.6549753,15.3370594 L24.9498374,22.6319215 Z M2.00810114,21.0526627 C2.00273908,20.9929669 2,20.9325153 2,20.871424 L2,7.12857603 C2,7.08414302 2.00144896,7.04004843 2.00430222,6.99633695 L9.03436454,14.0263993 L2.00810114,21.0526627 Z"></path>
-        </svg>
-    </a>
-    
-
-    
-
-    
-    <a class="social-icon" href="https://twitter.com/kendo5731" target="_blank" rel="noopener" title="Twitter">
-        <svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" fill="#ABABAB" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
-            <path d="M8.991284,24.971612 C19.180436,24.971612 24.752372,16.530224 24.752372,9.210524 C24.752372,8.970656 24.747512,8.731868 24.736496,8.494376 C25.818008,7.712564 26.758256,6.737 27.5,5.62622 C26.507372,6.067076 25.439252,6.364292 24.318752,6.498212 C25.462472,5.812628 26.340512,4.727444 26.754584,3.434036 C25.684088,4.068536 24.499004,4.53002 23.23724,4.778528 C22.226468,3.701876 20.786828,3.028388 19.193828,3.028388 C16.134404,3.028388 13.653536,5.509256 13.653536,8.567492 C13.653536,9.0023 13.702244,9.424904 13.797176,9.830552 C9.19346,9.599108 5.11106,7.39472 2.3792,4.04294 C1.903028,4.861364 1.629032,5.812628 1.629032,6.827072 C1.629032,8.74904 2.606972,10.445612 4.094024,11.438132 C3.185528,11.41016 2.331788,11.160464 1.585184,10.745096 C1.583888,10.768208 1.583888,10.791428 1.583888,10.815728 C1.583888,13.49888 3.493652,15.738584 6.028088,16.246508 C5.562932,16.373084 5.07326,16.44134 4.56782,16.44134 C4.210988,16.44134 3.863876,16.406024 3.526484,16.34144 C4.231724,18.542264 6.276596,20.143796 8.701412,20.18894 C6.805148,21.674696 4.416836,22.56008 1.821488,22.56008 C1.374476,22.56008 0.93362,22.534592 0.5,22.4834 C2.951708,24.054476 5.862524,24.971612 8.991284,24.971612"></path>
-        </svg>
-    </a>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <a class="social-icon" href="https://www.linkedin.com/in/aurelienbaumann/" target="_blank" rel="noopener" title="LinkedIn">
-        <svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" fill="#ABABAB" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
-            <path d="M2,3.654102 C2,2.69908141 2.79442509,1.92397846 3.77383592,1.92397846 L24.2261641,1.92397846 C25.2058917,1.92397846 26,2.69908141 26,3.654102 L26,24.3462148 C26,25.3015521 25.2058917,26.0760215 24.2261641,26.0760215 L3.77383592,26.0760215 C2.79442509,26.0760215 2,25.3015521 2,24.3465315 L2,3.65378524 L2,3.654102 Z M9.27526132,22.1415901 L9.27526132,11.2356668 L5.65030092,11.2356668 L5.65030092,22.1415901 L9.27557808,22.1415901 L9.27526132,22.1415901 Z M7.46341463,9.74691162 C8.72727273,9.74691162 9.51409566,8.90940767 9.51409566,7.86284447 C9.49033893,6.79252455 8.72727273,5.97846056 7.48748812,5.97846056 C6.24675325,5.97846056 5.43649034,6.79252455 5.43649034,7.86284447 C5.43649034,8.90940767 6.22299652,9.74691162 7.4396579,9.74691162 L7.46309788,9.74691162 L7.46341463,9.74691162 Z M11.2815965,22.1415901 L14.9062401,22.1415901 L14.9062401,16.0519481 C14.9062401,15.7263225 14.9299968,15.4000634 15.0256573,15.1675641 C15.2876148,14.5159962 15.8840672,13.8416218 16.8856509,13.8416218 C18.1970225,13.8416218 18.7218879,14.8416218 18.7218879,16.3078872 L18.7218879,22.1415901 L22.3465315,22.1415901 L22.3465315,15.8885017 C22.3465315,12.5388027 20.5584416,10.9800443 18.1735825,10.9800443 C16.2182452,10.9800443 15.3595185,12.072854 14.8824834,12.8172315 L14.9065569,12.8172315 L14.9065569,11.2359835 L11.2819132,11.2359835 C11.3291099,12.2591067 11.2815965,22.1419069 11.2815965,22.1419069 L11.2815965,22.1415901 Z"></path>
-        </svg>
-    </a>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-    
-    <a class="social-icon" href="https://github.com/aubm" target="_blank" rel="noopener" title="GitHub">
-        <svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" fill="#ABABAB" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
-            <path d="M13.9988029,1.32087331 C6.82105037,1.32087331 1,7.14112562 1,14.3212723 C1,20.0649109 4.72454649,24.9370678 9.89038951,26.6560892 C10.5408085,26.7757983 10.7778323,26.374374 10.7778323,26.0296121 C10.7778323,25.7215609 10.7666595,24.9035493 10.760275,23.8189856 C7.14426471,24.6042767 6.38131925,22.0760223 6.38131925,22.0760223 C5.78995672,20.5740732 4.93762853,20.1742451 4.93762853,20.1742451 C3.75729765,19.3682044 5.02701126,19.3841656 5.02701126,19.3841656 C6.33183953,19.4759425 7.01817121,20.7241085 7.01817121,20.7241085 C8.17775254,22.7104801 10.0611744,22.1366749 10.8017741,21.8038838 C10.919887,20.9643246 11.2558703,20.3913175 11.6269683,20.066507 C8.74038491,19.7385043 5.70536235,18.6228163 5.70536235,13.6413251 C5.70536235,12.2223743 6.21213051,11.0611968 7.04370914,10.1530044 C6.90963504,9.82420367 6.46351945,8.50181809 7.17139875,6.71256734 C7.17139875,6.71256734 8.26234691,6.36301702 10.7459099,8.04532771 C11.78259,7.75642995 12.8950858,7.61277914 14.000399,7.60719272 C15.1049142,7.61277914 16.2166119,7.75642995 17.2548881,8.04532771 C19.736855,6.36301702 20.8262071,6.71256734 20.8262071,6.71256734 C21.5356825,8.50181809 21.0895669,9.82420367 20.9562909,10.1530044 C21.7894656,11.0611968 22.2922435,12.2223743 22.2922435,13.6413251 C22.2922435,18.6355852 19.2524325,19.734514 16.3570705,20.0561322 C16.8231376,20.4575564 17.2389269,21.2508282 17.2389269,22.4638795 C17.2389269,24.2012564 17.2229657,25.603448 17.2229657,26.0296121 C17.2229657,26.3775663 17.4575954,26.7821827 18.116793,26.6552912 C23.2786458,24.9322794 27,20.0633148 27,14.3212723 C27,7.14112562 21.1789496,1.32087331 13.9988029,1.32087331"></path>
-        </svg>
-    </a>
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-</div>
-
-
-
-
-	<div class="footer-mobile-links">
-		<p><a href="/disclaimer">Disclaimer</a></p>
-		<span class="divider-bar">|</span>
-		<p><a href="https://github.com/kimcc/hugo-theme-noteworthy" target="_blank" rel="noopener">Noteworthy theme</a></p>
-		<span class="divider-bar">|</span>
-		<p><a href="https://gohugo.io" target="_blank" rel="noopener">Built with Hugo</a></p>
-	</div>
-
-	<script src="https://www.aubm.net/js/main.min.a7205ef73b078c8daed6fe1b0826e8ba229ffabbb69d299d9446cf41f2c7d8aa.js" integrity="sha256-pyBe9zsHjI2u1v4bCCbouiKf+ru2nSmdlEbPQfLH2Ko="></script>
-</footer>
-    </body>
-</html>
+</div><footer class="article-footer"><div class="article-tags"><a href="/tags/git/">#Git</a></div><div class="article-discuss"><h2>A thought to share?</h2><p>We don’t have to agree to have a good conversation.</p><a class="text-link" href="/contact/">Let’s talk<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"></path></svg></a></div></footer></div></main><footer class="site-footer"><div class="footer-top"><a class="wordmark" href="/">aubm<span class="wordmark-dot">.</span></a><p>A small home for things worth sharing.</p><a class="back-top" href="#">Back to top ↑</a></div><div class="footer-bottom"><p>© 2026 Aurélien Baumann <span class="footer-note">Personal views, always my own.</span></p><nav aria-label="Footer"><a href="/index.xml">RSS</a><a href="https://medium.com/@kendo5731" target="_blank" rel="noopener noreferrer">Medium ↗</a><a href="/privacy/">Privacy</a><a href="/fr/articles/original/the-case-of-a-git-linear-history/" lang="fr">Français</a></nav></div></footer></div></body></html>

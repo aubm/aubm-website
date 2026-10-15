@@ -1,18 +1,1 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
-  <sitemap>
-    <loc>https://www.aubm.net/en/sitemap.xml</loc>
-    
-      <lastmod>2022-11-05T19:02:18-04:00</lastmod>
-    
-  </sitemap>
-  
-  <sitemap>
-    <loc>https://www.aubm.net/fr/sitemap.xml</loc>
-    
-      <lastmod>2023-05-28T19:26:13-04:00</lastmod>
-    
-  </sitemap>
-  
-</sitemapindex>
+<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://www.aubm.net/</loc></url><url><loc>https://www.aubm.net/fr/</loc></url><url><loc>https://www.aubm.net/writing/</loc></url><url><loc>https://www.aubm.net/fr/articles/</loc></url><url><loc>https://www.aubm.net/projects/</loc></url><url><loc>https://www.aubm.net/fr/projets/</loc></url><url><loc>https://www.aubm.net/projects/piggy/</loc></url><url><loc>https://www.aubm.net/fr/projets/piggy/</loc></url><url><loc>https://www.aubm.net/podcast/</loc></url><url><loc>https://www.aubm.net/fr/podcast/</loc></url><url><loc>https://www.aubm.net/about/</loc></url><url><loc>https://www.aubm.net/fr/a-propos/</loc></url><url><loc>https://www.aubm.net/photos/</loc></url><url><loc>https://www.aubm.net/fr/photos/</loc></url><url><loc>https://www.aubm.net/contact/</loc></url><url><loc>https://www.aubm.net/fr/contact/</loc></url><url><loc>https://www.aubm.net/privacy/</loc></url><url><loc>https://www.aubm.net/fr/confidentialite/</loc></url><url><loc>https://www.aubm.net/fr/posts/la-depression-joyeuse/</loc></url><url><loc>https://www.aubm.net/fr/posts/je-vivrai-dans-le-pays-avec-l-etat-le-moins-obese/</loc></url><url><loc>https://www.aubm.net/fr/posts/l-isf-pour-sauver-notre-systeme-de-retraites/</loc></url><url><loc>https://www.aubm.net/fr/posts/melenchon-m-a-insulte-et-je-le-vis-bien/</loc></url><url><loc>https://www.aubm.net/fr/posts/my-vacation-at-the-most-magical-place-on-earth/</loc></url><url><loc>https://www.aubm.net/fr/posts/everybody-should-play-dungeons-and-dragons/</loc></url><url><loc>https://www.aubm.net/posts/everybody-should-play-dungeons-and-dragons/</loc></url><url><loc>https://www.aubm.net/posts/how-my-programming-skills-helped-me-with-my-personal-finances-part-1/</loc></url><url><loc>https://www.aubm.net/fr/posts/how-my-programming-skills-helped-me-with-my-personal-finances-part-1/</loc></url><url><loc>https://www.aubm.net/fr/posts/the-saddest-moment-of-the-z-event-2022/</loc></url><url><loc>https://www.aubm.net/posts/the-saddest-moment-of-the-z-event-2022/</loc></url><url><loc>https://www.aubm.net/posts/please-use-dependency-injection-if-not-for-me-do-it-for-your-unit-tests/</loc></url><url><loc>https://www.aubm.net/posts/i-like-slack-as-much-as-i-like-being-interrupted-at-my-desk/</loc></url><url><loc>https://www.aubm.net/posts/3-ways-of-shooting-yourself-in-the-foot-when-writing-applications-in-go/</loc></url><url><loc>https://www.aubm.net/posts/extending-the-kubernetes-api/</loc></url><url><loc>https://www.aubm.net/posts/the-certified-kubernetes-application-developer-and-administrator-certifications/</loc></url><url><loc>https://www.aubm.net/posts/the-case-of-a-git-linear-history/</loc></url><url><loc>https://www.aubm.net/posts/being-the-best-is-not-enough/</loc></url><url><loc>https://www.aubm.net/posts/how-to-better-promote-your-bad-ideas/</loc></url><url><loc>https://www.aubm.net/podcast/no-prize-for-pessimism/</loc></url><url><loc>https://www.aubm.net/fr/podcast/no-prize-for-pessimism/</loc></url><url><loc>https://www.aubm.net/podcast/irreplaceable/</loc></url><url><loc>https://www.aubm.net/fr/podcast/irreplaceable/</loc></url></urlset>

@@ -1,0 +1,61 @@
+---
+import '@fontsource-variable/dm-sans';
+import '@fontsource-variable/fraunces';
+import '@fontsource-variable/fraunces/wght-italic.css';
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+import { labels, opposite, paths, social, type Language, type Page } from '../lib/i18n';
+interface Props { language: Language; page?: Page; title?: string; description?: string; alternate?: string; alternateIsTranslation?: boolean; canonical?: string; noindex?: boolean; }
+const { language, page = 'home', title, description, alternate = paths[page][opposite(language)], alternateIsTranslation = true, canonical, noindex = false } = Astro.props;
+const t = labels[language];
+const fullTitle = title ? `${title} — Aurélien Baumann` : 'Aurélien Baumann — Code, ideas & adventure';
+const fullDescription = description || (language === 'en' ? 'Software engineer, creator of Piggy, and curious human. Writing about technology, money, and the world around us.' : 'Développeur, créateur de Piggy et humain curieux. Des articles sur la technologie, l’argent et le monde qui nous entoure.');
+const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site).href;
+const navigation: Page[] = ['writing', 'projects', 'podcast', 'about'];
+---
+<!doctype html>
+<html lang={language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content="#fff8ef" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={fullDescription} />
+    {noindex && <meta name="robots" content="noindex,follow" />}
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang={language} href={canonicalUrl} />
+    {alternateIsTranslation && <link rel="alternate" hreflang={opposite(language)} href={new URL(alternate, Astro.site)} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="alternate" type="application/rss+xml" title={`Aubm — ${language === 'en' ? 'English' : 'Français'}`} href={language === 'fr' ? '/fr/index.xml' : '/index.xml'} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Aurélien Baumann" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={fullDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:locale" content={language === 'fr' ? 'fr_FR' : 'en_US'} />
+    <meta property="og:image" content={new URL('/images/social-card.png', Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t.skip}</a>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="wordmark" href={paths.home[language]} aria-label={`Aurélien Baumann — ${t.home}`}>aubm<span class="wordmark-dot">.</span><span class="wordmark-name">Aurélien Baumann</span></a>
+        <nav class="main-nav" aria-label={language === 'en' ? 'Main navigation' : 'Navigation principale'}>
+          {navigation.map((item) => <a href={paths[item][language]} aria-current={page === item ? 'page' : undefined}>{t[item]}</a>)}
+        </nav>
+        <div class="header-actions">
+          <a class="language-switch" href={alternate} lang={opposite(language)} hreflang={opposite(language)} aria-label={language === 'en' ? 'Passer en français' : 'Switch to English'}>{language === 'en' ? 'Français' : 'English'}<span aria-hidden="true">↗</span></a>
+          <a class="header-contact" href={paths.contact[language]}>{t.talk}<Icon name="external" /></a>
+        </div>
+      </header>
+      <main id="main"><slot /></main>
+      <footer class="site-footer">
+        <div class="footer-top"><a class="wordmark" href={paths.home[language]}>aubm<span class="wordmark-dot">.</span></a><p>{language === 'en' ? 'A small home for things worth sharing.' : 'Un petit coin du Web pour partager.'}</p><a class="back-top" href="#">{language === 'en' ? 'Back to top' : 'En haut'} ↑</a></div>
+        <div class="footer-bottom"><p>© {new Date().getUTCFullYear()} Aurélien Baumann <span class="footer-note">{language === 'en' ? 'Personal views, always my own.' : 'Des opinions personnelles, toujours les miennes.'}</span></p><nav aria-label={language === 'en' ? 'Footer' : 'Pied de page'}><a href={language === 'fr' ? '/fr/index.xml' : '/index.xml'}>RSS</a><a href={social.medium}>Medium ↗</a><a href={paths.privacy[language]}>{t.privacy}</a><a href={alternate} lang={opposite(language)}>{language === 'en' ? 'Français' : 'English'}</a></nav></div>
+      </footer>
+    </div>
+  </body>
+</html>

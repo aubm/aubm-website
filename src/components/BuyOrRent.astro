@@ -1,0 +1,25 @@
+---
+import Icon from './Icon.astro';
+import { mediumArticles } from '../data/medium';
+import { social, type Language } from '../lib/i18n';
+
+interface Props { language: Language; compact?: boolean; }
+const { language, compact = false } = Astro.props;
+const fr = language === 'fr';
+const Heading = compact ? 'h3' : 'h2';
+const relatedArticle = mediumArticles.find((article) => article.id === '93dd286e5e29')!;
+---
+<article class="buy-rent-feature">
+  <div class="buy-rent-copy">
+    <p class="eyebrow">{fr ? 'FINANCES PERSONNELLES · SIMULATEUR INTERACTIF' : 'PERSONAL FINANCE · INTERACTIVE CALCULATOR'}</p>
+    <Heading>{fr ? <>Acheter<br />ou <em>louer ?</em></> : <>Buy<br />or <em>rent?</em></>}</Heading>
+    <p>{fr ? 'Un achat immobilier mérite plus qu’une idée reçue. J’ai créé ce simulateur pour comparer les conséquences financières de la location et de l’achat sur le long terme.' : 'A home purchase deserves more than a rule of thumb. I built this calculator to compare the long-term financial picture of renting and buying.'}</p>
+    <p>{fr ? 'Faites varier le prix du logement, le crédit, le loyer et les hypothèses de rendement pour explorer différents scénarios.' : 'Adjust the home price, mortgage, rent, and investment assumptions to explore different scenarios.'}</p>
+    <div class="button-row"><a class="button button-dark" href={social.buyOrRent}>{fr ? 'Essayer le simulateur' : 'Try the calculator'}<Icon name="external" /></a><a class="text-link" href={relatedArticle.url} aria-label={`${relatedArticle.title} — Medium`}>{fr ? 'Lire l’article sur Medium' : 'Read the essay on Medium'}<Icon name="external" /></a></div>
+    <span class="buy-rent-language">{fr ? 'Outil en anglais' : 'English-language tool'}</span>
+  </div>
+  <figure class="buy-rent-preview">
+    <a href={social.buyOrRent} aria-label={fr ? 'Ouvrir le simulateur Acheter ou louer' : 'Open the Buy or Rent calculator'}><img src="/images/buy-or-rent.png" alt={fr ? 'Le simulateur Buy or Rent : champs de coût du logement et graphique comparant les scénarios d’achat et de location' : 'The Buy or Rent calculator: housing cost inputs and a graph comparing buying and renting scenarios'} width="1440" height="1050" loading="lazy" /></a>
+    <figcaption>{fr ? 'Aperçu réel du simulateur · scénario d’exemple par défaut' : 'Actual calculator preview · default example scenario'}</figcaption>
+  </figure>
+</article>

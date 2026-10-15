@@ -1,0 +1,16 @@
+---
+import Icon from './Icon.astro';
+import { isMediumArticle, writingUrl, type WritingItem } from '../lib/writing';
+import { labels, formatDate, type Language } from '../lib/i18n';
+interface Props { post: WritingItem; language: Language; }
+const { post, language } = Astro.props;
+const t = labels[language];
+const medium = isMediumArticle(post);
+---
+<article class:list={['writing-card', `topic-${post.topic}`, { 'medium-card': medium }]} data-topic={post.topic} data-source={medium ? 'medium' : 'blog'}>
+  <div class="writing-card-top"><span class="topic-label">{t[post.topic]}</span><div class="writing-card-badges">{medium && <span class="source-label">Medium</span>}<span class="language-label">{post.language.toUpperCase()}</span></div></div>
+  <a class="card-main-link" href={writingUrl(post, language)} aria-label={medium ? `${post.title} — ${language === 'fr' ? 'Lire sur Medium' : 'Read on Medium'}` : undefined}><h3 lang={post.language}>{post.title}</h3></a>
+  <p>{post.summary[language]}</p>
+  <div class="writing-card-bottom"><span><time datetime={post.date}>{formatDate(post.date, language)}</time>{post.minutes && <span class="reading-time"> · {post.minutes} {t.minutes}</span>}</span><Icon name="external" /></div>
+  {medium && <span class="medium-destination">{language === 'fr' ? 'Lire sur Medium' : 'Read on Medium'} <span aria-hidden="true">↗</span></span>}
+</article>

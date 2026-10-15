@@ -1,0 +1,23 @@
+---
+import Icon from './Icon.astro';
+import photos from '../data/photos.json';
+import { paths, type Language } from '../lib/i18n';
+interface Props { language: Language; }
+const { language } = Astro.props;
+const fr = language === 'fr';
+const cover = photos.nature.find((photo) => photo.id === 'running-water')!;
+---
+<div class="hobby-grid">
+  <a class="hobby-card guitar-card" href={`${paths.about[language]}#guitar`}>
+    <div class="hobby-image guitar-vignette"><img class="guitar-photo-main" src={photos.music.rosette.src} alt={fr ? 'La rosace et les cordes d’une guitare classique en noir et blanc' : 'A black-and-white detail of a classical guitar’s rosette and strings'} width={photos.music.rosette.width} height={photos.music.rosette.height} loading="lazy" /><span class="photo-tag">01 / {fr ? 'La musique' : 'Music'}</span></div>
+    <div class="hobby-copy"><h3>{fr ? 'Toujours un riff à apprendre.' : 'Always another riff to learn.'}</h3><p>{fr ? 'Une guitare, un peu de patience et le plaisir de progresser.' : 'A guitar, a little patience, and the pleasure of getting a little better.'}</p><span class="text-link">{fr ? 'Parlons musique' : 'Let’s talk music'}<Icon name="external" /></span></div>
+  </a>
+  <a class="hobby-card nature-card" href={paths.photos[language]}>
+    <div class="hobby-image"><img src={cover.src} alt={cover.alt[language]} width={cover.width} height={cover.height} loading="lazy" /><span class="photo-tag">02 / {fr ? 'La nature' : 'Outdoors'}</span><span class="album-card-count">{photos.nature.length} {fr ? 'photos' : 'frames'}</span></div>
+    <div class="hobby-copy"><h3>{fr ? 'Prendre les chemins de traverse.' : 'Taking the scenic route.'}</h3><p>{fr ? 'Sortir, suivre un sentier et regarder un peu plus autour de soi.' : 'Getting outside, following a trail, and paying a little more attention.'}</p><span class="text-link">{fr ? 'Feuilleter l’album' : 'Explore the photo album'}<Icon name="arrow" /></span></div>
+  </a>
+  <a class="hobby-card rpg-card" href={`${paths.about[language]}#rpg`}>
+    <div class="hobby-image dice-scene" aria-hidden="true"><div class="dice-orbit"></div><Icon name="dice" class="big-dice" /><span class="dice-small">✦</span><span class="dice-caption">{fr ? 'À vous de jouer.' : 'Roll for adventure.'}</span><span class="photo-tag">03 / {fr ? 'Les jeux de rôle' : 'Role-playing'}</span></div>
+    <div class="hobby-copy"><h3>{fr ? 'Et si on inventait une histoire ?' : 'What if we made up a world?'}</h3><p>{fr ? 'Des dés, des amis et une histoire qu’aucun de nous ne connaît encore.' : 'A few dice, good company, and a story none of us knows the ending to.'}</p><span class="text-link">{fr ? 'L’aventure nous attend' : 'Adventure awaits'}<Icon name="external" /></span></div>
+  </a>
+</div>

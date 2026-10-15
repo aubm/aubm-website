@@ -1,0 +1,40 @@
+---
+import WritingCard from './WritingCard.astro';
+import { writingCatalog } from '../lib/writing';
+import { labels, social, type Language } from '../lib/i18n';
+interface Props { language: Language; tag?: string; }
+const { language, tag } = Astro.props;
+const fr = language === 'fr';
+const t = labels[language];
+const items = writingCatalog(language).filter((post) => !tag || post.tags.some((item) => item.toLowerCase() === tag.toLowerCase()));
+const filters = ['all', 'software', 'money', 'society'] as const;
+---
+<section class="page-intro"><p class="eyebrow">{fr ? 'LE CARNET OUVERT' : 'THE OPEN NOTEBOOK'}</p><h1>{tag ? `#${tag}` : fr ? <>Réfléchir à <em>voix haute.</em></> : <>Thinking <em>out loud.</em></>}</h1><p>{fr ? 'Technologie, finances personnelles et idées à examiner. Des textes parfois pratiques, parfois engagés, toujours écrits pour ouvrir la discussion.' : 'Technology, personal finance, and ideas worth examining. Some practical, some opinionated, all written to start a conversation.'}</p></section>
+<section class="section catalog-section" data-catalog>
+  <div class="catalog-toolbar"><div class="topic-filters" role="group" aria-label={fr ? 'Filtrer par thème' : 'Filter by topic'} hidden>{filters.map((filter) => <button type="button" data-filter={filter} aria-pressed={filter === 'all'}>{t[filter]}</button>)}</div><span class="catalog-count" aria-live="polite"><span data-count>{items.length}</span> {fr ? 'articles' : 'articles'}</span></div>
+  <p class="catalog-language-note">{fr ? 'Les badges EN et FR indiquent la langue originale. Les articles marqués Medium se lisent sur Medium.' : 'EN and FR badges indicate the original language. Articles marked Medium open on Medium.'}</p>
+  <div class="writing-grid catalog-grid">{items.map((post) => <WritingCard language={language} post={post} />)}</div>
+  <p class="catalog-empty" hidden>{fr ? 'Aucun article dans cette sélection.' : 'No articles in this selection.'}</p>
+</section>
+<p class="medium-profile-link"><a class="text-link" href={social.medium}>{fr ? 'Retrouvez-moi aussi sur Medium ↗' : 'Find me on Medium ↗'}</a></p>
+<script>
+  for (const catalog of document.querySelectorAll<HTMLElement>('[data-catalog]')) {
+    const controls = catalog.querySelector<HTMLElement>('.topic-filters');
+    if (controls) controls.hidden = false;
+    for (const button of catalog.querySelectorAll<HTMLButtonElement>('[data-filter]')) {
+      button.addEventListener('click', () => {
+        const filter = button.dataset.filter;
+        let count = 0;
+        for (const card of catalog.querySelectorAll<HTMLElement>('[data-topic]')) {
+          card.hidden = filter !== 'all' && card.dataset.topic !== filter;
+          if (!card.hidden) count++;
+        }
+        for (const control of catalog.querySelectorAll('[data-filter]')) control.setAttribute('aria-pressed', String(control === button));
+        const total = catalog.querySelector('[data-count]');
+        if (total) total.textContent = String(count);
+        const empty = catalog.querySelector<HTMLElement>('.catalog-empty');
+        if (empty) empty.hidden = count > 0;
+      });
+    }
+  }
+</script>

@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import Home from '../components/Home.astro';
+import Writing from '../components/Writing.astro';
+import Projects from '../components/Projects.astro';
+import Podcast from '../components/Podcast.astro';
+import Personal from '../components/Personal.astro';
+import Article from '../components/Article.astro';
+import PhotoAlbum from '../components/PhotoAlbum.astro';
+import { posts, counterpart, summaryUrl, type Post } from '../lib/posts';
+import { paths, labels, opposite, type Language, type Page } from '../lib/i18n';
+import { episodes } from '../data/editorial';
+import { readFileSync } from 'node:fs';
+
+interface Props { language: Language; page: Page; post?: Post; summary?: boolean; episodeId?: string; tag?: string; disclaimer?: boolean; }
+export function getStaticPaths() {
+  const routes: { params: { path: string | undefined }; props: Props }[] = [];
+  function add(url: string, props: Props) { routes.push({ params: { path: url.replace(/^\//, '').replace(/\/$/, '') || undefined }, props }); }
+  for (const language of ['en', 'fr'] as const) {
+    for (const page of Object.keys(paths) as Page[]) add(paths[page][language], { language, page });
+    for (const episode of episodes) add(`${paths.podcast[language]}${episode.id}/`, { language, page: 'podcast', episodeId: episode.id });
+    const prefix = language === 'fr' ? '/fr' : '';
+    add(`${prefix}/posts/`, { language, page: 'writing' });
+    for (const page of [1, 2]) add(`${prefix}/page/${page}/`, { language, page: 'writing' });
+    for (const tag of new Set(posts.flatMap((post) => post.tags))) add(`${prefix}/tags/${tag.toLowerCase()}/`, { language, page: 'writing', tag });
+    add(`${prefix}/tags/`, { language, page: 'writing' });
+    add(`${prefix}/categories/`, { language, page: 'writing' });
+    for (const post of posts.filter((item) => !item.unlisted && item.language !== language)) {
+      if (!posts.some((item) => item.id === post.id && item.language === language)) add(summaryUrl(post, language), { language, page: 'writing', post, summary: true });
+    }
+  }
+  for (const post of posts) add(post.url, { language: post.language, page: 'writing', post });
+  add('/disclaimer/', { language: 'en', page: 'privacy', disclaimer: true });
+  return routes;
+}
+const { language, page, post, summary, episodeId, tag, disclaimer } = Astro.props;
+const alternate = post ? summary ? post.url : counterpart(post) : episodeId ? `${paths.podcast[opposite(language)]}${episodeId}/` : paths[page][opposite(language)];
+const episode = episodes.find((item) => item.id === episodeId);
+const title = post?.title || episode?.book || (disclaimer ? 'Disclaimer' : page === 'home' ? undefined : tag ? `#${tag}` : labels[language][page]);
+const description = post?.summary[language] || episode?.summary[language];
+const alternateIsTranslation = !post || (!summary && posts.some((item) => item.id === post.id && item.language !== post.language));
+const disclaimerSource = disclaimer ? readFileSync('content/disclaimer.md', 'utf8').replace(/^\+\+\+[\s\S]*?\+\+\+\s*/, '') : '';
+import { renderBody } from '../lib/posts';
+---
+<Base language={language} page={page} title={title} description={description} alternate={alternate} alternateIsTranslation={alternateIsTranslation} canonical={post?.canonical} noindex={Boolean(post?.unlisted || summary)}>
+  {post?.canonical && <meta slot="head" http-equiv="refresh" content={`0;url=${post.canonical}`} />}
+  {post ? <Article post={post} language={language} summary={summary} /> : disclaimer ? <section class="prose narrow-section disclaimer"><h1>Disclaimer</h1><div set:html={renderBody(disclaimerSource)} /></section> : page === 'home' ? <Home language={language} /> : page === 'writing' ? <Writing language={language} tag={tag} /> : page === 'projects' || page === 'piggy' ? <Projects language={language} piggy={page === 'piggy'} /> : page === 'podcast' ? <Podcast language={language} episodeId={episodeId} /> : page === 'photos' ? <PhotoAlbum language={language} /> : <Personal language={language} page={page} />}
+</Base>

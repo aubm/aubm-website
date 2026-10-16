@@ -61,10 +61,28 @@ try {
   });
   const errors = [];
   const externalRequests = [];
+  const calculatorUrl = 'https://buy-or-rent.getpiggy.app/';
+  let calculatorRequests = 0;
+  // Exercise our integration without depending on the external app or its analytics.
+  await page.route(calculatorUrl, (route) =>
+    route.fulfill({
+      contentType: 'text/html',
+      body: '<!doctype html><html lang="en"><meta charset="utf-8"><title>Calculator fixture</title><h1>Buy or Rent</h1><label>Monthly rent <input id="rent" type="number" value="2000"></label></html>',
+    }),
+  );
   page.on('pageerror', (error) => errors.push(error.message));
   page.on('request', (request) => {
-    if (!request.url().startsWith(base) && !request.url().startsWith('data:'))
+    if (request.url().startsWith(base) || request.url().startsWith('data:')) return;
+    if (
+      request.url() === calculatorUrl &&
+      request.isNavigationRequest() &&
+      request.frame().parentFrame() === page.mainFrame() &&
+      ['/', '/fr/'].includes(new URL(page.url()).pathname)
+    ) {
+      calculatorRequests++;
+    } else {
       externalRequests.push(request.url());
+    }
   });
   const screenshots = [
     ['/', 'home-desktop', 1440, 1000],
@@ -105,6 +123,68 @@ try {
     await page.screenshot({ path: `.review/${name}.png`, fullPage: true });
     if (name === 'home-desktop') await page.screenshot({ path: '.review/home-first-screen.png' });
   }
+  // Both homepages provide an interactive frame and a usable local fallback.
+  for (const route of ['/', '/fr/']) {
+    await page.goto(base + route);
+    const demo = page.locator('[data-calculator-demo]');
+    await demo.scrollIntoViewIfNeeded();
+    const frame = demo.frameLocator('iframe');
+    await frame.locator('#rent').fill('2400');
+    assert.equal(await frame.locator('#rent').inputValue(), '2400');
+    const external = page.locator('.buy-rent-copy .button-dark');
+    assert.equal(await external.getAttribute('href'), calculatorUrl);
+    assert.equal(await external.getAttribute('target'), '_blank');
+    assert.match(await external.getAttribute('rel'), /noopener/);
+    const toggle = demo.locator('[data-demo-toggle]');
+    await toggle.focus();
+    await page.keyboard.press('Enter');
+    assert.equal(await demo.locator('iframe').count(), 0, 'Screenshot mode removes the iframe');
+    assert.equal(await demo.locator('[data-demo-preview]').isVisible(), true);
+    await demo.locator('[data-demo-preview] img').evaluate((image) => image.decode());
+    await toggle.click();
+    assert.equal(
+      await frame.locator('#rent').inputValue(),
+      '2000',
+      'Returning starts a fresh demo',
+    );
+  }
+  for (const route of ['/projects/', '/fr/projets/']) {
+    await page.goto(base + route);
+    assert.equal(await page.locator('[data-calculator-demo], iframe').count(), 0);
+    assert.equal(await page.locator('.buy-rent-preview').isVisible(), true);
+  }
+  const blocked = await browser.newPage();
+  await blocked.route(calculatorUrl, (route) => route.abort('blockedbyclient'));
+  const failed = blocked.waitForEvent(
+    'requestfailed',
+    (request) => request.url() === calculatorUrl,
+  );
+  await blocked.goto(base + '/');
+  const blockedDemo = blocked.locator('[data-calculator-demo]');
+  await blockedDemo.scrollIntoViewIfNeeded();
+  await failed;
+  await blockedDemo.locator('[data-demo-toggle]').click();
+  assert.equal(await blockedDemo.locator('iframe').count(), 0);
+  assert.equal(await blockedDemo.locator('[data-demo-preview]').isVisible(), true);
+  await blockedDemo.locator('[data-demo-preview] img').evaluate((image) => image.decode());
+  await blocked.close();
+
+  const unsupported = await browser.newPage();
+  const unsupportedRequests = [];
+  unsupported.on('request', (request) => {
+    if (!request.url().startsWith(base)) unsupportedRequests.push(request.url());
+  });
+  await unsupported.route(calculatorUrl, (route) => route.abort());
+  await unsupported.addInitScript(() => {
+    Object.defineProperty(window, 'HTMLIFrameElement', { value: undefined });
+  });
+  await unsupported.goto(base + '/fr/', { waitUntil: 'networkidle' });
+  assert.equal(await unsupported.locator('[data-calculator-demo] iframe').count(), 0);
+  assert.equal(await unsupported.locator('[data-demo-preview]').isVisible(), true);
+  assert.equal(await unsupported.locator('[data-demo-toggle]').isVisible(), false);
+  assert.deepEqual(unsupportedRequests, [], 'No external request without iframe support');
+  await unsupported.close();
+
   // Exercise filtering and the real counterpart route, rather than just inspecting markup.
   await page.goto(base + '/writing/');
   const total = await page.locator('.writing-card').count();
@@ -164,20 +244,33 @@ try {
   assert.deepEqual([...brokenLinks], [], 'All internal links and images resolve');
   assert.deepEqual(overflow, [], 'No page overflows at 320px');
   assert.deepEqual(errors, [], 'No client-side exceptions');
-  assert.deepEqual(externalRequests, [], 'No automatic third-party requests');
+  assert.ok(calculatorRequests > 0, 'The declared calculator frame was requested');
+  assert.deepEqual(externalRequests, [], 'No unrelated external requests');
 
   // Navigation and the whole archive remain usable without enhancement.
   const plain = await browser.newPage({
     javaScriptEnabled: false,
     viewport: { width: 390, height: 844 },
   });
+  const plainRequests = [];
+  plain.on('request', (request) => {
+    if (!request.url().startsWith(base)) plainRequests.push(request.url());
+  });
+  await plain.route(calculatorUrl, (route) => route.abort());
+  for (const route of ['/', '/fr/']) {
+    await plain.goto(base + route);
+    assert.equal(await plain.locator('[data-calculator-demo] iframe').count(), 0);
+    assert.equal(await plain.locator('[data-demo-preview]').isVisible(), true);
+    assert.equal(await plain.locator('[data-demo-toggle]').isVisible(), false);
+  }
+  assert.deepEqual(plainRequests, [], 'No external requests without JavaScript');
   await plain.goto(base + '/fr/articles/');
   assert.equal(await plain.locator('.writing-card:visible').count(), total);
   await plain.locator('.main-nav a').filter({ hasText: 'Projets' }).click();
   assert.equal(new URL(plain.url()).pathname, '/fr/projets/');
   await plain.close();
   console.log(
-    `Browser checks passed: ${pages.length} pages, 320px layouts, filters, language switching, no-JS navigation, local images, and no third-party requests. Screenshots: .review/`,
+    `Browser checks passed: ${pages.length} pages, 320px layouts, filters, language switching, calculator interaction/fallbacks, no-JS navigation, local images, and no unrelated external requests. Screenshots: .review/`,
   );
 } finally {
   await browser?.close();

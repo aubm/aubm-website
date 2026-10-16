@@ -2912,7 +2912,7 @@ p {
 .buy-rent-copy h3 em {
   color: var(--green);
 }
-.buy-rent-copy > p:not(.eyebrow) {
+.buy-rent-description > p {
   font-size: 13px;
   line-height: 1.9;
   margin-top: 15px;
@@ -2935,6 +2935,9 @@ p {
   font-size: 10px;
   color: var(--muted);
   margin-top: 15px;
+}
+.buy-rent-media {
+  min-width: 0;
 }
 .buy-rent-preview {
   min-width: 0;
@@ -2981,10 +2984,90 @@ p {
   }
   .buy-rent-preview {
     width: calc(100% - 8px);
-    justify-self: center;
+    margin-inline: auto;
   }
   .buy-rent-preview figcaption {
     font-size: 8px;
+  }
+}
+
+/* Give the live calculator room to show its inputs and comparison chart. */
+.buy-rent-feature-interactive {
+  grid-template-columns: 1fr;
+  gap: 28px;
+}
+.buy-rent-feature-interactive .buy-rent-copy {
+  display: grid;
+  grid-template-columns: 0.65fr 1.35fr;
+  align-items: center;
+  gap: 36px;
+}
+.buy-rent-demo {
+  overflow: hidden;
+  border: 1px solid #d6dccb;
+  border-radius: 8px;
+  background: var(--paper);
+}
+.buy-rent-demo-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  min-height: 50px;
+  padding: 9px 16px;
+  border-bottom: 1px solid var(--line);
+  font-size: 11px;
+}
+.buy-rent-demo-toggle {
+  padding: 7px 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.buy-rent-demo iframe {
+  display: block;
+  width: 100%;
+  height: 900px;
+  border: 0;
+  background: white;
+}
+.buy-rent-demo .buy-rent-preview {
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  transform: none;
+}
+.buy-rent-demo-help {
+  padding: 13px 16px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.7;
+}
+.buy-rent-demo [hidden] {
+  display: none;
+}
+@media (max-width: 700px) {
+  .buy-rent-feature-interactive {
+    padding: 18px;
+  }
+  .buy-rent-feature-interactive .buy-rent-copy {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .buy-rent-feature-interactive .buy-rent-copy .button-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .buy-rent-demo iframe {
+    height: 720px;
   }
 }
 

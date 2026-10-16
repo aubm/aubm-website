@@ -1,0 +1,40 @@
+---
+import Icon from './Icon.astro';
+import { campaignTrail } from '../data/campaign-trail';
+import type { Language } from '../lib/i18n';
+interface Props { language: Language; }
+const { language } = Astro.props;
+const fr = language === 'fr';
+---
+<section class="project-feature campaign-feature" aria-labelledby="campaign-trail-title">
+  <a class="campaign-feature-image" href={campaignTrail.url[language]} aria-label={fr ? 'Découvrir The Campaign Trail' : 'Explore The Campaign Trail'}>
+    <img src={campaignTrail.image.src} alt={campaignTrail.image.alt[language]} width={campaignTrail.image.width} height={campaignTrail.image.height} loading="lazy" />
+  </a>
+  <div>
+    <p class="eyebrow">{fr ? 'PROJET PERSONNEL · JEUX DE RÔLE' : 'PERSONAL PROJECT · ROLE-PLAYING GAMES'}</p>
+    <h2 id="campaign-trail-title">The Campaign Trail</h2>
+    <p>{fr ? 'Un journal illustré pour raconter les campagnes de D&D que je mène, une aventure et un chapitre à la fois.' : 'An illustrated journal for the D&D campaigns I run, one adventure and one chapter at a time.'}</p>
+    <p>{fr ? 'J’y réunis mon goût pour les mondes imaginaires, les histoires que l’on construit ensemble et les sites que l’on façonne soi-même. Les premières pages posent le décor ; les véritables récits de campagne viendront ensuite.' : 'It brings together imaginary worlds, stories we create together, and the pleasure of building a little corner of the web. The first pages set the scene; the actual campaign chronicles will follow.'}</p>
+    <div class="button-row"><a class="button button-dark" href={campaignTrail.url[language]}>{fr ? 'Ouvrir le journal' : 'Open the journal'}<Icon name="external" /></a></div>
+  </div>
+</section>
+
+<style>
+  .campaign-feature-image {
+    display: block;
+    overflow: hidden;
+    border-radius: 8px;
+    align-self: stretch;
+    min-height: 300px;
+  }
+  .campaign-feature-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 55% center;
+  }
+  @media (max-width: 900px) {
+    .campaign-feature-image { min-height: 0; aspect-ratio: 16 / 9; }
+  }
+</style>

@@ -1,6 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import photos from '../data/photos.json';
+import { campaignTrail } from '../data/campaign-trail';
 import { paths, type Language } from '../lib/i18n';
 interface Props { language: Language; }
 const { language } = Astro.props;
@@ -16,8 +17,8 @@ const cover = photos.nature.find((photo) => photo.id === 'running-water')!;
     <div class="hobby-image"><img src={cover.src} alt={cover.alt[language]} width={cover.width} height={cover.height} loading="lazy" /><span class="photo-tag">02 / {fr ? 'La nature' : 'Outdoors'}</span><span class="album-card-count">{photos.nature.length} {fr ? 'photos' : 'frames'}</span></div>
     <div class="hobby-copy"><h3>{fr ? 'Prendre les chemins de traverse.' : 'Taking the scenic route.'}</h3><p>{fr ? 'Sortir, suivre un sentier et regarder un peu plus autour de soi.' : 'Getting outside, following a trail, and paying a little more attention.'}</p><span class="text-link">{fr ? 'Feuilleter l’album' : 'Explore the photo album'}<Icon name="arrow" /></span></div>
   </a>
-  <a class="hobby-card rpg-card" href={`${paths.about[language]}#rpg`}>
-    <div class="hobby-image dice-scene" aria-hidden="true"><div class="dice-orbit"></div><Icon name="dice" class="big-dice" /><span class="dice-small">✦</span><span class="dice-caption">{fr ? 'À vous de jouer.' : 'Roll for adventure.'}</span><span class="photo-tag">03 / {fr ? 'Les jeux de rôle' : 'Role-playing'}</span></div>
+  <a class="hobby-card rpg-card" href={campaignTrail.url[language]}>
+    <div class="hobby-image"><img src={campaignTrail.image.src} alt={campaignTrail.image.alt[language]} width={campaignTrail.image.width} height={campaignTrail.image.height} loading="lazy" /><span class="photo-tag">03 / {fr ? 'Les jeux de rôle' : 'Role-playing'}</span></div>
     <div class="hobby-copy"><h3>{fr ? 'Et si on inventait une histoire ?' : 'What if we made up a world?'}</h3><p>{fr ? 'Des dés, des amis et une histoire qu’aucun de nous ne connaît encore.' : 'A few dice, good company, and a story none of us knows the ending to.'}</p><span class="text-link">{fr ? 'L’aventure nous attend' : 'Adventure awaits'}<Icon name="external" /></span></div>
   </a>
 </div>

@@ -20,7 +20,7 @@ npm test
 npm run preview
 ```
 
-`npm run test:browser` checks the built site with an existing Chrome/Chromium installation and creates desktop/mobile screenshots in `.review/`. Set `CHROME_PATH` if Chrome is not at `/usr/bin/google-chrome`. It does not download or install a browser.
+`npm run test:browser` checks the built site with an existing Chrome/Chromium installation and creates desktop/mobile screenshots in `.review/`. The calculator response is replaced with a local fixture so these checks do not depend on the live service. They verify the embedded form, screenshot switching, blocked-frame recovery, and no-JavaScript/unsupported-iframe fallbacks, while rejecting unrelated external requests. Set `CHROME_PATH` if Chrome is not at `/usr/bin/google-chrome`. It does not download or install a browser.
 
 ## Content and URLs
 
@@ -39,11 +39,11 @@ The portrait is a metadata-stripped copy of the supplied black-and-white profile
 
 The first version uses the verified LinkedIn profile for contact; no new email alias, product pricing, maintenance badge, or unpublished article is invented. Employer/project descriptions and new structural copy should receive the owner’s editorial review. Private details, family information, and live locations do not belong in the new pages.
 
-Fonts and images are local. There are no analytics, advertisements, Disqus, autoplay, or remote players. Legacy article scripts are omitted and video embeds become deliberate outbound links at render time; their Markdown sources remain untouched.
+The site’s own fonts and images are local, with no analytics, advertisements, Disqus, autoplay, or remote video players. The homepage’s live Buy or Rent calculator is an explicit external-service exception: it loads its own resources, including jsDelivr and Google Analytics, when its lazy iframe approaches the viewport. The privacy page documents this behavior. Legacy article scripts are omitted and video embeds become deliberate outbound links at render time; their Markdown sources remain untouched.
 
 Off-site HTTP(S) links open in a new tab with `noopener noreferrer`. `src/middleware.ts` adds these attributes to rendered HTML, including legacy article links, without editing the original Markdown. Internal navigation and language switching retain the current tab.
 
-Buy or Rent is featured on the homepage and Projects page in both languages. Its screenshot shows the public calculator’s default example scenario, not personal financial data; visitors open the actual calculator to explore their own assumptions.
+Buy or Rent is featured on the homepage and Projects page in both languages. The homepage progressively enhances a linked screenshot into a full-width, lazy-loaded, sandboxed iframe with a localized title and no referrer. The external-tool link remains available. A visible screenshot toggle removes the live iframe, including when a browser blocks it; switching back starts a fresh calculator. Without JavaScript or iframe support, the local screenshot remains in place. Iframe load/error events cannot reliably detect cross-origin failures, so the screenshot toggle is always available while the live view is selected. The Projects page retains its static preview. The screenshot shows the public calculator’s default example scenario, not personal financial data.
 
 ## Deployment
 

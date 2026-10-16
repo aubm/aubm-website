@@ -1,4 +1,4 @@
-@import 'highlight.js/styles/github-dark.css';
+@import "highlight.js/styles/github-dark.css";
 
 :root {
   --paper: #fff8ef;
@@ -10,8 +10,8 @@
   --green: #25765e;
   --yellow: #f4c64d;
   --lavender: #eee4fa;
-  --serif: 'Fraunces Variable', Georgia, serif;
-  --sans: 'DM Sans Variable', Arial, sans-serif;
+  --serif: "Fraunces Variable", Georgia, serif;
+  --sans: "DM Sans Variable", Arial, sans-serif;
 }
 * {
   box-sizing: border-box;
@@ -611,7 +611,7 @@ p {
   gap: 12px;
 }
 .piggy-visual::before {
-  content: '';
+  content: "";
   position: absolute;
   width: 260px;
   height: 260px;
@@ -621,7 +621,7 @@ p {
   border: 1px solid #93b6a780;
 }
 .piggy-visual::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 300px;
   height: 300px;
@@ -686,7 +686,7 @@ p {
   box-shadow: 5px 5px 20px #24253516;
 }
 .record-disc::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 73px;
   border-radius: 50%;
@@ -800,7 +800,7 @@ p {
   margin-bottom: 13px;
 }
 .writing-card .card-main-link::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   z-index: 1;
@@ -1048,7 +1048,7 @@ p {
   cursor: pointer;
   transition: background 0.2s;
 }
-.topic-filters button[aria-pressed='true'] {
+.topic-filters button[aria-pressed="true"] {
   background: var(--ink);
   color: var(--paper);
   border-color: var(--ink);
@@ -1530,7 +1530,7 @@ p {
   margin-left: auto;
 }
 .prose {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: Georgia, "Times New Roman", serif;
   font-size: 18px;
   line-height: 1.9;
   color: var(--ink);
@@ -1673,7 +1673,7 @@ p {
   border-radius: 6px;
   font-size: 15px;
 }
-.prose div[style*='padding-top:56.25%'] {
+.prose div[style*="padding-top:56.25%"] {
   padding-top: 0 !important;
 }
 .prose .external-embed {
@@ -2812,7 +2812,7 @@ p {
   }
 }
 
-.prose img[style*='max-width'] {
+.prose img[style*="max-width"] {
   width: 100%;
 }
 @media (max-width: 700px) {
@@ -2912,7 +2912,7 @@ p {
 .buy-rent-copy h3 em {
   color: var(--green);
 }
-.buy-rent-copy > p:not(.eyebrow) {
+.buy-rent-description > p {
   font-size: 13px;
   line-height: 1.9;
   margin-top: 15px;
@@ -2935,6 +2935,9 @@ p {
   font-size: 10px;
   color: var(--muted);
   margin-top: 15px;
+}
+.buy-rent-media {
+  min-width: 0;
 }
 .buy-rent-preview {
   min-width: 0;
@@ -2981,10 +2984,90 @@ p {
   }
   .buy-rent-preview {
     width: calc(100% - 8px);
-    justify-self: center;
+    margin-inline: auto;
   }
   .buy-rent-preview figcaption {
     font-size: 8px;
+  }
+}
+
+/* Give the live calculator room to show its inputs and comparison chart. */
+.buy-rent-feature-interactive {
+  grid-template-columns: 1fr;
+  gap: 28px;
+}
+.buy-rent-feature-interactive .buy-rent-copy {
+  display: grid;
+  grid-template-columns: 0.65fr 1.35fr;
+  align-items: center;
+  gap: 36px;
+}
+.buy-rent-demo {
+  overflow: hidden;
+  border: 1px solid #d6dccb;
+  border-radius: 8px;
+  background: var(--paper);
+}
+.buy-rent-demo-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  min-height: 50px;
+  padding: 9px 16px;
+  border-bottom: 1px solid var(--line);
+  font-size: 11px;
+}
+.buy-rent-demo-toggle {
+  padding: 7px 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.buy-rent-demo iframe {
+  display: block;
+  width: 100%;
+  height: 900px;
+  border: 0;
+  background: white;
+}
+.buy-rent-demo .buy-rent-preview {
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  transform: none;
+}
+.buy-rent-demo-help {
+  padding: 13px 16px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.7;
+}
+.buy-rent-demo [hidden] {
+  display: none;
+}
+@media (max-width: 700px) {
+  .buy-rent-feature-interactive {
+    padding: 18px;
+  }
+  .buy-rent-feature-interactive .buy-rent-copy {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .buy-rent-feature-interactive .buy-rent-copy .button-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .buy-rent-demo iframe {
+    height: 720px;
   }
 }
 

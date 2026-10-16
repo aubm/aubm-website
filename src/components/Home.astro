@@ -49,7 +49,7 @@ const recent = writingCatalog(language).slice(0, 3);
       <div class="project-copy"><div class="project-category">{fr ? 'PODCAST · LIVRES & TECHNOLOGIE' : 'PODCAST · BOOKS & TECHNOLOGY'}</div><h3><a class="card-main-link" href={paths.podcast[language]}>Revues de Code</a></h3><p>{fr ? 'Des livres de technologie et les questions qu’ils soulèvent sur l’innovation, le travail et la société. Avec ma propre lecture entre les lignes.' : 'Technology books and the questions they raise about innovation, work, and society. With a little personal reading between the lines.'}</p><a class="text-link" href={paths.podcast[language]}>{fr ? 'Découvrir le podcast' : 'Explore the podcast'}<Icon name="external" /></a></div>
     </article>
   </div>
-  <BuyOrRent language={language} compact />
+  <BuyOrRent language={language} compact interactive />
 </section>
 <section class="section writing-section" aria-labelledby="writing-title">
   <div class="section-heading"><div><p class="eyebrow">02 / {fr ? 'RÉFLÉCHIR À VOIX HAUTE' : 'THINKING OUT LOUD'}</p><h2 id="writing-title">{fr ? <>Des idées à <em>partager.</em></> : <>A few things on <em>my mind.</em></>}</h2></div><a class="text-link" href={paths.writing[language]}>{t.allWriting}<Icon name="arrow" /></a></div>

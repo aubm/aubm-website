@@ -3,23 +3,59 @@ import Icon from './Icon.astro';
 import { mediumArticles } from '../data/medium';
 import { social, type Language } from '../lib/i18n';
 
-interface Props { language: Language; compact?: boolean; }
-const { language, compact = false } = Astro.props;
+interface Props { language: Language; compact?: boolean; interactive?: boolean; }
+const { language, compact = false, interactive = false } = Astro.props;
 const fr = language === 'fr';
 const Heading = compact ? 'h3' : 'h2';
 const relatedArticle = mediumArticles.find((article) => article.id === '93dd286e5e29')!;
 ---
-<article class="buy-rent-feature">
+<article class:list={['buy-rent-feature', { 'buy-rent-feature-interactive': interactive }]}>
   <div class="buy-rent-copy">
-    <p class="eyebrow">{fr ? 'FINANCES PERSONNELLES · SIMULATEUR INTERACTIF' : 'PERSONAL FINANCE · INTERACTIVE CALCULATOR'}</p>
-    <Heading>{fr ? <>Acheter<br />ou <em>louer ?</em></> : <>Buy<br />or <em>rent?</em></>}</Heading>
-    <p>{fr ? 'Un achat immobilier mérite plus qu’une idée reçue. J’ai créé ce simulateur pour comparer les conséquences financières de la location et de l’achat sur le long terme.' : 'A home purchase deserves more than a rule of thumb. I built this calculator to compare the long-term financial picture of renting and buying.'}</p>
+    <div class="buy-rent-heading"><p class="eyebrow">{fr ? 'FINANCES PERSONNELLES · SIMULATEUR INTERACTIF' : 'PERSONAL FINANCE · INTERACTIVE CALCULATOR'}</p>
+    <Heading>{fr ? <>Acheter<br />ou <em>louer ?</em></> : <>Buy<br />or <em>rent?</em></>}</Heading></div>
+    <div class="buy-rent-description"><p>{fr ? 'Un achat immobilier mérite plus qu’une idée reçue. J’ai créé ce simulateur pour comparer les conséquences financières de la location et de l’achat sur le long terme.' : 'A home purchase deserves more than a rule of thumb. I built this calculator to compare the long-term financial picture of renting and buying.'}</p>
     <p>{fr ? 'Faites varier le prix du logement, le crédit, le loyer et les hypothèses de rendement pour explorer différents scénarios.' : 'Adjust the home price, mortgage, rent, and investment assumptions to explore different scenarios.'}</p>
-    <div class="button-row"><a class="button button-dark" href={social.buyOrRent}>{fr ? 'Essayer le simulateur' : 'Try the calculator'}<Icon name="external" /></a><a class="text-link" href={relatedArticle.url} aria-label={`${relatedArticle.title} — Medium`}>{fr ? 'Lire l’article sur Medium' : 'Read the essay on Medium'}<Icon name="external" /></a></div>
+    <div class="button-row"><a class="button button-dark" href={social.buyOrRent}>{interactive ? (fr ? 'Ouvrir le simulateur complet' : 'Open the full calculator') : (fr ? 'Essayer le simulateur' : 'Try the calculator')}<Icon name="external" /></a><a class="text-link" href={relatedArticle.url} aria-label={`${relatedArticle.title} — Medium`}>{fr ? 'Lire l’article sur Medium' : 'Read the essay on Medium'}<Icon name="external" /></a></div>
     <span class="buy-rent-language">{fr ? 'Outil en anglais' : 'English-language tool'}</span>
+    </div>
   </div>
-  <figure class="buy-rent-preview">
+  <div class:list={['buy-rent-media', { 'buy-rent-demo': interactive }]} data-calculator-demo={interactive || undefined}>
+    {interactive && <>
+      <div class="buy-rent-demo-toolbar"><span data-demo-status data-live-label={fr ? 'Simulateur en direct · anglais' : 'Live calculator · English'} data-preview-label={fr ? 'Capture · exemple par défaut' : 'Screenshot · default example'} aria-live="polite">{fr ? 'Capture · exemple par défaut' : 'Screenshot · default example'}</span><button class="buy-rent-demo-toggle" type="button" data-demo-toggle data-preview-label={fr ? 'Voir la capture' : 'View screenshot'} data-live-label={fr ? 'Essayer en direct' : 'Try the live demo'} hidden>{fr ? 'Voir la capture' : 'View screenshot'}</button></div>
+      <div data-demo-live hidden></div>
+      <template data-demo-template><iframe src={social.buyOrRent} title={fr ? 'Simulateur interactif Acheter ou louer (en anglais)' : 'Interactive Buy or Rent calculator (in English)'} width="1200" height="900" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe></template>
+    </>}
+  <figure class="buy-rent-preview" data-demo-preview={interactive || undefined}>
     <a href={social.buyOrRent} aria-label={fr ? 'Ouvrir le simulateur Acheter ou louer' : 'Open the Buy or Rent calculator'}><img src="/images/buy-or-rent.png" alt={fr ? 'Le simulateur Buy or Rent : champs de coût du logement et graphique comparant les scénarios d’achat et de location' : 'The Buy or Rent calculator: housing cost inputs and a graph comparing buying and renting scenarios'} width="1440" height="1050" loading="lazy" /></a>
     <figcaption>{fr ? 'Aperçu réel du simulateur · scénario d’exemple par défaut' : 'Actual calculator preview · default example scenario'}</figcaption>
   </figure>
+    {interactive && <p class="buy-rent-demo-help">{fr ? 'Faites défiler le simulateur pour explorer ses paramètres. S’il ne s’affiche pas, choisissez la capture ou ouvrez l’outil complet.' : 'Scroll inside the demo to explore its inputs. If it doesn’t appear, switch to the screenshot or open the full calculator.'}</p>}
+  </div>
 </article>
+<script>
+  for (const demo of document.querySelectorAll<HTMLElement>('[data-calculator-demo]')) {
+    // Leave the linked screenshot in place without iframe support or JavaScript.
+    if (typeof window.HTMLIFrameElement === 'undefined') continue;
+    const template = demo.querySelector<HTMLTemplateElement>('[data-demo-template]');
+    const live = demo.querySelector<HTMLElement>('[data-demo-live]');
+    const preview = demo.querySelector<HTMLElement>('[data-demo-preview]');
+    const toggle = demo.querySelector<HTMLButtonElement>('[data-demo-toggle]');
+    const status = demo.querySelector<HTMLElement>('[data-demo-status]');
+    if (!template || !live || !preview || !toggle || !status) continue;
+    let showingLive = false;
+    const show = (useLive: boolean) => {
+      live.replaceChildren();
+      if (useLive) live.append(template.content.cloneNode(true));
+      live.hidden = !useLive;
+      preview.hidden = useLive;
+      status.textContent = (useLive ? status.dataset.liveLabel : status.dataset.previewLabel) || '';
+      toggle.textContent = (useLive ? toggle.dataset.previewLabel : toggle.dataset.liveLabel) || '';
+      showingLive = useLive;
+    };
+    // Cross-origin frames fire load even on failure. Keep an explicit fallback
+    // switch rather than treating load/error events as proof the tool is usable.
+    toggle.addEventListener('click', () => show(!showingLive));
+    toggle.hidden = false;
+    show(true);
+  }
+</script>

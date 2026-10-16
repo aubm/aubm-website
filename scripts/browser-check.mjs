@@ -77,7 +77,7 @@ try {
       request.url() === calculatorUrl &&
       request.isNavigationRequest() &&
       request.frame().parentFrame() === page.mainFrame() &&
-      ['/', '/fr/'].includes(new URL(page.url()).pathname)
+      ['/projects/', '/fr/projets/'].includes(new URL(page.url()).pathname)
     ) {
       calculatorRequests++;
     } else {
@@ -123,8 +123,13 @@ try {
     await page.screenshot({ path: `.review/${name}.png`, fullPage: true });
     if (name === 'home-desktop') await page.screenshot({ path: '.review/home-first-screen.png' });
   }
-  // Both homepages provide an interactive frame and a usable local fallback.
-  for (const route of ['/', '/fr/']) {
+  // Both Projects pages keep the interactive frame inside the screenshot slot.
+  const documentBox = (locator) =>
+    locator.evaluate((element) => {
+      const box = element.getBoundingClientRect();
+      return { x: box.x + scrollX, y: box.y + scrollY, width: box.width, height: box.height };
+    });
+  for (const route of ['/projects/', '/fr/projets/']) {
     await page.goto(base + route);
     const demo = page.locator('[data-calculator-demo]');
     await demo.scrollIntoViewIfNeeded();
@@ -147,8 +152,32 @@ try {
       '2000',
       'Returning starts a fresh demo',
     );
+    for (const width of [1440, 768, 390, 320]) {
+      await page.setViewportSize({ width, height: 1000 });
+      const liveBox = await documentBox(demo.locator('iframe'));
+      const featureBox = await documentBox(page.locator('.buy-rent-feature'));
+      await toggle.click();
+      const imageBox = await documentBox(demo.locator('[data-demo-preview] img'));
+      const previewFeatureBox = await documentBox(page.locator('.buy-rent-feature'));
+      for (const dimension of ['x', 'y', 'width', 'height']) {
+        assert.ok(
+          Math.abs(liveBox[dimension] - imageBox[dimension]) < 1,
+          `${route}: live frame matches screenshot ${dimension} at ${width}px`,
+        );
+      }
+      assert.ok(
+        Math.abs(featureBox.height - previewFeatureBox.height) < 1,
+        `${route}: switching views does not enlarge the card at ${width}px`,
+      );
+      if (width >= 768) {
+        const copyBox = await documentBox(page.locator('.buy-rent-copy'));
+        assert.ok(copyBox.x + copyBox.width < liveBox.x, 'Demo stays beside the text');
+      }
+      await toggle.click();
+      await frame.locator('#rent').waitFor();
+    }
   }
-  for (const route of ['/projects/', '/fr/projets/']) {
+  for (const route of ['/', '/fr/']) {
     await page.goto(base + route);
     assert.equal(await page.locator('[data-calculator-demo], iframe').count(), 0);
     assert.equal(await page.locator('.buy-rent-preview').isVisible(), true);
@@ -159,7 +188,7 @@ try {
     'requestfailed',
     (request) => request.url() === calculatorUrl,
   );
-  await blocked.goto(base + '/');
+  await blocked.goto(base + '/projects/');
   const blockedDemo = blocked.locator('[data-calculator-demo]');
   await blockedDemo.scrollIntoViewIfNeeded();
   await failed;
@@ -178,7 +207,7 @@ try {
   await unsupported.addInitScript(() => {
     Object.defineProperty(window, 'HTMLIFrameElement', { value: undefined });
   });
-  await unsupported.goto(base + '/fr/', { waitUntil: 'networkidle' });
+  await unsupported.goto(base + '/fr/projets/', { waitUntil: 'networkidle' });
   assert.equal(await unsupported.locator('[data-calculator-demo] iframe').count(), 0);
   assert.equal(await unsupported.locator('[data-demo-preview]').isVisible(), true);
   assert.equal(await unsupported.locator('[data-demo-toggle]').isVisible(), false);
@@ -257,7 +286,7 @@ try {
     if (!request.url().startsWith(base)) plainRequests.push(request.url());
   });
   await plain.route(calculatorUrl, (route) => route.abort());
-  for (const route of ['/', '/fr/']) {
+  for (const route of ['/projects/', '/fr/projets/']) {
     await plain.goto(base + route);
     assert.equal(await plain.locator('[data-calculator-demo] iframe').count(), 0);
     assert.equal(await plain.locator('[data-demo-preview]').isVisible(), true);

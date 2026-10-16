@@ -1,4 +1,4 @@
-@import "highlight.js/styles/github-dark.css";
+@import 'highlight.js/styles/github-dark.css';
 
 :root {
   --paper: #fff8ef;
@@ -10,8 +10,8 @@
   --green: #25765e;
   --yellow: #f4c64d;
   --lavender: #eee4fa;
-  --serif: "Fraunces Variable", Georgia, serif;
-  --sans: "DM Sans Variable", Arial, sans-serif;
+  --serif: 'Fraunces Variable', Georgia, serif;
+  --sans: 'DM Sans Variable', Arial, sans-serif;
 }
 * {
   box-sizing: border-box;
@@ -611,7 +611,7 @@ p {
   gap: 12px;
 }
 .piggy-visual::before {
-  content: "";
+  content: '';
   position: absolute;
   width: 260px;
   height: 260px;
@@ -621,7 +621,7 @@ p {
   border: 1px solid #93b6a780;
 }
 .piggy-visual::after {
-  content: "";
+  content: '';
   position: absolute;
   width: 300px;
   height: 300px;
@@ -686,7 +686,7 @@ p {
   box-shadow: 5px 5px 20px #24253516;
 }
 .record-disc::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 73px;
   border-radius: 50%;
@@ -800,7 +800,7 @@ p {
   margin-bottom: 13px;
 }
 .writing-card .card-main-link::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   z-index: 1;
@@ -1048,7 +1048,7 @@ p {
   cursor: pointer;
   transition: background 0.2s;
 }
-.topic-filters button[aria-pressed="true"] {
+.topic-filters button[aria-pressed='true'] {
   background: var(--ink);
   color: var(--paper);
   border-color: var(--ink);
@@ -1530,7 +1530,7 @@ p {
   margin-left: auto;
 }
 .prose {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: Georgia, 'Times New Roman', serif;
   font-size: 18px;
   line-height: 1.9;
   color: var(--ink);
@@ -1673,7 +1673,7 @@ p {
   border-radius: 6px;
   font-size: 15px;
 }
-.prose div[style*="padding-top:56.25%"] {
+.prose div[style*='padding-top:56.25%'] {
   padding-top: 0 !important;
 }
 .prose .external-embed {
@@ -2812,7 +2812,7 @@ p {
   }
 }
 
-.prose img[style*="max-width"] {
+.prose img[style*='max-width'] {
   width: 100%;
 }
 @media (max-width: 700px) {

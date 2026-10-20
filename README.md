@@ -39,7 +39,7 @@ The portrait is a metadata-stripped copy of the supplied black-and-white profile
 
 The first version uses the verified LinkedIn profile for contact; no new email alias, product pricing, maintenance badge, or unpublished article is invented. Employer/project descriptions and new structural copy should receive the owner’s editorial review. Private details, family information, and live locations do not belong in the new pages.
 
-The site’s own fonts and images are local, with no analytics, advertisements, Disqus, autoplay, or remote video players. The Projects page’s live Buy or Rent calculator is an explicit external-service exception: it loads its own resources, including jsDelivr and Google Analytics, when its lazy iframe approaches the viewport. The privacy page documents this behavior. Legacy article scripts are omitted and video embeds become deliberate outbound links at render time; their Markdown sources remain untouched.
+The site’s own fonts and images are local, with no advertisements, Disqus, autoplay, or remote video players. Google Analytics is optional and disabled until a measurement ID is configured (see below). The Projects page’s live Buy or Rent calculator is an explicit external-service exception: it loads its own resources, including jsDelivr and Google Analytics, when its lazy iframe approaches the viewport. The privacy page documents this behavior. Legacy article scripts are omitted and video embeds become deliberate outbound links at render time; their Markdown sources remain untouched.
 
 Off-site HTTP(S) links open in a new tab with `noopener noreferrer`. `src/middleware.ts` adds these attributes to rendered HTML, including legacy article links, without editing the original Markdown. Internal navigation and language switching retain the current tab.
 
@@ -50,6 +50,32 @@ Buy or Rent is featured on the homepage and Projects page in both languages. The
 The existing GitHub Pages `gh-pages` branch and `www.aubm.net` domain are retained. Pull requests run checks and build a downloadable artifact. Pushes to `master` publish the checked static `dist/` output through the existing branch-based Pages workflow. GitHub Pages should continue using the `gh-pages` branch as its publishing source.
 
 The old Hugo configuration, templates, and theme submodule remain as reference during review, but the Astro build does not depend on Hugo or initialize the theme. They can be removed in a later cleanup after the redesign is accepted.
+
+## Google Analytics (GA4)
+
+Analytics is optional. When `PUBLIC_GOOGLE_ANALYTICS_ID` is empty, the site emits no Google tag or analytics initialization. `npm run dev` never loads analytics, even if the variable is set. Configured production builds load Google's asynchronous `gtag.js` once per page through the shared layout; its `config` command records the page view. Navigation uses full page loads, so no additional navigation listener or manual `page_view` is needed. Google Signals and advertising personalization are disabled in the tag configuration. Standard analytics cookies are used; this integration loads immediately and does not include a consent dialog. The English and French privacy pages reflect whether analytics is configured.
+
+### Set up and enable
+
+1. Open [Google Analytics](https://analytics.google.com/) and create an account if needed. In **Admin → Create → Property**, create a GA4 property for `aubm.net` with your preferred reporting time zone and currency.
+2. Under **Admin → Data collection and modification → Data streams**, add a **Web** stream for `https://www.aubm.net`. Enhanced measurement can remain enabled to capture standard interactions.
+3. Copy the stream's **Measurement ID**, beginning with `G-` (not a numeric property/stream ID or a `GTM-` container ID). The site already installs the tag; do not paste another snippet into the templates.
+4. In [this repository's Actions variables](https://github.com/aubm/aubm-website/settings/variables/actions), choose **New repository variable**. Name it **`PUBLIC_GOOGLE_ANALYTICS_ID`** and use your `G-…` ID as the value. This is a public identifier embedded in the HTML, so a repository variable is appropriate.
+5. Merge the PR. The next `master` build deploys the configured tag. If you add, change, or remove the variable after deployment, run **Actions → Build and publish → Run workflow** on **`master`** to rebuild and republish. Existing HTML does not change until a new build is deployed. PR artifacts always omit analytics.
+6. Visit the deployed English and French pages with analytics blocking disabled for your test. Check [Tag Assistant](https://tagassistant.google.com/) and GA's **Realtime** report for page views. Initial collection can take up to 30 minutes; standard reports take longer.
+
+To disable collection, clear/delete the repository variable and rebuild `master`. The embedded Buy or Rent calculator manages its own analytics independently.
+
+For a local production preview, use a test property's ID:
+
+```sh
+PUBLIC_GOOGLE_ANALYTICS_ID=G-YOURTESTID npm run build
+npm run preview
+```
+
+Run browser checks against an unconfigured build (`PUBLIC_GOOGLE_ANALYTICS_ID= npm run build`), since they intentionally reject external requests from the site's own pages. The build-output tests in `npm test` accept either state and verify tag consistency and initialization.
+
+References: [Google's GA4 setup guide](https://support.google.com/analytics/answer/9304153), [Google tag installation](https://developers.google.com/tag-platform/gtagjs), [GA4 configuration fields](https://developers.google.com/analytics/devguides/collection/ga4/reference/config).
 
 ## Photo publication boundary
 

@@ -4,6 +4,7 @@ import '@fontsource-variable/fraunces';
 import '@fontsource-variable/fraunces/wght-italic.css';
 import '../styles/global.css';
 import Icon from '../components/Icon.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import { labels, opposite, paths, social, type Language, type Page } from '../lib/i18n';
 interface Props { language: Language; page?: Page; title?: string; description?: string; alternate?: string; alternateIsTranslation?: boolean; canonical?: string; noindex?: boolean; }
 const { language, page = 'home', title, description, alternate = paths[page][opposite(language)], alternateIsTranslation = true, canonical, noindex = false } = Astro.props;
@@ -36,6 +37,7 @@ const navigation: Page[] = ['writing', 'projects', 'podcast', 'about'];
     <meta property="og:locale" content={language === 'fr' ? 'fr_FR' : 'en_US'} />
     <meta property="og:image" content={new URL('/images/social-card.png', Astro.site)} />
     <meta name="twitter:card" content="summary_large_image" />
+    <GoogleAnalytics />
     <slot name="head" />
   </head>
   <body>

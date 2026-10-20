@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ASTRO_TELEMETRY_DISABLED: 1
+      # Only published master builds use the real ID; PR artifacts stay untracked.
+      PUBLIC_GOOGLE_ANALYTICS_ID: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/master' && vars.PUBLIC_GOOGLE_ANALYTICS_ID || '' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

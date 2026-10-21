@@ -28,7 +28,11 @@ test('every original article is built at its existing URL with its original titl
     assert.ok(output.includes(title), `Original title: ${url}`);
     const originalDate = source.match(/^date:\s*(.+)$/m)?.[1].trim();
     assert.ok(output.includes(`datetime="${originalDate}"`), `Original date: ${url}`);
-    assert.ok(!/<script\b[^>]*src="https?:/.test(output), `No external script: ${url}`);
+    const externalScripts = [...output.matchAll(/<script\b[^>]*src="(https?:[^"]+)"/g)];
+    assert.ok(
+      externalScripts.every(([, src]) => /^https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-[A-Z0-9]+$/.test(src)),
+      `Only the optional Google Analytics script is allowed: ${url}`,
+    );
     assert.ok(!/<iframe\b/.test(output), `No automatic video request: ${url}`);
   }
 });
@@ -93,5 +97,5 @@ test('the production artifact keeps the custom domain and is independent of Hugo
   ])
     assert.ok(existsSync(path.join('dist', file)), file);
   const home = readFileSync('dist/index.html', 'utf8');
-  assert.ok(!/google-analytics|adsbygoogle|disqus|fonts.googleapis/.test(home));
+  assert.ok(!/adsbygoogle|disqus|fonts.googleapis/.test(home));
 });

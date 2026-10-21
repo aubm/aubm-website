@@ -1,0 +1,15 @@
+---
+import { googleAnalyticsId } from '../lib/analytics';
+---
+{googleAnalyticsId && <>
+  <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}></script>
+  <script is:inline define:vars={{ measurementId: googleAnalyticsId }}>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', measurementId, {
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false,
+    });
+  </script>
+</>}
